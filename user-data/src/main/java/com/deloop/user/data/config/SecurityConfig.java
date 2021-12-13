@@ -57,10 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Envi
 //                .authenticated();
 //    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint(ObjectMapper objectMapper) {

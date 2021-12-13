@@ -12,7 +12,7 @@ db:
   name: deloop_user
   user: root
   password: 123
-  executeddl: true # overwrites db if set to true
+  executeddl: false # overwrites db if set to true
 
 logging:
   file:

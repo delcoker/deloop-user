@@ -1,4 +1,4 @@
-package com.deloop.user.data.services;
+package com.deloop.user.core.services;
 
 import com.deloop.user.data.api.requests.UserTypeRequest;
 import com.deloop.user.data.db.repositories.IUserTypeRepository;

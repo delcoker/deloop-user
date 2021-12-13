@@ -5,7 +5,7 @@
     <modules>
         <module>user-bom</module>
 <!--        <module>user-api</module>-->
-<!--        <module>user-core</module>-->
+        <module>user-core</module>
         <module>user-data</module>
     </modules>
     <parent>
