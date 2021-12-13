@@ -33,6 +33,7 @@
         <glassfish-jaxb.version>2.3.2</glassfish-jaxb.version>
         <jjwt.version>0.9.1</jjwt.version>
         <lettuce.version>6.1.5.RELEASE</lettuce.version>
+        <spring-session-core.version>2.5.2</spring-session-core.version>
     </properties>
 
     <dependencyManagement>
@@ -165,6 +166,7 @@
             <dependency>
                 <groupId>org.springframework.session</groupId>
                 <artifactId>spring-session-core</artifactId>
+                <version>${spring-session-core.version}</version>
             </dependency>
 
             <dependency>

@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: dev # set this to the right environment for docker => live
+
+env: dev
+
+server:
+  port: 9090
+
+db:
+  server: localhost
+  name: deloop_user
+  user: root
+  password: 123
+  executeddl: false # overwrites db if set to true
+
+logging:
+  file:
+    path: opt/logs
+    name: deloop-user_${env}.log
+
+default:
+  hello:
+    greeting: greeting from ${env}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /docs
+
