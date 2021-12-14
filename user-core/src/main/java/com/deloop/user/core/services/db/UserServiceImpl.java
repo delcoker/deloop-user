@@ -2,7 +2,9 @@ package com.deloop.user.core.services;
 
 import com.deloop.user.data.api.requests.RegistrationRequest;
 import com.deloop.user.data.api.requests.UserRequest;
+import com.deloop.user.data.db.enums.ConfirmationTokenType;
 import com.deloop.user.data.db.models.ConfirmationToken;
+import com.deloop.user.data.db.models.LicenseType;
 import com.deloop.user.data.db.models.User;
 import com.deloop.user.data.db.models.UserRole;
 import com.deloop.user.data.db.repositories.IUserRepository;
@@ -33,7 +35,7 @@ public class UserServiceImpl implements IUserService {
                 .password(encodedPassword)
                 .userRole(UserRole.builder().id(userRequest.getUserRole().getId()).build())
                 .licenseType(userRequest.getLicenseType())
-                .isVerified(false)
+                .isVerified(userRequest.isVerified())
                 .locked(false)
                 .build();
         userRepository.save(user);
@@ -41,8 +43,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public String signUpUser(RegistrationRequest registrationRequest) throws EmailIsAlreadyTakenException {
-        boolean userExists = userRepository.findByEmail(registrationRequest.getEmail()).isPresent();
-        if (userExists) {
+        Optional<User> optionalUser = userRepository.findByEmail(registrationRequest.getEmail());
+        if (optionalUser.isPresent()) {
+            // TODO: if user not verified send new confirmation token
+            User existingUser = optionalUser.get();
+            if (!existingUser.isVerified()) {
+                return sendConfirmationToken(existingUser);
+            }
             throw new EmailIsAlreadyTakenException("Email already taken");
         }
 
@@ -51,16 +58,21 @@ public class UserServiceImpl implements IUserService {
                 .username(registrationRequest.getUsername())
                 .email(registrationRequest.getEmail())
                 .password(encodedPassword)
+                .licenseType(LicenseType.builder().id(2).build())
                 .userRole(UserRole.builder().id(3).build())
                 .isVerified(false)
                 .locked(false)
                 .build();
-
         userRepository.save(user);
 
         // TODO: send confirmation token
+        return sendConfirmationToken(user);
+    }
+
+    private String sendConfirmationToken(User user) {
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = ConfirmationToken.builder()
+                .type(ConfirmationTokenType.EMAIL)
                 .token(token)
                 .createdAt(LocalDateTime.now())
                 .expiresAt(LocalDateTime.now().plusMinutes(15))
@@ -68,8 +80,6 @@ public class UserServiceImpl implements IUserService {
                 .build();
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
-
-        // TODO: send email
         return token;
     }
 
@@ -99,10 +109,11 @@ public class UserServiceImpl implements IUserService {
             throw new UsernameNotFoundException("Email or username not found.");
         }
 
-//        UserDto userDto = user.getUserDto();
-
-        UserDetails userDetails = optionalUser.get().getUserDto();
-        return userDetails;
+        return optionalUser.get().getUserDto();
     }
 
+    @Override
+    public int verifyUser(String email) {
+        return userRepository.verifyUser(email);
+    }
 }

@@ -59,4 +59,5 @@ public interface IUserRepository {
      */
     User update(User user);
 
+    int verifyUser(String email);
 }

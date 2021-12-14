@@ -18,14 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 public class RegistrationController {
     private final RegistrationService registrationService;
 
-//    @RequestMapping("/")
-//    public String helloAdmin() {
-//        return "hello admin";
-//    }
-
     @PostMapping("/register")
     public String register(@SpringQueryMap RegistrationRequest registrationRequest) throws EmailInvalidException, EmailIsAlreadyTakenException {
         log.info(registrationRequest.toString());
         return registrationService.register(registrationRequest);
     }
+
+    @GetMapping(path = "confirm")
+    public String confirm(@RequestParam("token") String token) {
+        return registrationService.confirmToken(token);
+    }
+
 }

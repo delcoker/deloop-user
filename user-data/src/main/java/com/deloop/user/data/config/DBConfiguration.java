@@ -33,7 +33,7 @@ public class DBConfiguration {
     private String db_password;
 
     @Value("${db.executeddl}")
-    private boolean db_executeddl;
+    private boolean db_execute_ddl;
 
     @Bean(name = "dbEbeanService")
     DBEbeanService dbEbeanService(ObjectMapper objectMapper) {
@@ -54,8 +54,9 @@ public class DBConfiguration {
         dataSource.setUsername(databaseUser);
         dataSource.setPassword(databasePassword);
 
-        log.warn("databaseServer => " + databaseServer);
-
+        String message = "DB Server => " + databaseServer;
+        System.err.println(message);
+        log.warn(message);
 
         short databasePort = 3306;
         short connectTimeout = 5000;
@@ -69,7 +70,7 @@ public class DBConfiguration {
 
         dataSource.setUrl(url);
 
-        log.info( dataSource.getUrl());
+        log.info(dataSource.getUrl());
 //        dataSource.setUrl("jdbc:postgresql://" + databaseServer + ":" + 5432 + "/" + databaseName);
 
         dataSource.setReadOnly(false);
@@ -79,7 +80,7 @@ public class DBConfiguration {
         dataSource.setMaxConnections(60);
         dataSource.setWaitTimeoutMillis(5000);
 
-        DBEbeanService db = new DBEbeanService(dataSource, databaseName, objectMapper, db_executeddl); // allows db changes
+        DBEbeanService db = new DBEbeanService(dataSource, databaseName, objectMapper, db_execute_ddl); // allows db changes
         migrateDB(db);
         return db;
     }

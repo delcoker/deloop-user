@@ -12,6 +12,17 @@ create table address (
   constraint pk_address primary key (id)
 );
 
+create table confirmation_tokens (
+  id                            bigint auto_increment not null,
+  token                         varchar(255) not null,
+  type                          varchar(14) not null,
+  expiresAt                     datetime not null,
+  confirmedAt                   datetime,
+  userId                        bigint,
+  createdAt                     datetime not null,
+  constraint pk_confirmation_tokens primary key (id)
+);
+
 create table license_types (
   id                            bigint auto_increment not null,
   name                          varchar(255),
@@ -93,6 +104,9 @@ create table user_roles (
 
 create index ix_address_userDetailId on address (userDetailId);
 alter table address add constraint fk_address_userDetailId foreign key (userDetailId) references user_details (id) on delete restrict on update restrict;
+
+create index ix_confirmation_tokens_userId on confirmation_tokens (userId);
+alter table confirmation_tokens add constraint fk_confirmation_tokens_userId foreign key (userId) references users (id) on delete restrict on update restrict;
 
 create index ix_provider_accounts_userId on provider_accounts (userId);
 alter table provider_accounts add constraint fk_provider_accounts_userId foreign key (userId) references users (id) on delete restrict on update restrict;

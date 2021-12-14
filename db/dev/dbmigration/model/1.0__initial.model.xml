@@ -12,6 +12,15 @@
             <column name="addressType" type="varchar(8)" checkConstraint="check ( addressType in ('HOME','BILLING','SHIPPING'))" checkConstraintName="ck_address_addressType"/>
             <column name="userDetailId" type="bigint" references="user_details.id" foreignKeyName="fk_address_userDetailId" foreignKeyIndex="ix_address_userDetailId"/>
         </createTable>
+        <createTable name="confirmation_tokens" pkName="pk_confirmation_tokens">
+            <column name="id" type="bigint" primaryKey="true"/>
+            <column name="token" type="varchar" notnull="true"/>
+            <column name="type" type="varchar(14)" notnull="true" checkConstraint="check ( type in ('email','password_reset'))" checkConstraintName="ck_confirmation_tokens_type"/>
+            <column name="expiresAt" type="timestamp" notnull="true"/>
+            <column name="confirmedAt" type="timestamp"/>
+            <column name="userId" type="bigint" references="users.id" foreignKeyName="fk_confirmation_tokens_userId" foreignKeyIndex="ix_confirmation_tokens_userId"/>
+            <column name="createdAt" type="timestamp" notnull="true"/>
+        </createTable>
         <createTable name="license_types" pkName="pk_license_types">
             <column name="id" type="bigint" primaryKey="true"/>
             <column name="name" type="varchar"/>

@@ -14,10 +14,11 @@ create table address (
 create table confirmation_tokens (
   id                            bigint auto_increment not null,
   token                         varchar(255) not null,
+  type                          varchar(14) not null,
   expiresAt                     datetime not null,
+  confirmedAt                   datetime,
   userId                        bigint,
   createdAt                     datetime not null,
-  confirmedAt                   datetime default '2020-04-26 00:00' not null,
   constraint pk_confirmation_tokens primary key (id)
 );
 

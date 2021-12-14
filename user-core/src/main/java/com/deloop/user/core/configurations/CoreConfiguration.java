@@ -1,8 +1,10 @@
 package com.deloop.user.core.configurations;
 
-import com.deloop.user.core.services.EmailValidatorServiceImpl;
 import com.deloop.user.core.services.*;
-import com.deloop.user.data.api.requests.LicenseTypeRequest;
+import com.deloop.user.core.services.db.*;
+import com.deloop.user.core.services.db.RegistrationServiceImpl;
+import com.deloop.user.core.services.email.EmailSenderService;
+import com.deloop.user.core.services.email.EmailValidatorService;
 import com.deloop.user.data.config.DBConfiguration;
 import com.deloop.user.data.db.repositories.*;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +13,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 @Configuration
-@Import(DBConfiguration.class)
+@Import({DBConfiguration.class, EmailConfiguration.class})
 public class CoreConfiguration {
 
     @Bean
@@ -21,13 +24,9 @@ public class CoreConfiguration {
     }
 
     @Bean
-    EmailValidatorService emailValidatorService() {
-        return new EmailValidatorServiceImpl();
-    }
-
-    @Bean
-    public RegistrationService registrationService(IUserService userService, EmailValidatorService emailValidatorService) {
-        return new RegistrationServiceImpl(userService, emailValidatorService);
+    public RegistrationService registrationService(IUserService userService, EmailValidatorService emailValidatorService,
+                                                   IConfirmationTokenService confirmationTokenService, EmailSenderService emailSenderService) {
+        return new RegistrationServiceImpl(userService, emailValidatorService, confirmationTokenService, emailSenderService);
     }
 
     @Bean

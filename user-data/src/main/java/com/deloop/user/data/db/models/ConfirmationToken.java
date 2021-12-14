@@ -1,5 +1,6 @@
 package com.deloop.user.data.db.models;
 
+import com.deloop.user.data.db.enums.ConfirmationTokenType;
 import io.ebean.annotation.DbDefault;
 import io.ebean.annotation.WhenCreated;
 import io.ebean.annotation.WhenModified;
@@ -24,13 +25,18 @@ public class ConfirmationToken {
     @Column(nullable = false)
     private String token;
 
-    @Column(nullable = false) @WhenCreated
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private ConfirmationTokenType type;
+
+    @Column(nullable = false)
+    @WhenCreated
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime expiresAt;
 
-    @Column @WhenModified @DbDefault("2020-04-26 00:00")
+    @Column
     private LocalDateTime confirmedAt;
 
     @ManyToOne

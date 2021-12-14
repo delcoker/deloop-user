@@ -19,7 +19,7 @@
 
 package com.deloop.user.data.db;
 
-import com.deloop.user.data.util.ValueObject;
+//import com.deloop.user.data.util.ValueObject;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class Password implements ValueObject<Password> {
+public class Password {//implements ValueObject<Password> {
 
   private String passwordHash;
   private String passwordSalt;
@@ -44,9 +44,9 @@ public class Password implements ValueObject<Password> {
     this.passwordSalt = passwordSalt;
   }
 
-  @Override
-  public boolean sameValueAs(Password other) {
-    return equals(other);
-  }
+//  @Override
+//  public boolean sameValueAs(Password other) {
+//    return equals(other);
+//  }
 
 }

@@ -28,7 +28,7 @@ public class DefaultAuthenticationFailureHandler implements AuthenticationFailur
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
-        LOGGER.warn("IDK {} ",exception.getMessage());
+        LOGGER.warn("IDKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK {} ",exception.getMessage());
 
         HttpStatus httpStatus = translateAuthenticationException(exception);
 

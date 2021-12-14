@@ -2,6 +2,20 @@ spring:
   profiles:
     active: dev # set this to the right environment for docker => live
 
+  mail: # https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4N11isNtPUV0AmxD8ENeOcbgQEIGHimyned69xLBrAFHfAk5-iUXfYazUCckQFXbhtacVU8fIscVN24R6qx1SwxRUX71g
+    host: smtp.gmail.com
+    port: 587
+    username: info.deloopltd@gmail.com
+    password: 62131121Aa
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+
 env: dev
 
 server:
@@ -12,7 +26,7 @@ db:
   name: deloop_user
   user: root
   password: 123
-  executeddl: false # overwrites db if set to true
+  executeddl: false # overwrites/resets db if set to true
 
 logging:
   file:

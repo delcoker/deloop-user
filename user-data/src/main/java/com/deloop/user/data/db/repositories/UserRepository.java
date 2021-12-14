@@ -1,5 +1,6 @@
 package com.deloop.user.data.db.repositories;
 
+import com.deloop.user.data.db.enums.UserStatus;
 import com.deloop.user.data.db.models.User;
 import com.deloop.user.data.db.models.query.QUser;
 import io.ebean.Database;
@@ -44,6 +45,15 @@ public class UserRepository implements IUserRepository {
         }
         db.update(user);
         return user;
+    }
+
+    @Override
+    public int verifyUser(String email) {
+        return new QUser().email.eq(email)
+                .asUpdate()
+                .set("isVerified", true)
+                .set("status", UserStatus.ENABLED)
+                .update();
     }
 
     @Override

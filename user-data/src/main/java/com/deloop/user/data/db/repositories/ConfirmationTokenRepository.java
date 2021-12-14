@@ -1,9 +1,7 @@
 package com.deloop.user.data.db.repositories;
 
 import com.deloop.user.data.db.models.ConfirmationToken;
-import com.deloop.user.data.db.models.LicenseType;
-import com.deloop.user.data.db.models.User;
-import com.deloop.user.data.db.models.query.QLicenseType;
+import com.deloop.user.data.db.models.query.QConfirmationToken;
 import io.ebean.Database;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,7 @@ public class ConfirmationTokenRepository implements IConfirmationTokenRepository
 
     @Override
     public Optional<ConfirmationToken> findByToken(String token) {
-        return Optional.empty();
+        return new QConfirmationToken(db).token.eq(token).findOneOrEmpty();
     }
 
     @Override
@@ -28,6 +26,10 @@ public class ConfirmationTokenRepository implements IConfirmationTokenRepository
 
     @Override
     public int updateConfirmedAt(String token, LocalDateTime now) {
-        return 0;
+        return new QConfirmationToken()
+                .token.eq(token)
+                .asUpdate()
+                .set("confirmedAt", now)
+                .update();
     }
 }

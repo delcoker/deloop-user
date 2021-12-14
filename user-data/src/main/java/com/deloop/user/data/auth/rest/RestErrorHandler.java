@@ -46,8 +46,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UnsupportedOperationException.class)
-    public ResponseEntity<Object> handleUnsupportedOperationException(
-            final UnsupportedOperationException ex) {
+    public ResponseEntity<Object> handleUnsupportedOperationException(final UnsupportedOperationException ex) {
 
         return handleExceptionInternal(ex, NOT_IMPLEMENTED);
     }

@@ -16,6 +16,7 @@ public class UserRequest {
     private String password;
     private String username;
     private UserStatus status;
+    private boolean isVerified;
 //    private List<UserDetail> userDetails;
 //    private List<ProviderAccount> providerAccounts;
 //    private UserType userType;

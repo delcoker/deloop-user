@@ -12,6 +12,7 @@ import java.util.List;
 
 @Builder
 public class UserDto implements UserDetails {
+    private long id;
     private String email;
     private String username;
     private boolean isVerified;
@@ -21,8 +22,6 @@ public class UserDto implements UserDetails {
 //    private UserTypeDto userType;
     private UserRoleDto userRole;
     private LicenseTypeDto licenseType;
-
-    private Long id;
     private String password;
     private boolean locked;
     //    private String firstName;
