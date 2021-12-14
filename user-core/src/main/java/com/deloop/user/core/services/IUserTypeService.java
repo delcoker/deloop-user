@@ -4,6 +4,6 @@ import com.deloop.user.data.api.requests.UserTypeRequest;
 
 public interface IUserTypeService {
 
-    void addUserType(UserTypeRequest userTypeRequest);
+//    void addUserType(UserTypeRequest userTypeRequest);
 
 }

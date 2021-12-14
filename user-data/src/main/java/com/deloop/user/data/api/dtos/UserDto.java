@@ -18,7 +18,7 @@ public class UserDto implements UserDetails {
     private String status;
     private UserDetailDto userDetails;
     private List<ProviderAccountDto> providerAccounts;
-    private UserTypeDto userType;
+//    private UserTypeDto userType;
     private UserRoleDto userRole;
     private LicenseTypeDto licenseType;
 

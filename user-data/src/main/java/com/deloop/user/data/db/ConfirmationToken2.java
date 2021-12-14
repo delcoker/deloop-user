@@ -41,7 +41,7 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 @Setter
 @EqualsAndHashCode(of = "value")
 @NoArgsConstructor
-public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P>> {
+public class ConfirmationToken2<P> {//implements Entity<Long, ConfirmationToken<P>> {
 
     public static final int DEFAULT_EXPIRATION_MINUTES = 10;
 
@@ -65,7 +65,7 @@ public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P
      * @param owner a {@link User}
      * @param type confirmation token's type
      */
-    public ConfirmationToken(User owner, ConfirmationTokenType type) {
+    public ConfirmationToken2(User owner, ConfirmationTokenType type) {
         // FIXME: Use a bit more sophisticated random token value generaton later
         this(owner, type, DEFAULT_EXPIRATION_MINUTES);
     }
@@ -77,7 +77,7 @@ public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P
      * @param type confirmation token's type
      * @param minutes expiration in minutes
      */
-    public ConfirmationToken(User owner, ConfirmationTokenType type, int minutes) {
+    public ConfirmationToken2(User owner, ConfirmationTokenType type, int minutes) {
         // FIXME: Use a bit more sophisticated random token value generaton later
         this(owner, UUID.randomUUID().toString(), type, minutes);
     }
@@ -89,7 +89,7 @@ public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P
      * @param value tokens's value
      * @param type confirmation token's type
      */
-    public ConfirmationToken(User owner, String value, ConfirmationTokenType type) {
+    public ConfirmationToken2(User owner, String value, ConfirmationTokenType type) {
         this(owner, value, type, DEFAULT_EXPIRATION_MINUTES, null);
     }
 
@@ -101,7 +101,7 @@ public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P
      * @param type confirmation token's type
      * @param minutes expiration in minutes
      */
-    public ConfirmationToken(User owner, String value, ConfirmationTokenType type, int minutes) {
+    public ConfirmationToken2(User owner, String value, ConfirmationTokenType type, int minutes) {
         this(owner, value, type, minutes, null);
     }
 
@@ -113,7 +113,7 @@ public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P
      * @param type confirmation token's type
      * @param minutes expiration in minutes
      */
-    public ConfirmationToken(User owner, String value, ConfirmationTokenType type, int minutes, P payload) {
+    public ConfirmationToken2(User owner, String value, ConfirmationTokenType type, int minutes, P payload) {
 
         this.value = value;
         this.owner = owner;
@@ -143,7 +143,7 @@ public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P
     }
 
     //  @Override
-    public boolean sameIdentityAs(ConfirmationToken<P> other) {
+    public boolean sameIdentityAs(ConfirmationToken2<P> other) {
         return equals(other);
     }
 
@@ -152,7 +152,7 @@ public class ConfirmationToken<P> {//implements Entity<Long, ConfirmationToken<P
      *
      * @return this confirmation token.
      */
-    public ConfirmationToken use() {
+    public ConfirmationToken2 use() {
         valid = false;
         usedAt = DateTimeUtil.nowUtc();
         return this;

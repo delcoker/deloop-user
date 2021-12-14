@@ -35,7 +35,6 @@
             <column name="isVerified" type="boolean" defaultValue="false" notnull="true"/>
             <column name="locked" type="boolean" defaultValue="false" notnull="true"/>
             <column name="status" type="varchar(8)" checkConstraint="check ( status in ('enabled','disabled','deleted'))" checkConstraintName="ck_users_status"/>
-            <column name="userTypeId" type="bigint" references="user_types.id" foreignKeyName="fk_users_userTypeId" foreignKeyIndex="ix_users_userTypeId"/>
             <column name="licenseTypeId" type="bigint" references="license_types.id" foreignKeyName="fk_users_licenseTypeId" foreignKeyIndex="ix_users_licenseTypeId"/>
             <column name="userRoleId" type="bigint" references="user_roles.id" foreignKeyName="fk_users_userRoleId" foreignKeyIndex="ix_users_userRoleId"/>
         </createTable>
@@ -65,12 +64,6 @@
             <column name="createdAt" type="timestamp" defaultValue="'2020-04-26 00:00'" notnull="true"/>
             <column name="updatedAt" type="timestamp" defaultValue="'2020-04-26 00:00'" notnull="true"/>
         </createTable>
-        <createTable name="user_permissions_user_types" pkName="pk_user_permissions_user_types">
-            <column name="user_permissions_id" type="bigint" notnull="true" primaryKey="true"/>
-            <column name="user_types_id" type="bigint" notnull="true" primaryKey="true"/>
-            <foreignKey name="fk_user_permissions_user_types_user_permissions" columnNames="user_permissions_id" refColumnNames="id" refTableName="user_permissions" indexName="ix_user_permissions_user_types_user_permissions"/>
-            <foreignKey name="fk_user_permissions_user_types_user_types" columnNames="user_types_id" refColumnNames="id" refTableName="user_types" indexName="ix_user_permissions_user_types_user_types"/>
-        </createTable>
         <createTable name="user_permissions_user_roles" pkName="pk_user_permissions_user_roles">
             <column name="user_permissions_id" type="bigint" notnull="true" primaryKey="true"/>
             <column name="user_roles_id" type="bigint" notnull="true" primaryKey="true"/>
@@ -83,15 +76,6 @@
             <column name="description" type="TEXT"/>
             <column name="capabilities" type="TEXT"/>
             <column name="status" type="varchar(8)" checkConstraint="check ( status in ('enabled','disabled','deleted'))" checkConstraintName="ck_user_roles_status"/>
-            <column name="createdAt" type="timestamp" defaultValue="'2020-04-26 00:00'" notnull="true"/>
-            <column name="updatedAt" type="timestamp" defaultValue="'2020-04-26 00:00'" notnull="true"/>
-        </createTable>
-        <createTable name="user_types" pkName="pk_user_types">
-            <column name="id" type="bigint" primaryKey="true"/>
-            <column name="name" type="varchar" defaultValue="''"/>
-            <column name="description" type="TEXT"/>
-            <column name="access" type="TEXT"/>
-            <column name="status" type="varchar(8)" checkConstraint="check ( status in ('enabled','disabled','deleted'))" checkConstraintName="ck_user_types_status"/>
             <column name="createdAt" type="timestamp" defaultValue="'2020-04-26 00:00'" notnull="true"/>
             <column name="updatedAt" type="timestamp" defaultValue="'2020-04-26 00:00'" notnull="true"/>
         </createTable>

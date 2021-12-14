@@ -10,6 +10,11 @@ import org.springframework.context.annotation.Configuration;
 public class DBRepositoryConfiguration {
 
     @Bean
+    IConfirmationTokenRepository confirmationTokenRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
+        return new ConfirmationTokenRepository(dbEbeanService.getDb());
+    }
+
+    @Bean
     IUserRepository userRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
         return new UserRepository(dbEbeanService.getDb());
     }
@@ -19,10 +24,10 @@ public class DBRepositoryConfiguration {
         return new UserRoleRepository(dbEbeanService.getDb());
     }
 
-    @Bean
-    IUserTypeRepository userTypeRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
-        return new UserTypeRepository(dbEbeanService.getDb());
-    }
+//    @Bean
+//    IUserTypeRepository userTypeRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
+//        return new UserTypeRepository(dbEbeanService.getDb());
+//    }
 
     @Bean
     IAddressRepository addressRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {

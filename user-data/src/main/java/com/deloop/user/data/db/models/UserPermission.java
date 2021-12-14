@@ -45,8 +45,8 @@ public class UserPermission extends Model {
     @Column @WhenModified @DbDefault("2020-04-26 00:00")
     private LocalDateTime updatedAt;
 
-    @ManyToMany
-    private List<UserType> userTypes;
+//    @ManyToMany
+//    private List<UserType> userTypes;
 
     @ManyToMany
     private List<UserRole> userRoles;

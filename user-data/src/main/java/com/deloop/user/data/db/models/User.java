@@ -1,11 +1,17 @@
 package com.deloop.user.data.db.models;
 
 import com.deloop.user.data.api.dtos.*;
+import com.deloop.user.data.db.enums.Gender;
 import com.deloop.user.data.db.enums.UserStatus;
 import io.ebean.annotation.DbDefault;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +21,7 @@ import java.util.stream.Collectors;
 @ToString
 @Entity
 @Table(name = "users")
-public class User {
+public class User /*implements UserDetails*/ {
     @Id
     private long id;
 
@@ -37,8 +43,9 @@ public class User {
     @Column
     private boolean locked;
 
+    @Builder.Default
     @Enumerated(value = EnumType.STRING)
-    private UserStatus status;
+    private UserStatus status = UserStatus.ENABLED;
 
     @OneToMany(mappedBy = "user") // @OneToOne
     private List<UserDetail> userDetails;
@@ -46,8 +53,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<ProviderAccount> providerAccounts;
 
-    @ManyToOne
-    private UserType userType;
+//    @ManyToOne
+//    private UserType userType;
 
     @ManyToOne
     private LicenseType licenseType;
@@ -55,15 +62,14 @@ public class User {
     @ManyToOne
     private UserRole userRole;
 
-
-    private UserDto getUserDto() {
+    public UserDto getUserDto() {
         List<ProviderAccountDto> providerAccountDtos = providerAccounts.stream()
                 .map(providerAccount -> new ProviderAccountDto(providerAccount.getId(),
                         providerAccount.getProvider(),
                         providerAccount.getProfileLink()))
                 .collect(Collectors.toList());
 
-        List<UserPermissionDto> userPermissionDtos = userType.getUserPermissions().stream()
+        List<UserPermissionDto> userPermissionDtos = userRole.getUserPermissions().stream()
                 .map(userPermission -> UserPermissionDto.builder()
                         .id(userPermission.getId())
                         .name(userPermission.getName())
@@ -73,12 +79,12 @@ public class User {
                         .build())
                 .collect(Collectors.toList());
 
-        UserTypeDto userTypeDto = UserTypeDto.builder()
-                .id(userType.getId())
-                .name(userType.getName())
-                .access(userType.getAccess())
-                .userPermissions(userPermissionDtos)
-                .build();
+//        UserTypeDto userTypeDto = UserTypeDto.builder()
+//                .id(userType.getId())
+//                .name(userType.getName())
+//                .access(userType.getAccess())
+//                .userPermissions(userPermissionDtos)
+//                .build();
 
         UserRoleDto userRoleDto = UserRoleDto.builder()
                 .id(userRole.getId())
@@ -86,6 +92,9 @@ public class User {
                 .description(userRole.getDescription())
                 .capabilities(userRole.getCapabilities())
                 .status(userRole.getStatus().getLabel())
+                .userPermissions(userPermissionDtos)
+                .createdAt(userRole.getCreatedAt())
+                .updatedAt(userRole.getUpdatedAt())
                 .build();
 
         LicenseTypeDto licenseTypeDto = LicenseTypeDto.builder()
@@ -96,7 +105,7 @@ public class User {
                 .status(licenseType.getStatus().getLabel())
                 .build();
 
-        UserDetail userDetail = userDetails.stream().findFirst().orElse(UserDetail.builder().build());
+        UserDetail userDetail = userDetails.stream().findFirst().orElse(UserDetail.builder().gender(Gender.UNKNOWN).build());
         List<AddressDto> addresses = userDetail.getAddresses().stream()
                 .map(this::getAddressDto)
                 .collect(Collectors.toList());
@@ -117,12 +126,14 @@ public class User {
                 .build();
 
         return UserDto.builder()
+                .id(id)
                 .email(email)
+                .password(password)
                 .isVerified(isVerified)
                 .status(status.getLabel())
                 .userDetails(userDetailDto)
                 .providerAccounts(providerAccountDtos)
-                .userType(userTypeDto)
+//                .userType(userTypeDto)
                 .licenseType(licenseTypeDto)
                 .userRole(userRoleDto)
                 .build();

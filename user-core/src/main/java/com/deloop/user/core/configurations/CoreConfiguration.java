@@ -1,10 +1,10 @@
 package com.deloop.user.core.configurations;
 
+import com.deloop.user.core.services.EmailValidatorServiceImpl;
 import com.deloop.user.core.services.*;
+import com.deloop.user.data.api.requests.LicenseTypeRequest;
 import com.deloop.user.data.config.DBConfiguration;
-import com.deloop.user.data.db.repositories.IUserPermissionRepository;
-import com.deloop.user.data.db.repositories.IUserRepository;
-import com.deloop.user.data.db.repositories.IUserRoleRepository;
+import com.deloop.user.data.db.repositories.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -16,13 +16,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class CoreConfiguration {
 
     @Bean
+    IConfirmationTokenService confirmationTokenService(IConfirmationTokenRepository confirmationTokenRepository) {
+        return new ConfirmationTokenServiceImpl(confirmationTokenRepository);
+    }
+
+    @Bean
+    EmailValidatorService emailValidatorService() {
+        return new EmailValidatorServiceImpl();
+    }
+
+    @Bean
+    public RegistrationService registrationService(IUserService userService, EmailValidatorService emailValidatorService) {
+        return new RegistrationServiceImpl(userService, emailValidatorService);
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    IUserService userService(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
-        return new UserServiceImpl(userRepository, passwordEncoder);
+    IUserService userService(IUserRepository userRepository, PasswordEncoder passwordEncoder, IConfirmationTokenService confirmationTokenService) {
+        return new UserServiceImpl(userRepository, passwordEncoder, confirmationTokenService);
     }
 
     @Bean
@@ -33,5 +48,10 @@ public class CoreConfiguration {
     @Bean
     IUserPermissionService userPermissionService(IUserPermissionRepository userPermissionRepository) {
         return new UserPermisionServiceImpl(userPermissionRepository);
+    }
+
+    @Bean
+    ILicenseTypeService licenseTypeService(ILicenceTypeRepository licenceTypeRepository) {
+        return new LicenseTypeServiceImpl(licenceTypeRepository);
     }
 }

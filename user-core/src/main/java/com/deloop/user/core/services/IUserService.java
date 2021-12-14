@@ -1,14 +1,23 @@
 package com.deloop.user.core.services;
 
+import com.deloop.user.data.api.requests.RegistrationRequest;
 import com.deloop.user.data.db.models.User;
+import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
 import com.deloop.user.data.exceptions.EmailNotFoundException;
 import com.deloop.user.data.exceptions.ScreenNameNotFoundException;
 import com.deloop.user.data.api.requests.UserRequest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public interface IUserService {
+public interface IUserService extends UserDetailsService {
     void addUser(UserRequest userRequest);
+
+    String signUpUser(RegistrationRequest registrationRequest) throws EmailIsAlreadyTakenException;
 
     User loadUserByScreenName(UserRequest userRequest) throws ScreenNameNotFoundException;
 
     User loadUserByEmail(UserRequest request) throws EmailNotFoundException;
+
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

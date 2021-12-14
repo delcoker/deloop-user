@@ -11,6 +11,16 @@ create table address (
   constraint pk_address primary key (id)
 );
 
+create table confirmation_tokens (
+  id                            bigint auto_increment not null,
+  token                         varchar(255) not null,
+  expiresAt                     datetime not null,
+  userId                        bigint,
+  createdAt                     datetime not null,
+  confirmedAt                   datetime default '2020-04-26 00:00' not null,
+  constraint pk_confirmation_tokens primary key (id)
+);
+
 create table license_types (
   id                            bigint auto_increment not null,
   name                          varchar(255),
@@ -38,7 +48,6 @@ create table users (
   isVerified                    tinyint(1) default 0 not null,
   locked                        tinyint(1) default 0 not null,
   status                        varchar(8),
-  userTypeId                    bigint,
   licenseTypeId                 bigint,
   userRoleId                    bigint,
   constraint pk_users primary key (id)
@@ -74,12 +83,6 @@ create table user_permissions (
   constraint pk_user_permissions primary key (id)
 );
 
-create table user_permissions_user_types (
-  user_permissions_id           bigint not null,
-  user_types_id                 bigint not null,
-  constraint pk_user_permissions_user_types primary key (user_permissions_id,user_types_id)
-);
-
 create table user_permissions_user_roles (
   user_permissions_id           bigint not null,
   user_roles_id                 bigint not null,
@@ -97,25 +100,14 @@ create table user_roles (
   constraint pk_user_roles primary key (id)
 );
 
-create table user_types (
-  id                            bigint auto_increment not null,
-  name                          varchar(255) default '',
-  description                   TEXT,
-  access                        TEXT,
-  status                        varchar(8),
-  createdAt                     datetime default '2020-04-26 00:00' not null,
-  updatedAt                     datetime default '2020-04-26 00:00' not null,
-  constraint pk_user_types primary key (id)
-);
-
 create index ix_address_userDetailId on address (userDetailId);
 alter table address add constraint fk_address_userDetailId foreign key (userDetailId) references user_details (id) on delete restrict on update restrict;
 
+create index ix_confirmation_tokens_userId on confirmation_tokens (userId);
+alter table confirmation_tokens add constraint fk_confirmation_tokens_userId foreign key (userId) references users (id) on delete restrict on update restrict;
+
 create index ix_provider_accounts_userId on provider_accounts (userId);
 alter table provider_accounts add constraint fk_provider_accounts_userId foreign key (userId) references users (id) on delete restrict on update restrict;
-
-create index ix_users_userTypeId on users (userTypeId);
-alter table users add constraint fk_users_userTypeId foreign key (userTypeId) references user_types (id) on delete restrict on update restrict;
 
 create index ix_users_licenseTypeId on users (licenseTypeId);
 alter table users add constraint fk_users_licenseTypeId foreign key (licenseTypeId) references license_types (id) on delete restrict on update restrict;
@@ -125,12 +117,6 @@ alter table users add constraint fk_users_userRoleId foreign key (userRoleId) re
 
 create index ix_user_details_userId on user_details (userId);
 alter table user_details add constraint fk_user_details_userId foreign key (userId) references users (id) on delete restrict on update restrict;
-
-create index ix_user_permissions_user_types_user_permissions on user_permissions_user_types (user_permissions_id);
-alter table user_permissions_user_types add constraint fk_user_permissions_user_types_user_permissions foreign key (user_permissions_id) references user_permissions (id) on delete restrict on update restrict;
-
-create index ix_user_permissions_user_types_user_types on user_permissions_user_types (user_types_id);
-alter table user_permissions_user_types add constraint fk_user_permissions_user_types_user_types foreign key (user_types_id) references user_types (id) on delete restrict on update restrict;
 
 create index ix_user_permissions_user_roles_user_permissions on user_permissions_user_roles (user_permissions_id);
 alter table user_permissions_user_roles add constraint fk_user_permissions_user_roles_user_permissions foreign key (user_permissions_id) references user_permissions (id) on delete restrict on update restrict;

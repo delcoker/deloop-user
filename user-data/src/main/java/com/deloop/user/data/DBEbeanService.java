@@ -45,11 +45,12 @@ public class DBEbeanService implements IDBEbeanService {
     private void registerEntityBeans(DatabaseConfig databaseConfig) {
         databaseConfig.addClass(User.class);
         databaseConfig.addClass(UserDetail.class);
-        databaseConfig.addClass(UserType.class);
+//        databaseConfig.addClass(UserType.class);
         databaseConfig.addClass(UserPermission.class);
         databaseConfig.addClass(LicenseType.class);
         databaseConfig.addClass(ProviderAccount.class);
         databaseConfig.addClass(UserRole.class);
         databaseConfig.addClass(Address.class);
+        databaseConfig.addClass(ConfirmationToken.class);
     }
 }
