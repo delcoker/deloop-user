@@ -11,8 +11,7 @@ import java.io.IOException;
 /**
  * Created by delcoker on 26/04/2020.
  */
-public class JwtAuthenticationEntryPoint extends DefaultAuthenticationFailureHandler
-        implements AuthenticationEntryPoint {
+public class JwtAuthenticationEntryPoint extends DefaultAuthenticationFailureHandler implements AuthenticationEntryPoint {
 
     public JwtAuthenticationEntryPoint(ObjectMapper objectMapper) {
         super(objectMapper);

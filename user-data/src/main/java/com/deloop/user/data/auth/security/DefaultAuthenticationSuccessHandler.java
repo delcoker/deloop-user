@@ -21,7 +21,7 @@ public class DefaultAuthenticationSuccessHandler implements AuthenticationSucces
     private static final int ONE_DAY_MINUTES = 24 * 60;
     private static final String X_SET_AUTHORIZATION_BEARER_HEADER = "X-Set-Authorization-Bearer";
 
-    private final IJwtTokenService jwtTokenService;
+    private final JwtTokenService jwtTokenService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

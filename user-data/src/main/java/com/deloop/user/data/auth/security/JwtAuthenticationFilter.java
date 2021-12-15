@@ -2,8 +2,6 @@ package com.deloop.user.data.auth.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +21,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer";
@@ -53,25 +51,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private Authentication getAuthentication(HttpServletRequest request) {
         String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.isEmpty(authorizationHeader)) {
-            log.debug("Authorization header is empty.");
+            log.error("Authorization header is empty.");
             return null;
         }
 
-        log.error("authorizationHeader " + authorizationHeader);
+        log.warn("authorizationHeader " + authorizationHeader);
 
         if (!StringUtils.substringMatch(authorizationHeader, 0, TOKEN_PREFIX)) {
-            LOGGER.debug("Token prefix {} in Authorization header was not found.", TOKEN_PREFIX);
+            log.error("Token prefix {} not found in Authorization header.", TOKEN_PREFIX);
             return null;
         }
 
         String jwtToken = authorizationHeader.substring(TOKEN_PREFIX.length() + 1);
 
-        log.error(jwtToken);
+        log.warn(jwtToken);
 
         try {
             return jwtTokenService.parseJwtToken(jwtToken);
         } catch (AuthenticationException e) {
-            LOGGER.warn(e.getMessage());
+            log.error(e.getMessage());
             return null;
         }
     }

@@ -27,7 +27,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
             helper.setText(composedEmail, true);
             helper.setTo(emailAddressTo);
             helper.setSubject("Please confirm your email.");
-            helper.setFrom(Objects.requireNonNull(((JavaMailSenderImpl) emailSender).getUsername()) + ": DELooP LTD.");
+            helper.setFrom(Objects.requireNonNull(((JavaMailSenderImpl) emailSender).getUsername()) + "-DELooP");
             emailSender.send(mimeMessage);
         } catch (MessagingException e) {
             String message = "Failed to send email";

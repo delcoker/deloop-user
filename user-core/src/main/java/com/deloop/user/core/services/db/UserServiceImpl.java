@@ -1,5 +1,6 @@
 package com.deloop.user.core.services.db;
 
+import com.deloop.user.data.api.requests.LoginRequest;
 import com.deloop.user.data.api.requests.RegistrationRequest;
 import com.deloop.user.data.api.requests.UserRequest;
 import com.deloop.user.data.db.enums.ConfirmationTokenType;
@@ -11,6 +12,7 @@ import com.deloop.user.data.db.repositories.IUserRepository;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
 import com.deloop.user.data.exceptions.EmailNotFoundException;
 import com.deloop.user.data.exceptions.ScreenNameNotFoundException;
+import io.ebean.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,13 +44,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional
+    @org.springframework.transaction.annotation.Transactional
     public String signUpUser(RegistrationRequest registrationRequest) throws EmailIsAlreadyTakenException {
         Optional<User> optionalUser = userRepository.findByEmail(registrationRequest.getEmail());
         if (optionalUser.isPresent()) {
             // TODO: if user not verified send new confirmation token
             User existingUser = optionalUser.get();
             if (!existingUser.isVerified()) {
-                return sendConfirmationToken(existingUser);
+                return getConfirmationToken(existingUser);
             }
             throw new EmailIsAlreadyTakenException("Email already taken");
         }
@@ -66,10 +70,10 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(user);
 
         // TODO: send confirmation token
-        return sendConfirmationToken(user);
+        return getConfirmationToken(user);
     }
 
-    private String sendConfirmationToken(User user) {
+    private String getConfirmationToken(User user) {
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = ConfirmationToken.builder()
                 .type(ConfirmationTokenType.EMAIL)
@@ -102,18 +106,23 @@ public class UserServiceImpl implements IUserService {
         throw new EmailNotFoundException("Email not found");
     }
 
-    @Override
+    @Override // spring method
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isEmpty()) {
+        try {
+            return loadUserByEmail(UserRequest.builder().email(email).build()).getUserDto();
+        } catch (EmailNotFoundException e) {
             throw new UsernameNotFoundException("Email or username not found.");
         }
-
-        return optionalUser.get().getUserDto();
     }
 
     @Override
     public int verifyUser(String email) {
         return userRepository.verifyUser(email);
+    }
+
+    @Override
+    public String login(LoginRequest loginRequest) throws EmailNotFoundException {
+        User user = loadUserByEmail(UserRequest.builder().email(loginRequest.getEmail()).build());
+        return "jwtToken";
     }
 }
