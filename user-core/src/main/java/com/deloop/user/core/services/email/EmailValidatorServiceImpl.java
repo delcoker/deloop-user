@@ -1,4 +1,4 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.email;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -19,14 +19,4 @@ public class EmailValidatorServiceImpl implements EmailValidatorService {
         return matcher.matches();
     }
 
-//    @Override
-//    public boolean isEmail(String email) {
-//        //        TODO: regex to validate email is valid
-//        if (Objects.isNull(email)) {
-//            return false;
-//        }
-//        Matcher matcher = EMAIL_ADDRESS_PATTERN.matcher(email);
-//        return matcher.matches();
-//
-//    }
 }

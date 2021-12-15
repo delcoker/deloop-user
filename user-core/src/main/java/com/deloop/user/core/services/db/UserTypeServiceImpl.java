@@ -1,12 +1,11 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.db;
 
-import com.deloop.user.data.db.repositories.IUserTypeRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UserTypeServiceImpl implements IUserTypeService {
-    public final IUserTypeRepository userTypeRepository;
-
+//    public final IUserTypeRepository userTypeRepository;
+//
 //    @Override
 //    public void addUserType(UserTypeRequest userTypeRequest) {
 //        UserType userType = UserType.builder()

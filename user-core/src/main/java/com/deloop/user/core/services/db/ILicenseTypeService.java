@@ -1,4 +1,4 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.db;
 
 import com.deloop.user.data.api.requests.LicenseTypeRequest;
 

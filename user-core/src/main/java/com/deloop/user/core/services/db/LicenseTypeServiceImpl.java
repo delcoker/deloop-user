@@ -1,14 +1,9 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.db;
 
 import com.deloop.user.data.api.requests.LicenseTypeRequest;
-import com.deloop.user.data.api.requests.UserRoleRequest;
 import com.deloop.user.data.db.models.LicenseType;
-import com.deloop.user.data.db.models.UserRole;
 import com.deloop.user.data.db.repositories.ILicenceTypeRepository;
-import com.deloop.user.data.db.repositories.IUserRoleRepository;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class LicenseTypeServiceImpl implements ILicenseTypeService {

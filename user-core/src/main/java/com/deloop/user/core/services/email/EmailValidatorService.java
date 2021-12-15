@@ -1,4 +1,4 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.email;
 
 import java.util.function.Predicate;
 
