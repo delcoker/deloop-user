@@ -1,10 +1,7 @@
-package com.example.api.security;
+package com.example.api.configurations;
 
 import com.deloop.user.core.services.db.IUserService;
-import com.deloop.user.data.auth.security.JwtAuthenticationEntryPoint;
-import com.deloop.user.data.auth.security.JwtAuthenticationFilter;
-import com.deloop.user.data.auth.security.JwtTokenService;
-import com.deloop.user.data.auth.security.JwtTokenServiceImpl;
+import com.deloop.user.core.services.jwt.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.context.EnvironmentAware;
@@ -68,23 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements E
     protected void configure(HttpSecurity http) throws Exception {
         AuthenticationEntryPoint authenticationEntryPoint = lookup("authenticationEntryPoint");
 //        JwtTokenService jwtTokenService = lookup("jwtTokenService");
-//
-//        http.csrf()
-//                .disable()
-//                .authorizeRequests()
-//                .antMatchers("/registration/**")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin()
-//                .usernameParameter("email")
-//                .permitAll()
-//                .and()
-//                .httpBasic()
-//                .and()
-//                .logout()
-//                .permitAll();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling()
@@ -101,8 +81,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements E
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService);
         auth.authenticationProvider(daoAuthenticationProvider());
+        auth.authenticationProvider(jwtAuthenticationProvider()); // https://www.javadevjournal.com/spring-security/spring-security-multiple-authentication-providers/
+    }
+
+    @Bean
+    public JwtAuthenticationProvider jwtAuthenticationProvider() {
+        return new JwtAuthenticationProvider();
     }
 
     @Bean

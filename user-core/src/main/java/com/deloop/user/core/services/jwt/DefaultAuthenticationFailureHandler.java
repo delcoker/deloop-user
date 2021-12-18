@@ -1,4 +1,4 @@
-package com.deloop.user.data.auth.security;
+package com.deloop.user.core.services.jwt;
 
 import com.deloop.user.data.auth.rest.RestErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;

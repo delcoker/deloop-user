@@ -1,4 +1,4 @@
-package com.deloop.user.data.auth.security;
+package com.deloop.user.core.services.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;

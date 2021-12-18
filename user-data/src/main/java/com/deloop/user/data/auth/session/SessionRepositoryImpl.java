@@ -1,6 +1,6 @@
 package com.deloop.user.data.auth.session;//package com.deloop.user.data.auth.session;
 //
-//import com.deloop.user.data.auth.security.JwtTokenService;
+//import com.deloop.user.core.services.JwtTokenService;
 //import io.lettuce.core.RedisFuture;
 //import io.lettuce.core.api.async.RedisAsyncCommands;
 //import lombok.RequiredArgsConstructor;

@@ -6,7 +6,7 @@ import com.deloop.user.core.services.RegistrationService;
 import com.deloop.user.core.services.db.*;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
-import com.deloop.user.data.auth.security.JwtTokenService;
+import com.deloop.user.core.services.jwt.JwtTokenService;
 import com.deloop.user.data.config.DBConfiguration;
 import com.deloop.user.data.db.repositories.*;
 import org.springframework.context.annotation.Bean;
@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
-@Import({DBConfiguration.class, EmailConfiguration.class})
-public class CoreConfiguration {
+@Import({DBConfiguration.class, EmailConfig.class})
+public class CoreConfig {
 
     @Bean
     IConfirmationTokenService confirmationTokenService(IConfirmationTokenRepository confirmationTokenRepository) {
@@ -33,8 +33,7 @@ public class CoreConfiguration {
     }
 
     @Bean
-    public LoginService loginService(AuthenticationManager authenticationManager,
-                                     JwtTokenService jwtTokenService) {
+    public LoginService loginService(AuthenticationManager authenticationManager, JwtTokenService jwtTokenService) {
         return new LoginServiceImpl(authenticationManager, jwtTokenService);
     }
 

@@ -1,4 +1,4 @@
-package com.deloop.user.data.auth.security;
+package com.deloop.user.core.services.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;

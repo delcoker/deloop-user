@@ -1,6 +1,5 @@
 package com.deloop.user.core.services.db;
 
-import com.deloop.user.data.api.requests.LoginRequest;
 import com.deloop.user.data.api.requests.RegistrationRequest;
 import com.deloop.user.data.api.requests.UserRequest;
 import com.deloop.user.data.db.enums.ConfirmationTokenType;
@@ -120,9 +119,9 @@ public class UserServiceImpl implements IUserService {
         return userRepository.verifyUser(email);
     }
 
-    @Override
-    public String login(LoginRequest loginRequest) throws EmailNotFoundException {
-        User user = loadUserByEmail(UserRequest.builder().email(loginRequest.getEmail()).build());
-        return "jwtToken";
-    }
+//    @Override
+//    public String login(LoginRequest loginRequest) throws EmailNotFoundException {
+//        User user = loadUserByEmail(UserRequest.builder().email(loginRequest.getEmail()).build());
+//        return "jwtToken";
+//    }
 }

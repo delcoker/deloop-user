@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>user-bom</artifactId>
-<!--    <version>0.0.1-SNAPSHOT</version>-->
+    <!--    <version>0.0.1-SNAPSHOT</version>-->
     <name>user-bom</name>
     <description>user-bom</description>
     <packaging>pom</packaging>
@@ -35,6 +35,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <lettuce.version>6.1.5.RELEASE</lettuce.version>
         <spring-session-core.version>2.5.2</spring-session-core.version>
+        <jackson.version>2.13.0</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -101,15 +102,42 @@
             <!--                <type>jar</type>-->
             <!--            </dependency>-->
 
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-starter-data-redis</artifactId>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.session</groupId>-->
-<!--                <artifactId>spring-session-data-redis</artifactId>-->
-<!--                <version>${spring-session-data-redis.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-starter-data-redis</artifactId>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.session</groupId>-->
+            <!--                <artifactId>spring-session-data-redis</artifactId>-->
+            <!--                <version>${spring-session-data-redis.version}</version>-->
+            <!--            </dependency>-->
+
+            <!-- Jackson for Java - JSON conversion -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Jackson for Java - JSON conversion -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Jackson for Java - JSON conversion -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>mysql</groupId>

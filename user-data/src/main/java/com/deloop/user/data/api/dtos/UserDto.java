@@ -1,17 +1,25 @@
 package com.deloop.user.data.api.dtos;
 
 import com.deloop.user.data.db.enums.UserStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 @Builder
-public class UserDto implements UserDetails {
+@Getter
+@Setter
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserDto implements UserDetails, Serializable {
+    //    @JsonProperty
     private long id;
     private String email;
     private String username;
@@ -19,16 +27,14 @@ public class UserDto implements UserDetails {
     private String status;
     private UserDetailDto userDetails;
     private List<ProviderAccountDto> providerAccounts;
-//    private UserTypeDto userType;
+    //    private UserTypeDto userType;
     private UserRoleDto userRole;
     private LicenseTypeDto licenseType;
+    @JsonIgnore
     private String password;
     private boolean locked;
-    //    private String firstName;
-//    private String lastName;
-//    @Enumerated(EnumType.STRING)
-//    private String appUserRole;
 
+    //    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.toString());
@@ -42,16 +48,8 @@ public class UserDto implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
-//
-//    public String getFirstName() {
-//        return userDetails.get;
-//    }
-//
-//    public String getLastName() {
-//        return lastName;
-//    }
 
     @Override
     public boolean isAccountNonExpired() {

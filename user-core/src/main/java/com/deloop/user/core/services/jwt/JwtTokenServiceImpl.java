@@ -1,17 +1,14 @@
-package com.deloop.user.data.auth.security;
+package com.deloop.user.core.services.jwt;
 
-import com.deloop.user.data.util.IdentityGenerator;
 import io.jsonwebtoken.*;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Base64;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 import static java.lang.System.currentTimeMillis;
@@ -25,6 +22,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private final byte[] secretKey;// = new byte[]{127, -128};
 
     private final long EXPIRATION_SECONDS = 60 * 1000;
+    private final SignatureAlgorithm SIGNATURE_ALGORITHM = HS512;
 
     public JwtTokenServiceImpl(String secretKey) {
         this.secretKey = Base64.getDecoder().decode(secretKey);
@@ -32,35 +30,43 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     @Override
     public String createJwtToken(Authentication authentication, int minutes) {
-        Claims claims = Jwts.claims()
-                .setId(String.valueOf(IdentityGenerator.generate()))
-                .setSubject(authentication.getName())
-                .setExpiration(new Date(currentTimeMillis() + EXPIRATION_SECONDS * minutes))
-                .setIssuedAt(new Date());
-
-        String authorities = authentication.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .map(String::toUpperCase)
-                .collect(Collectors.joining(","));
-
-        claims.put(AUTHORITIES, authorities);
+//        Claims claims = Jwts.claims()
+//                .setId(String.valueOf(IdentityGenerator.generate()))
+//                .setSubject(authentication.getName())
+//                .setExpiration(new Date(currentTimeMillis() + EXPIRATION_SECONDS * minutes))
+//                .setIssuedAt(new Date());
+//
+//        String authorities = authentication.getAuthorities()
+//                .stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .map(String::toUpperCase)
+//                .collect(Collectors.joining(","));
+//
+//        claims.put(AUTHORITIES, authorities);
+//
+//        String accessToken = Jwts.builder()
+//                .setClaims(claims)
+//                .signWith(HS512, secretKey)
+//                .compact();
 
         String accessToken = Jwts.builder()
-                .setClaims(claims)
-                .signWith(HS512, secretKey)
-                .compact();
-
-        Claims refreshClaims = Jwts.claims()
-                .setId(String.valueOf(IdentityGenerator.generate()))
+                .setIssuer("appName")
                 .setSubject(authentication.getName())
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(currentTimeMillis() + EXPIRATION_SECONDS * minutes))
-                .setIssuedAt(new Date());
-
-        String refreshToken = Jwts.builder()
-                .setClaims(refreshClaims)
-                .signWith(HS512, secretKey)
+                .signWith(SIGNATURE_ALGORITHM, secretKey)
                 .compact();
+
+//        Claims refreshClaims = Jwts.claims()
+//                .setId(String.valueOf(IdentityGenerator.generate()))
+//                .setSubject(authentication.getName())
+//                .setExpiration(new Date(currentTimeMillis() + EXPIRATION_SECONDS * minutes))
+//                .setIssuedAt(new Date());
+//
+//        String refreshToken = Jwts.builder()
+//                .setClaims(refreshClaims)
+//                .signWith(HS512, secretKey)
+//                .compact();
 
         System.err.println(accessToken);
 

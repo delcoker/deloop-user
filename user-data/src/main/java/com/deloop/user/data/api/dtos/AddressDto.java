@@ -4,8 +4,10 @@ import com.deloop.user.data.db.enums.Country;
 import com.deloop.user.data.db.enums.State;
 import lombok.Builder;
 
+import java.io.Serializable;
+
 @Builder
-public class AddressDto {
+public class AddressDto implements Serializable {
     private long id;
     private Country country;
     private State state;

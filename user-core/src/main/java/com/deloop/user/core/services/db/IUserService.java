@@ -1,6 +1,5 @@
 package com.deloop.user.core.services.db;
 
-import com.deloop.user.data.api.requests.LoginRequest;
 import com.deloop.user.data.api.requests.RegistrationRequest;
 import com.deloop.user.data.api.requests.UserRequest;
 import com.deloop.user.data.db.models.User;
@@ -24,5 +23,5 @@ public interface IUserService extends UserDetailsService {
 
     int verifyUser(String email);
 
-    String login(LoginRequest loginRequest) throws EmailNotFoundException;
+//    String login(LoginRequest loginRequest) throws EmailNotFoundException;
 }

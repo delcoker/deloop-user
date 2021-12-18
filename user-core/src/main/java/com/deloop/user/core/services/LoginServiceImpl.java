@@ -1,8 +1,8 @@
 package com.deloop.user.core.services;
 
+import com.deloop.user.core.services.jwt.JwtTokenService;
 import com.deloop.user.data.api.requests.LoginRequest;
 import com.deloop.user.data.api.responses.LoginResponse;
-import com.deloop.user.data.auth.security.JwtTokenService;
 import io.ebean.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
 
-        String jwtToken = jwtTokenService.createJwtToken(authentication, 30);
+        String jwtToken = jwtTokenService.createJwtToken(authentication, 300);
 
         LoginResponse response = new LoginResponse();
         response.setToken(jwtToken);

@@ -1,4 +1,4 @@
-package com.deloop.user.data.auth.security;
+package com.deloop.user.core.services.jwt;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -13,17 +13,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Created by lcsontos on 26/04/2020.
+ * Created by delcoker on 26/04/2020.
  */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final String AUTHORITIES = "authorities";
 
-    private final long userId;
+    //    private final long userId;
+    private final String userIdentifier;
 
-    private JwtAuthenticationToken(long userId, Collection<? extends GrantedAuthority> authorities) {
+    private JwtAuthenticationToken(String userIdentifier, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
-        this.userId = userId;
+        this.userIdentifier = userIdentifier;
     }
 
     @Override
@@ -32,17 +33,18 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     @Override
-    public Long getPrincipal() {
-        return userId;
+    public String getPrincipal() {
+        return userIdentifier;
     }
 
     /**
      * Factory method for creating a new {@code {@link JwtAuthenticationToken}}.
+     *
      * @param claims JWT claims
      * @return a JwtAuthenticationToken
      */
     public static JwtAuthenticationToken of(Claims claims) {
-        long userId = Long.parseLong(claims.getSubject());
+        String userId = claims.getSubject();
 
         Collection<GrantedAuthority> authorities =
                 Arrays.stream(String.valueOf(claims.get(AUTHORITIES)).split(","))

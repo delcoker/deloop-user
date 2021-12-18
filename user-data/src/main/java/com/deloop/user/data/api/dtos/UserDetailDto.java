@@ -3,12 +3,13 @@ package com.deloop.user.data.api.dtos;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Builder
-public class UserDetailDto {
+public class UserDetailDto implements Serializable {
     private long id;
     private String profilePicture;
     private String firstName;

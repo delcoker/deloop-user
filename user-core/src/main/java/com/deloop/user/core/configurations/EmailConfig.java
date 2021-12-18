@@ -16,7 +16,7 @@ import java.util.Properties;
 
 @Configuration
 @Import(DBConfiguration.class)
-public class EmailConfiguration {
+public class EmailConfig {
 
     @Value("${spring.mail.host}")
     private String email_host;

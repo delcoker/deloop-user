@@ -1,4 +1,4 @@
-package com.deloop.user.data.auth.security;
+package com.deloop.user.core.services.jwt;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

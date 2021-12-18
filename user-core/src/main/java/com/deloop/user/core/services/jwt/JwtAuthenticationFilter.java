@@ -1,4 +1,4 @@
-package com.deloop.user.data.auth.security;
+package com.deloop.user.core.services.jwt;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +20,6 @@ import java.io.IOException;
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
-//    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer";
@@ -55,16 +53,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return null;
         }
 
-        log.warn("authorizationHeader " + authorizationHeader);
-
         if (!StringUtils.substringMatch(authorizationHeader, 0, TOKEN_PREFIX)) {
             log.error("Token prefix {} not found in Authorization header.", TOKEN_PREFIX);
             return null;
         }
 
         String jwtToken = authorizationHeader.substring(TOKEN_PREFIX.length() + 1);
-
-        log.warn(jwtToken);
 
         try {
             return jwtTokenService.parseJwtToken(jwtToken);
