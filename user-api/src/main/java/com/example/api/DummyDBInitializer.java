@@ -1,4 +1,4 @@
-package com.example.api.configurations;
+package com.example.api;
 
 import com.deloop.user.core.configurations.CoreConfig;
 import com.deloop.user.core.services.db.ILicenseTypeService;
@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Import;
 @Slf4j
 @Configuration
 @Import({CoreConfig.class})
-public class DummyDBInitializerConfig {
+public class DummyDBInitializer {
 
     @Value("${db.executeddl}")
     private boolean db_execute_ddl;
@@ -41,13 +41,18 @@ public class DummyDBInitializerConfig {
                 userPermissionService.addUserPermission(UserPermissionRequest.builder().name("SUPER_PERM_1").code("00").build());
                 userPermissionService.addUserPermission(UserPermissionRequest.builder().name("SUPER_PERM_2").code("11").build());
 
-                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("id").description("all").name("all").status(LicenseStatus.ENABLED).build());
-                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("id2").description("all2").name("all2").status(LicenseStatus.ENABLED).build());
+                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("st").description("starter").name("starter").status(LicenseStatus.ENABLED).build());
+                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("ba").description("basic").name("basic").status(LicenseStatus.ENABLED).build());
+                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("br").description("bronze").name("bronze").status(LicenseStatus.ENABLED).build());
+                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("sl").description("silver").name("silver").status(LicenseStatus.ENABLED).build());
+                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("go").description("gold").name("gold").status(LicenseStatus.ENABLED).build());
+                licenseTypeService.addLicenseType(LicenseTypeRequest.builder().access("pl").description("platinum").name("platinum").status(LicenseStatus.ENABLED).build());
 
-                userRoleService.addUserRole(UserRoleRequest.builder().name("ROLE_SUPER_ADMIN").status(RoleStatus.ENABLED).build());
-                userRoleService.addUserRole(UserRoleRequest.builder().name("ROLE_ADMIN").status(RoleStatus.ENABLED).build());
-                userRoleService.addUserRole(UserRoleRequest.builder().name("ROLE_MANAGER").status(RoleStatus.ENABLED).build());
                 userRoleService.addUserRole(UserRoleRequest.builder().name("ROLE_USER").status(RoleStatus.ENABLED).build());
+                userRoleService.addUserRole(UserRoleRequest.builder().name("ROLE_MANAGER").status(RoleStatus.ENABLED).build());
+                userRoleService.addUserRole(UserRoleRequest.builder().name("ROLE_ADMIN").status(RoleStatus.ENABLED).build());
+                userRoleService.addUserRole(UserRoleRequest.builder().name("ROLE_SUPER_ADMIN").status(RoleStatus.ENABLED).build());
+
                 UserRole userRole = userRoleService.getUserRoleByName(UserRoleRequest.builder().name("ROLE_ADMIN").build()).get();
 
                 userService.addUser(UserRequest.builder().email("delcoker@gmail.com").username("del").password("123").isVerified(true)

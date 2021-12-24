@@ -13,6 +13,7 @@ import com.deloop.user.data.exceptions.EmailNotFoundException;
 import com.deloop.user.data.exceptions.ScreenNameNotFoundException;
 import io.ebean.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
     private final IUserRepository userRepository;
@@ -102,7 +104,9 @@ public class UserServiceImpl implements IUserService {
         if (optionalUser.isPresent()) {
             return optionalUser.get();
         }
-        throw new EmailNotFoundException("Email not found");
+        String message = String.format("Email not found %s", userRequest.getEmail());
+        log.error(message);
+        throw new EmailNotFoundException(message);
     }
 
     @Override // spring method
@@ -118,6 +122,7 @@ public class UserServiceImpl implements IUserService {
     public int verifyUser(String email) {
         return userRepository.verifyUser(email);
     }
+
 
 //    @Override
 //    public String login(LoginRequest loginRequest) throws EmailNotFoundException {

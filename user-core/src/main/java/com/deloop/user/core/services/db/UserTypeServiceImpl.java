@@ -1,9 +1,7 @@
 package com.deloop.user.core.services.db;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-public class UserTypeServiceImpl implements IUserTypeService {
+//@RequiredArgsConstructor
+//public class UserTypeServiceImpl implements IUserTypeService {
 //    public final IUserTypeRepository userTypeRepository;
 //
 //    @Override
@@ -15,4 +13,4 @@ public class UserTypeServiceImpl implements IUserTypeService {
 //                .build();
 //        userTypeRepository.save(userType);
 //    }
-}
+//}

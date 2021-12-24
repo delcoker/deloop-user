@@ -16,6 +16,10 @@ spring:
             enable: true
         debug: true
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # for swagger bug
+
 env: dev
 
 server:

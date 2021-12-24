@@ -3,6 +3,7 @@ package com.deloop.user.core.configurations;
 import com.deloop.user.core.services.LoginService;
 import com.deloop.user.core.services.LoginServiceImpl;
 import com.deloop.user.core.services.RegistrationService;
+import com.deloop.user.core.services.RegistrationServiceImpl;
 import com.deloop.user.core.services.db.*;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
@@ -20,6 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @Import({DBConfiguration.class, EmailConfig.class})
 public class CoreConfig {
+    @Bean
+    IUserDetailsService userDetailsService(IUserDetailsRepository userDetailRepository) {
+        return new UserDetailsServiceImpl(userDetailRepository);
+    }
 
     @Bean
     IConfirmationTokenService confirmationTokenService(IConfirmationTokenRepository confirmationTokenRepository) {

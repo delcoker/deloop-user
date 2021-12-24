@@ -36,7 +36,7 @@ public enum Gender {
         return this.label;
     }
 
-    public static Gender getGender(String genderString) {
+    public static Gender getGenderFromText(String genderString) {
         return Arrays.stream(Gender.values())
                 .filter(gender -> compareGender(gender, genderString))
                 .findFirst()

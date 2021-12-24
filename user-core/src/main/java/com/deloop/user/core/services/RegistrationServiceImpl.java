@@ -1,6 +1,7 @@
-package com.deloop.user.core.services.db;
+package com.deloop.user.core.services;
 
-import com.deloop.user.core.services.RegistrationService;
+import com.deloop.user.core.services.db.IConfirmationTokenService;
+import com.deloop.user.core.services.db.IUserService;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
 import com.deloop.user.data.api.requests.RegistrationRequest;
@@ -19,7 +20,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final IConfirmationTokenService confirmationTokenService;
     private final EmailSenderService emailSenderService;
 
-    private static String REGISTRATION_LINK = "http://localhost:8080/registration/confirm?token=";
+    private static String REGISTRATION_LINK = "http://localhost:9090/registration/confirm?token=";
 
     @Override
     public String register(RegistrationRequest registrationRequest) throws EmailInvalidException, EmailIsAlreadyTakenException {
@@ -40,8 +41,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public String confirmToken(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService
-                .getToken(token)
+        ConfirmationToken confirmationToken = confirmationTokenService.getToken(token)
                 .orElseThrow(() -> new IllegalStateException("token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {

@@ -48,8 +48,8 @@ public class UserDto implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return username;
-    }
+        return email;
+    } // using email as username auth
 
     @Override
     public boolean isAccountNonExpired() {

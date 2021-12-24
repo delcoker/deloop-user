@@ -27,13 +27,10 @@ public class UserDetailDto implements Serializable {
     private String prefix;
     private String title;
     private String memo;
-    private LocalDateTime lastLogin;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 
-    private boolean locked;
-    private boolean enabled;
+    private boolean locked; // TODO: do i need this here
+    private boolean enabled; // TODO: do i need this here
 
 //
 //    public int getAge() {

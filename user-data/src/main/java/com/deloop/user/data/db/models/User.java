@@ -102,7 +102,7 @@ public class User {
 
         UserDetail userDetail = userDetails.stream().findFirst().orElse(UserDetail.builder().gender(Gender.UNKNOWN).build());
         List<AddressDto> addresses = userDetail.getAddresses().stream()
-                .map(this::getAddressDto)
+                .map(Address::getAddressDto)
                 .collect(Collectors.toList());
 
         UserDetailDto userDetailDto = UserDetailDto.builder()
@@ -132,19 +132,6 @@ public class User {
 //                .userType(userTypeDto)
                 .licenseType(licenseTypeDto)
                 .userRole(userRoleDto)
-                .build();
-    }
-
-    private AddressDto getAddressDto(Address address) {
-        return AddressDto.builder()
-                .id(address.getId())
-                .addressType(address.getAddressType().name())
-                .addressLine1(address.getAddressLine1())
-                .addressLine2(address.getAddressLine2())
-                .country(address.getCountry())
-                .state(address.getState())
-                .city(address.getCity())
-                .postCode(address.getPostCode())
                 .build();
     }
 }

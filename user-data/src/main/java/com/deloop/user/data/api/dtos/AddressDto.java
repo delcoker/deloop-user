@@ -3,10 +3,12 @@ package com.deloop.user.data.api.dtos;
 import com.deloop.user.data.db.enums.Country;
 import com.deloop.user.data.db.enums.State;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.io.Serializable;
 
 @Builder
+@Getter
 public class AddressDto implements Serializable {
     private long id;
     private Country country;

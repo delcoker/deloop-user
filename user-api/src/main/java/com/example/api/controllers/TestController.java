@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("test/")
 public class TestController {
     private final LoginService loginService;
 
@@ -20,10 +20,4 @@ public class TestController {
 //        log.info(loginRequest.toString());
         return "Basic Auth Home";
     }
-
-//    @GetMapping(path = "confirm")
-//    public String confirm(@RequestParam("token") String token) {
-//        return registrationService.confirmToken(token);
-//    }
-
 }

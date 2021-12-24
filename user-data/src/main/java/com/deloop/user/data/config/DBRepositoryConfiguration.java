@@ -45,8 +45,8 @@ public class DBRepositoryConfiguration {
     }
 
     @Bean
-    IUserDetailRepository userDetailRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
-        return new UserDetailRepository(dbEbeanService.getDb());
+    IUserDetailsRepository userDetailsRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
+        return new UserDetailsRepository(dbEbeanService.getDb());
     }
 
     @Bean

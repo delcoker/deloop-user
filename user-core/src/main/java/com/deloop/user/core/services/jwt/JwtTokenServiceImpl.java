@@ -67,8 +67,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 //                .setClaims(refreshClaims)
 //                .signWith(HS512, secretKey)
 //                .compact();
-
-        System.err.println(accessToken);
+//
+//        System.err.println(accessToken);
 
         return accessToken;
     }

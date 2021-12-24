@@ -22,6 +22,5 @@ public interface IUserService extends UserDetailsService {
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
     int verifyUser(String email);
-
 //    String login(LoginRequest loginRequest) throws EmailNotFoundException;
 }

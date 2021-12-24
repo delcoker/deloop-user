@@ -1,5 +1,7 @@
 package com.deloop.user.data.db.models;
 
+import com.deloop.user.data.api.dtos.AddressDto;
+import com.deloop.user.data.api.dtos.UserDetailDto;
 import com.deloop.user.data.db.enums.Gender;
 import io.ebean.annotation.DbDefault;
 import io.ebean.annotation.WhenCreated;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -117,5 +120,32 @@ public class UserDetail {
         }
         return String.format("%s. %s. %s", String.valueOf(firstName.charAt(0)).toUpperCase(),
                 String.valueOf(otherNames.charAt(0)).toUpperCase(), lastName);
+    }
+
+    public UserDetailDto getUserDetailDto() {
+        List<AddressDto> addressesDtos = addresses.stream()
+                .map(Address::getAddressDto)
+                .collect(Collectors.toList());
+
+        return UserDetailDto.builder()
+                .addresses(addressesDtos)
+                .id(id)
+                .profilePicture(profilePicture)
+                .firstName(firstName)
+                .otherNames(otherNames)
+                .lastName(lastName)
+                .fullName(fullName)
+                .titledFullName(titledFullName)
+                .shortName(shortName)
+                .initials(initials)
+                .age(age)
+                .gender(gender.getLabel())
+                .dateOfBirth(dateOfBirth)
+                .placeOfBirth(placeOfBirth)
+                .prefix(prefix)
+                .title(title)
+                .memo(memo)
+                .locked(user.isLocked()) //TODO: do i need this here
+                .build();
     }
 }

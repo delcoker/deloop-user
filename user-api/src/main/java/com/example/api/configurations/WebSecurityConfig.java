@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -29,6 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements E
 
     private final IUserService userService;
     private final PasswordEncoder passwordEncoder;
+
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint(ObjectMapper objectMapper) {
@@ -69,8 +77,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements E
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
+//                .and()    //TODO remove soon
+//                .authorizeRequests().anyRequest().authenticated() //TODO remove soon
                 .and()
-                .authorizeRequests((request) -> request.antMatchers("/registration/**", "/auth/login")
+//                .authorizeRequests().antMatchers(AUTH_WHITELIST).authenticated()
+//                .and()
+                .authorizeRequests((request) -> request.antMatchers("/registration/**", "/auth/**",
+                                "/swagger-ui/**")
                         .permitAll()
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated())
@@ -85,6 +98,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements E
         auth.userDetailsService(userService);
         auth.authenticationProvider(daoAuthenticationProvider());
         auth.authenticationProvider(jwtAuthenticationProvider()); // https://www.javadevjournal.com/spring-security/spring-security-multiple-authentication-providers/
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(AUTH_WHITELIST);
     }
 
     @Bean

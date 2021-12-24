@@ -9,7 +9,7 @@
             <column name="addressLine1" type="varchar" defaultValue="''"/>
             <column name="addressLine2" type="varchar" defaultValue="''"/>
             <column name="postCode" type="varchar" defaultValue="''"/>
-            <column name="addressType" type="varchar(8)" checkConstraint="check ( addressType in ('HOME','BILLING','SHIPPING'))" checkConstraintName="ck_address_addressType"/>
+            <column name="addressType" type="varchar(8)" checkConstraint="check ( addressType in ('home','billing','shipping','unknown'))" checkConstraintName="ck_address_addressType"/>
             <column name="userDetailId" type="bigint" references="user_details.id" foreignKeyName="fk_address_userDetailId" foreignKeyIndex="ix_address_userDetailId"/>
         </createTable>
         <createTable name="confirmation_tokens" pkName="pk_confirmation_tokens">
