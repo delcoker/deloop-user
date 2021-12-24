@@ -4,7 +4,7 @@ import com.deloop.user.data.db.models.UserDetail;
 
 import java.util.Optional;
 
-public interface IUserDetailRepository {
+public interface IUserDetailsRepository {
 
     Optional<UserDetail> findBy(long id);
 

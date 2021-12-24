@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
-public class UserDetailRepository implements IUserDetailRepository {
+public class UserDetailsRepository implements IUserDetailsRepository {
     private final Database db;
 
     @Override
