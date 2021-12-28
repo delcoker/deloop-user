@@ -20,6 +20,15 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher # for swagger bug
 
+jwt:
+  secret:
+    key: foo1234567fo
+
+remember:
+  me:
+    secret:
+      key: nothing
+
 env: dev
 
 server:

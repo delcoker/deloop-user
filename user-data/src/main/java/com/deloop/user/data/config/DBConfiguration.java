@@ -55,8 +55,8 @@ public class DBConfiguration {
         dataSource.setPassword(databasePassword);
 
         String message = "DB Server => " + databaseServer;
-        System.err.println(message);
         log.warn(message);
+        System.err.println(message);
 
         short databasePort = 3306;
         short connectTimeout = 5000;
