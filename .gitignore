@@ -34,3 +34,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+user-data/opt/*/
+
+user-data/deloop-user_dev.log

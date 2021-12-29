@@ -50,6 +50,4 @@ public class JwtConfig { // implements EnvironmentAware {
     protected Optional<String> getRememberMeTokenSecretKey() {
         return Optional.ofNullable(REMEMBER_ME_TOKEN_SECRET_KEY);
     }
-
-
 }

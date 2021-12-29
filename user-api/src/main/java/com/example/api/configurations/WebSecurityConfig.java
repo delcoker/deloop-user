@@ -74,7 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {// implemen
 //                .authorizeRequests().antMatchers(AUTH_WHITELIST).authenticated()
 //                .and()
                 .authorizeRequests((request) -> request.antMatchers("/registration/**",
-                                "/auth/**", "/swagger-ui/**")
+                                "/auth/**",
+                                "/swagger-ui/**")
                         .permitAll()
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated())

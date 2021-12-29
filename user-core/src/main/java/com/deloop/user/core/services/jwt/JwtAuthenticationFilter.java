@@ -30,6 +30,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        log.info("Incoming request => {}?{}", request.getRequestURI(), request.getQueryString());
+
         Authentication authentication = getAuthentication(request);
         if (authentication == null) {
             log.error("authentication is null");
@@ -67,4 +69,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return null;
         }
     }
+//
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+//        return request.getRequestURI().contains("actuator") || request.getRequestURI().contains("metrics");
+//    }
 }
