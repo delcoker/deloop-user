@@ -1,5 +1,6 @@
 package com.deloop.user.data.db.repositories;
 
+import com.deloop.user.data.api.dtos.UserDto;
 import com.deloop.user.data.db.enums.UserStatus;
 import com.deloop.user.data.db.models.User;
 import com.deloop.user.data.db.models.query.QUser;
@@ -15,8 +16,12 @@ public class UserRepository implements IUserRepository {
     private final Database db;
 
     @Override
-    public Optional<User> findById(long id) {
-        return Optional.ofNullable(new QUser(db).id.eq(id).findOne());
+    public Optional<UserDto> findById(long id) {
+        User user = new QUser(db).id.eq(id).findOne();
+        if (user == null) {
+            return Optional.empty();
+        }
+        return Optional.of(user.getUserDto());
     }
 
     @Override
@@ -37,7 +42,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User update(User user) {
-        Optional<User> existingPerson = findById(user.getId());
+        Optional<UserDto> existingPerson = findById(user.getId());
         if (existingPerson.isEmpty()) {
             String message = "User with id " + user.getId() + " does not exist!";
             log.error(message);
@@ -71,5 +76,4 @@ public class UserRepository implements IUserRepository {
 //        }
 //        return db.delete(existingPerson);
     }
-
 }

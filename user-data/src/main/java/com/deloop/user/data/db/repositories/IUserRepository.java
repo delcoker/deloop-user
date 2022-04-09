@@ -1,5 +1,6 @@
 package com.deloop.user.data.db.repositories;
 
+import com.deloop.user.data.api.dtos.UserDto;
 import com.deloop.user.data.db.models.User;
 import com.deloop.user.data.exceptions.NoSuchUserException;
 
@@ -25,7 +26,7 @@ public interface IUserRepository {
      * @param id ID
      * @return a {@link User}
      */
-    Optional<User> findById(long id);
+    Optional<UserDto> findById(long id);
 
     /**
      * Finds a user by email address.

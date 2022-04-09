@@ -1,8 +1,8 @@
 package com.deloop.user.core.services;
 
+import com.deloop.user.core.models.requests.LoginRequest;
+import com.deloop.user.core.models.responses.LoginResponse;
 import com.deloop.user.core.services.jwt.JwtTokenService;
-import com.deloop.user.data.api.requests.LoginRequest;
-import com.deloop.user.data.api.responses.LoginResponse;
 import io.ebean.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
+
+    private static int EXPIRATION_MINUTES = 300;
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
@@ -25,11 +27,11 @@ public class LoginServiceImpl implements LoginService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
 
-        String jwtToken = jwtTokenService.createJwtToken(authentication, 300);
+        String jwtToken = jwtTokenService.createJwtToken(authentication, EXPIRATION_MINUTES);
 
-        LoginResponse response = new LoginResponse();
-        response.setToken(jwtToken);
-        return response;
+        return LoginResponse.builder()
+                .token(jwtToken)
+                .build();
     }
 
     @Override

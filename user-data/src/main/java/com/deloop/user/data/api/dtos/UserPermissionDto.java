@@ -6,9 +6,19 @@ import java.io.Serializable;
 
 @Builder
 public class UserPermissionDto implements Serializable {
-    private long id;
-    private String name;
-    private String code;
-    private String description;
-    private String status;
+
+    @Builder.Default
+    private long id = -1;
+
+    @Builder.Default
+    private String name = "";
+
+    @Builder.Default
+    private String code = "";
+
+    @Builder.Default
+    private String description = "";
+
+    @Builder.Default
+    private String status = "";
 }

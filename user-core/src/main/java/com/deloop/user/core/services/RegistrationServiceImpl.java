@@ -1,10 +1,8 @@
 package com.deloop.user.core.services;
 
-import com.deloop.user.core.services.db.IConfirmationTokenService;
-import com.deloop.user.core.services.db.IUserService;
+import com.deloop.user.core.models.requests.RegistrationRequest;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
-import com.deloop.user.data.api.requests.RegistrationRequest;
 import com.deloop.user.data.db.models.ConfirmationToken;
 import com.deloop.user.data.exceptions.EmailInvalidException;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
@@ -15,7 +13,7 @@ import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 public class RegistrationServiceImpl implements RegistrationService {
-    private final IUserService userService;
+    private final UserService userService;
     private final EmailValidatorService emailValidatorService;
     private final IConfirmationTokenService confirmationTokenService;
     private final EmailSenderService emailSenderService;

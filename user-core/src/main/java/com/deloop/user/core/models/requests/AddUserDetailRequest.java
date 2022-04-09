@@ -1,17 +1,21 @@
-package com.deloop.user.data.api.dtos;
+package com.deloop.user.core.models.requests;
 
+import com.deloop.user.data.api.dtos.AddressDto;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Builder
-public class UserDetailDto implements Serializable {
-
+@ToString
+//@AllArgsConstructor
+public class AddUserDetailRequest {
     @Builder.Default
     private long id = -1;
 
@@ -63,35 +67,15 @@ public class UserDetailDto implements Serializable {
     @Builder.Default
     private String memo = "";
 
+    @Builder.Default
+    private LocalDateTime lastLogin = LocalDateTime.MIN;
 
-    private boolean locked; // TODO: do i need this here
-    private boolean enabled; // TODO: do i need this here
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.MIN;
 
-//
-//    public int getAge() {
-//        if (dateOfBirth == null) {
-//            return -1;
-//        }
-//        return Period.between(dateOfBirth.toLocalDate(), LocalDate.now()).getYears() + 1;
-//    }
-//
-//    public String getFullName() {
-//        return String.format("%s %s %s", firstName, otherNames, lastName);
-//    }
-//
-//    public String getTitledFullName() {
-//        return String.format("%s %s %s", title, prefix, getFullName());
-//    }
-//
-//    public String getShortName() {
-//        return String.format("%s %s %s", prefix, getInitials(), lastName);
-//    }
-//
-//    public String getInitials() {
-//        if (otherNames == null || otherNames.length() < 1) {
-//            return "";
-//        }
-//        return String.format("%s. %s. %s", String.valueOf(firstName.charAt(0)).toUpperCase(),
-//                String.valueOf(otherNames.charAt(0)).toUpperCase(), lastName);
-//    }
+    @Builder.Default
+    private LocalDateTime updatedAt = LocalDateTime.MIN;
+
+    @Builder.Default
+    private long userId = -1;
 }

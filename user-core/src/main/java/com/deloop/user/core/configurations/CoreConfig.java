@@ -1,10 +1,6 @@
 package com.deloop.user.core.configurations;
 
-import com.deloop.user.core.services.LoginService;
-import com.deloop.user.core.services.LoginServiceImpl;
-import com.deloop.user.core.services.RegistrationService;
-import com.deloop.user.core.services.RegistrationServiceImpl;
-import com.deloop.user.core.services.db.*;
+import com.deloop.user.core.services.*;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
 import com.deloop.user.core.services.jwt.JwtTokenService;
@@ -32,7 +28,7 @@ public class CoreConfig {
     }
 
     @Bean
-    public RegistrationService registrationService(IUserService userService, EmailValidatorService emailValidatorService,
+    public RegistrationService registrationService(UserService userService, EmailValidatorService emailValidatorService,
                                                    IConfirmationTokenService confirmationTokenService, EmailSenderService emailSenderService) {
         return new RegistrationServiceImpl(userService, emailValidatorService, confirmationTokenService, emailSenderService);
     }
@@ -48,12 +44,12 @@ public class CoreConfig {
     }
 
     @Bean
-    IUserService userService(IUserRepository userRepository, PasswordEncoder passwordEncoder, IConfirmationTokenService confirmationTokenService) {
+    UserService userService(IUserRepository userRepository, PasswordEncoder passwordEncoder, IConfirmationTokenService confirmationTokenService) {
         return new UserServiceImpl(userRepository, passwordEncoder, confirmationTokenService);
     }
 
     @Bean
-    IUserRoleService userRoleService(IUserRoleRepository userRoleRepository) {
+    UserRoleService userRoleService(IUserRoleRepository userRoleRepository) {
         return new UserRoleServiceImpl(userRoleRepository);
     }
 

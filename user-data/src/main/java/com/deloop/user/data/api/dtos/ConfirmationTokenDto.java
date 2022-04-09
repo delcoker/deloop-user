@@ -4,9 +4,18 @@ import lombok.Builder;
 
 @Builder
 public class ConfirmationTokenDto {
-    private long id;
-    private String token;
-    private String createdAt;
-    private String expiresAt;
-    private String confirmedAt;
+    @Builder.Default
+    private long id = -1;
+
+    @Builder.Default
+    private String token = "";
+
+    @Builder.Default
+    private String createdAt = "";
+
+    @Builder.Default
+    private String expiresAt = "";
+
+    @Builder.Default
+    private String confirmedAt = "";
 }

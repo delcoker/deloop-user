@@ -100,7 +100,12 @@ public class User {
                 .status(licenseType.getStatus().getLabel())
                 .build();
 
-        UserDetail userDetail = userDetails.stream().findFirst().orElse(UserDetail.builder().gender(Gender.UNKNOWN).build());
+        UserDetail userDetail = userDetails.stream()
+                .findFirst()
+                .orElse(UserDetail.builder()
+                        .gender(Gender.UNKNOWN)
+                        .build());
+
         List<AddressDto> addresses = userDetail.getAddresses().stream()
                 .map(Address::getAddressDto)
                 .collect(Collectors.toList());
@@ -129,6 +134,7 @@ public class User {
                 .status(status.getLabel())
                 .userDetails(userDetailDto)
                 .providerAccounts(providerAccountDtos)
+                .locked(this.locked)
 //                .userType(userTypeDto)
                 .licenseType(licenseTypeDto)
                 .userRole(userRoleDto)

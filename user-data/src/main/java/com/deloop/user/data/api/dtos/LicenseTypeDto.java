@@ -10,11 +10,25 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class LicenseTypeDto {
-    private long id;
-    private String name;
-    private String description;
-    private String access;
-    private String status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
+    @Builder.Default
+    private long id = -1;
+
+    @Builder.Default
+    private String name = "";
+
+    @Builder.Default
+    private String description = "";
+
+    @Builder.Default
+    private String access = "";
+
+    @Builder.Default
+    private String status = "";
+
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.MIN;
+
+    @Builder.Default
+    private LocalDateTime updatedAt = LocalDateTime.MIN;
 }

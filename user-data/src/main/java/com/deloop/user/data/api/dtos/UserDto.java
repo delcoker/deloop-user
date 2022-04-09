@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -20,19 +21,41 @@ import java.util.List;
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto implements UserDetails, Serializable {
     //    @JsonProperty
-    private long id;
-    private String email;
-    private String username;
-    private boolean isVerified;
-    private String status;
-    private UserDetailDto userDetails;
-    private List<ProviderAccountDto> providerAccounts;
-    //    private UserTypeDto userType;
-    private UserRoleDto userRole;
-    private LicenseTypeDto licenseType;
+
+    @Builder.Default
+    private long id = -1;
+
+    @Builder.Default
+    private String email = "";
+
+    @Builder.Default
+    private String username = "";
+
+    @Builder.Default
+    private boolean isVerified = false;
+
+    @Builder.Default
+    private String status = "";
+
+    @Builder.Default
+    private UserDetailDto userDetails = UserDetailDto.builder().build();
+
+    @Builder.Default
+    private List<ProviderAccountDto> providerAccounts = new ArrayList<>();
+
+    @Builder.Default
+    //    private UserTypeDto userType = ";
+    private UserRoleDto userRole = UserRoleDto.builder().build();
+
+    @Builder.Default
+    private LicenseTypeDto licenseType = LicenseTypeDto.builder().build();
+
+    @Builder.Default
     @JsonIgnore
-    private String password;
-    private boolean locked;
+    private String password = "";
+
+    @Builder.Default
+    private boolean locked = true;
 
     //    @JsonIgnore
     @Override
@@ -40,6 +63,8 @@ public class UserDto implements UserDetails, Serializable {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.toString());
         return Collections.singletonList(authority);
     }
+
+    // Basic spring USERDETAILS data... not actually full user details
 
     @Override
     public String getPassword() {
@@ -54,7 +79,7 @@ public class UserDto implements UserDetails, Serializable {
     @Override
     public boolean isAccountNonExpired() {
         return true;
-    }
+    } // should be something else?
 
     @Override
     public boolean isAccountNonLocked() {
@@ -64,7 +89,7 @@ public class UserDto implements UserDetails, Serializable {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    }
+    } // should be something else?
 
     @Override
     public boolean isEnabled() {

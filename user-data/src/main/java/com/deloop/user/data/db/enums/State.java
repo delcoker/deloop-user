@@ -1,4 +1,3 @@
-
 package com.deloop.user.data.db.enums;
 
 import lombok.Getter;
@@ -8,6 +7,9 @@ import lombok.Getter;
  */
 @Getter
 public enum State {
+
+  AC("Accra"),
+
 
   AK("Alaska"),
   AL("Alabama"),
