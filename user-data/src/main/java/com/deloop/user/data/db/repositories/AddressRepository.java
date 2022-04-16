@@ -1,5 +1,7 @@
 package com.deloop.user.data.db.repositories;
 
+import com.deloop.user.data.api.dtos.AddressDto;
+import com.deloop.user.data.daos.AddressDao;
 import com.deloop.user.data.db.models.Address;
 
 import java.util.List;
@@ -39,16 +41,17 @@ public interface AddressRepository {
     /**
      * Stores the given Address.
      *
-     * @param Address a {@link Address}
-     * @return the stored {@link Address}
+     * @param address      a {@link AddressDao}
+     * @param userDetailId
+     * @return the stored {@link AddressDto}
      */
-    Address save(Address Address);
+    AddressDto save(AddressDao address, long userDetailId);
 
     /**
      * Stores the given Address.
      *
-     * @param Address a {@link Address}
-     * @return the stored {@link Address}
+     * @param addressDao a {@link AddressDao}
+     * @return the stored {@link AddressDto}
      */
-    Address update(Address Address);
+    AddressDto update(AddressDao addressDao);
 }

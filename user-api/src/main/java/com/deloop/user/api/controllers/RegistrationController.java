@@ -1,7 +1,7 @@
 package com.deloop.user.api.controllers;
 
 
-import com.deloop.user.core.models.requests.RegistrationRequest;
+import com.deloop.user.core.models.requests.auth.RegistrationRequest;
 import com.deloop.user.core.services.RegistrationService;
 import com.deloop.user.data.exceptions.EmailInvalidException;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;

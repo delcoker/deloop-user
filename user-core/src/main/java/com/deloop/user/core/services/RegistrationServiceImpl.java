@@ -1,6 +1,6 @@
 package com.deloop.user.core.services;
 
-import com.deloop.user.core.models.requests.RegistrationRequest;
+import com.deloop.user.core.models.requests.auth.RegistrationRequest;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
 import com.deloop.user.core.services.user.UserService;

@@ -1,4 +1,4 @@
-package com.deloop.user.core.models.requests;
+package com.deloop.user.core.models.requests.userdetails;
 
 import lombok.Builder;
 import lombok.Getter;

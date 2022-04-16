@@ -1,7 +1,7 @@
 package com.deloop.user.core.services.user;
 
-import com.deloop.user.core.models.requests.AddOrUpdateUserDetailRequest;
-import com.deloop.user.core.models.requests.GetUserDetailRequest;
+import com.deloop.user.core.models.requests.userdetails.AddOrUpdateUserDetailRequest;
+import com.deloop.user.core.models.requests.userdetails.GetUserDetailRequest;
 import com.deloop.user.core.services.auth.AuthenticationFacade;
 import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.api.dtos.UserDetailDto;

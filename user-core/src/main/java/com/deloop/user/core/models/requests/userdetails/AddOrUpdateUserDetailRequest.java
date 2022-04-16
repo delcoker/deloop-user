@@ -1,4 +1,4 @@
-package com.deloop.user.core.models.requests;
+package com.deloop.user.core.models.requests.userdetails;
 
 import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.db.enums.Gender;

@@ -14,7 +14,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @ToString
 @Entity
 @Table(name = "address")

@@ -1,6 +1,9 @@
 package com.deloop.user.data.db.repositories;
 
+import com.deloop.user.data.api.dtos.AddressDto;
+import com.deloop.user.data.daos.AddressDao;
 import com.deloop.user.data.db.models.Address;
+import com.deloop.user.data.db.models.UserDetail;
 import com.deloop.user.data.db.models.query.QAddress;
 import io.ebean.Database;
 import lombok.RequiredArgsConstructor;
@@ -30,21 +33,44 @@ public class AddressRepositoryImpl implements AddressRepository {
     }
 
     @Override
-    public Address save(Address address) {
+    public AddressDto save(AddressDao addressDao, long userDetailId) {
+        Address address = Address.builder()
+                .addressType(addressDao.getAddressType())
+                .addressLine1(addressDao.getAddressLine1())
+                .addressLine2(addressDao.getAddressLine2())
+                .city(addressDao.getCity())
+                .state(addressDao.getState())
+                .postCode(addressDao.getPostCode())
+                .country(addressDao.getCountry())
+                .userDetail(UserDetail.builder().id(userDetailId).build())
+                .build();
+
         db.save(address);
-        return address;
+        return map(address);
     }
 
     @Override
-    public Address update(Address address) {
-        Optional<Address> existing = findById(address.getId());
-        if (existing.isEmpty()) {
-            String message = "Address with id " + address.getId() + " does not exist!";
-            log.info(message);
-            throw new IllegalStateException(message);
-        }
-        db.update(address);
-        return address;
+    public AddressDto update(AddressDao addressDao) {
+        Address existing = findById(addressDao.getId())
+                .orElseThrow(() -> {
+                    String message = "Address with id " + addressDao.getId() + " does not exist!";
+                    log.info(message);
+                    throw new IllegalStateException(message);
+                });
+
+        Address updatedAddress = existing.toBuilder()
+                .id(addressDao.getId())
+                .addressType(addressDao.getAddressType())
+                .addressLine1(addressDao.getAddressLine1())
+                .addressLine2(addressDao.getAddressLine2())
+                .city(addressDao.getCity())
+                .state(addressDao.getState())
+                .postCode(addressDao.getPostCode())
+                .country(addressDao.getCountry())
+                .build();
+
+        db.update(updatedAddress);
+        return map(updatedAddress);
     }
 
     @Override
@@ -56,4 +82,30 @@ public class AddressRepositoryImpl implements AddressRepository {
         log.error(message);
         return false;
     }
+
+    private AddressDto map(Address address) {
+        return AddressDto.builder()
+                .id(address.getId())
+                .addressType(address.getAddressType())
+                .addressLine1(address.getAddressLine1())
+                .addressLine2(address.getAddressLine2())
+                .city(address.getCity())
+                .state(address.getState())
+                .postCode(address.getPostCode())
+                .country(address.getCountry())
+                .build();
+    }
+
+//    private Address mapAddress(AddressDao addressDao) {
+//        return Address.builder()
+//                .id(addressDao.getId())
+//                .addressType(addressDao.getAddressType())
+//                .addressLine1(addressDao.getAddressLine1())
+//                .addressLine2(addressDao.getAddressLine2())
+//                .city(addressDao.getCity())
+//                .state(addressDao.getState())
+//                .postCode(addressDao.getPostCode())
+//                .country(addressDao.getCountry())
+//                .build();
+//    }
 }

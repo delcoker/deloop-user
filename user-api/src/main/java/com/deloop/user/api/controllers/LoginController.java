@@ -1,7 +1,7 @@
 package com.deloop.user.api.controllers;
 
 
-import com.deloop.user.core.models.requests.LoginRequest;
+import com.deloop.user.core.models.requests.auth.LoginRequest;
 import com.deloop.user.core.models.responses.LoginResponse;
 import com.deloop.user.core.services.LoginService;
 import com.deloop.user.core.services.user.UserService;

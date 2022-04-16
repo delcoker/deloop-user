@@ -1,4 +1,4 @@
-package com.deloop.user.core.models.requests;
+package com.deloop.user.core.models.requests.auth;
 
 import io.swagger.annotations.ApiParam;
 import lombok.Builder;

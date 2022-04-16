@@ -1,6 +1,6 @@
 package com.deloop.user.core.services;
 
-import com.deloop.user.core.models.requests.LoginRequest;
+import com.deloop.user.core.models.requests.auth.LoginRequest;
 import com.deloop.user.core.models.responses.LoginResponse;
 import com.deloop.user.core.services.jwt.JwtTokenService;
 import io.ebean.annotation.Transactional;

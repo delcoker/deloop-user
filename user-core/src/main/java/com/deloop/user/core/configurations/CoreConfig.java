@@ -43,6 +43,12 @@ public class CoreConfig {
     }
 
     @Bean
+    public AddressService addressService(AuthenticationFacade authenticationFacade, AddressRepository addressRepository,
+                                         UserService userService, IUserDetailsService userDetailsService) {
+        return new AddressServiceImpl(authenticationFacade, addressRepository, userService, userDetailsService);
+    }
+
+    @Bean
     public LoginService loginService(AuthenticationManager authenticationManager, JwtTokenService jwtTokenService) {
         return new LoginServiceImpl(authenticationManager, jwtTokenService);
     }
