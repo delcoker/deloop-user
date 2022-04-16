@@ -1,79 +1,64 @@
 package com.deloop.user.data.db.repositories;
 
 import com.deloop.user.data.api.dtos.UserDto;
-import com.deloop.user.data.db.enums.UserStatus;
 import com.deloop.user.data.db.models.User;
-import com.deloop.user.data.db.models.query.QUser;
-import io.ebean.Database;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import com.deloop.user.data.exceptions.NoSuchUserException;
 
 import java.util.Optional;
 
-@Slf4j
-@RequiredArgsConstructor
-public class UserRepository implements IUserRepository {
-    private final Database db;
+/**
+ * Repository for managing the lifecycle of {@link User} entities.
+ */
+public interface UserRepository {
 
-    @Override
-    public Optional<UserDto> findById(long id) {
-        User user = new QUser(db).id.eq(id).findOne();
-        if (user == null) {
-            return Optional.empty();
-        }
-        return Optional.of(user.getUserDto());
-    }
+    /**
+     * Deletes the given user, provided that it exists.
+     *
+     * @param userId {@link User}'s ID
+     * @return
+     * @throws NoSuchUserException if the user doesn't exist
+     */
+    boolean delete(long userId) throws IllegalStateException;
 
-    @Override
-    public Optional<User> findByEmail(String email) {
-        return Optional.ofNullable(new QUser(db).email.eq(email).findOne());
-    }
+    /**
+     * Finds a user based on its ID.
+     *
+     * @param id ID
+     * @return a {@link User}
+     */
+    Optional<UserDto> findById(long id);
 
-    @Override
-    public Optional<User> findByUserName(String userName) {
-        return Optional.ofNullable(new QUser(db).username.eq(userName).findOne());
-    }
+    /**
+     * Finds a user by email address.
+     *
+     * @param email Email address
+     * @return a {@link User}
+     */
+    Optional<User> findByEmail(String email);
 
-    @Override
-    public void save(User user) {
-        db.save(user);
-//        return user;
-    }
+    /**
+     * Finds a user by username.
+     *
+     * @param userName the username
+     * @return a {@link User}
+     */
+    Optional<User> findByUserName(String userName);
 
-    @Override
-    public User update(User user) {
-        Optional<UserDto> existingPerson = findById(user.getId());
-        if (existingPerson.isEmpty()) {
-            String message = "User with id " + user.getId() + " does not exist!";
-            log.error(message);
-            throw new IllegalStateException(message);
-        }
-        db.update(user);
-        return user;
-    }
+    /**
+     * Stores the given user.
+     *
+     * @param user a {@link User}
+     * @return the stored {@link User}
+     */
+    void save(User user);
 
-    @Override
-    public int verifyUser(String email) {
-        return new QUser().email.eq(email)
-                .asUpdate()
-                .set("isVerified", true)
-                .set("status", UserStatus.ENABLED)
-                .update();
-    }
+    /**
+     * Updates the given user.
+     *
+     * @param user a {@link User}
+     * @return the stored {@link User}
+     */
+    User update(User user);
 
-    @Override
-    public boolean delete(long userId) throws IllegalStateException {
-        if (db.delete(User.builder().id(userId).build())) {
-            return true;
-        }
-//        Optional<User> existingPerson = findById(userId);
-//        if (existingPerson.isPresent()) {
-        String message = "User with id " + userId + " does not exist!";
-        log.error(message);
-        return false;
-//            throw new IllegalStateException(message);
-////            throw new NotFoundException(message);
-//        }
-//        return db.delete(existingPerson);
-    }
+    int verifyUser(String email);
 }

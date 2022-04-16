@@ -1,4 +1,4 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.user;
 
 //import com.deloop.user.core.models.requests.UserTypeRequest;
 

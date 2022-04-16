@@ -1,6 +1,6 @@
 package com.deloop.user.core.models.requests;
 
-import lombok.AllArgsConstructor;
+import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -8,11 +8,28 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-@AllArgsConstructor
 public class RegistrationRequest {
-    private String email;
-    private String password;
-    private String username;
+
+    @Builder.Default
+    @ApiParam(required = true)
+    private String email = "";
+
+    @Builder.Default
+    @ApiParam(required = true)
+    private String verifyEmail = "";
+
+    @Builder.Default
+    @ApiParam(required = true)
+    private String password = "";
+
+    @Builder.Default
+    private String username = "";
+
+    public boolean isValid() {
+        return email.equalsIgnoreCase(verifyEmail);
+    }
+
+
 //    private final String firstName;
 //    private final String lastName;
 

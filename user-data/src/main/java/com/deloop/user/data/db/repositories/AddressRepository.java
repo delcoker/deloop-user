@@ -1,53 +1,45 @@
 package com.deloop.user.data.db.repositories;
 
 import com.deloop.user.data.db.models.Address;
-import com.deloop.user.data.db.models.query.QAddress;
-import io.ebean.Database;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
-@Slf4j
-@RequiredArgsConstructor
-public class AddressRepository implements IAddressRepository {
-    private final Database db;
+/**
+ * Repository for managing the lifecycle of {@link Address} entities.
+ */
+public interface AddressRepository {
 
-    @Override
-    public Optional<Address> findById(long id) {
-        return Optional.ofNullable(new QAddress(db).id.eq(id).findOne());
-    }
+    boolean delete(long addressId);
 
-    @Override
-    public Optional<Address> findByPostCode(String postCode) {
-        return Optional.ofNullable(new QAddress(db).postCode.eq(postCode).findOne());
-    }
+    /**
+     * Finds an Address based on its ID.
+     *
+     * @param id ID
+     * @return a {@link Address}
+     */
+    Optional<Address> findById(long id);
 
-    @Override
-    public Address save(Address address) {
-        db.save(address);
-        return address;
-    }
+    /**
+     * Finds an Address by email address.
+     *
+     * @param postCode Post Code
+     * @return an {@link Address}
+     */
+    Optional<Address> findByPostCode(String postCode);
 
-    @Override
-    public Address update(Address address) {
-        Optional<Address> existing = findById(address.getId());
-        if (existing.isEmpty()) {
-            String message = "Address with id " + address.getId() + " does not exist!";
-            log.info(message);
-            throw new IllegalStateException(message);
-        }
-        db.update(address);
-        return address;
-    }
+    /**
+     * Stores the given Address.
+     *
+     * @param Address a {@link Address}
+     * @return the stored {@link Address}
+     */
+    Address save(Address Address);
 
-    @Override
-    public boolean delete(long addressId) {
-        if (db.delete(Address.builder().id(addressId).build())) {
-            return true;
-        }
-        String message = "Address with id " + addressId + " does not exist!";
-        log.error(message);
-        return false;
-    }
+    /**
+     * Stores the given Address.
+     *
+     * @param Address a {@link Address}
+     * @return the stored {@link Address}
+     */
+    Address update(Address Address);
 }

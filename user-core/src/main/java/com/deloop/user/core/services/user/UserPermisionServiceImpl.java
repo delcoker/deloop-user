@@ -1,8 +1,8 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.user;
 
 import com.deloop.user.core.models.requests.UserPermissionRequest;
-import com.deloop.user.data.db.repositories.IUserPermissionRepository;
 import com.deloop.user.data.db.models.UserPermission;
+import com.deloop.user.data.db.repositories.IUserPermissionRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

@@ -4,6 +4,7 @@ import com.deloop.user.core.services.*;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
 import com.deloop.user.core.services.jwt.JwtTokenService;
+import com.deloop.user.core.services.user.*;
 import com.deloop.user.data.config.DBConfiguration;
 import com.deloop.user.data.db.repositories.*;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Import({DBConfiguration.class, EmailConfig.class})
 public class CoreConfig {
     @Bean
-    IUserDetailsService userDetailsService(IUserDetailsRepository userDetailRepository) {
+    IUserDetailsService userDetailsService(UserDetailsRepository userDetailRepository) {
         return new UserDetailsServiceImpl(userDetailRepository);
     }
 
@@ -44,7 +45,7 @@ public class CoreConfig {
     }
 
     @Bean
-    UserService userService(IUserRepository userRepository, PasswordEncoder passwordEncoder, IConfirmationTokenService confirmationTokenService) {
+    UserService userService(UserRepository userRepository, PasswordEncoder passwordEncoder, IConfirmationTokenService confirmationTokenService) {
         return new UserServiceImpl(userRepository, passwordEncoder, confirmationTokenService);
     }
 

@@ -1,15 +1,17 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.user;
 
 import com.deloop.user.core.models.requests.AddUserDetailRequest;
 import com.deloop.user.core.models.requests.GetUserDetailRequest;
 import com.deloop.user.core.models.requests.UpdateUserDetailRequest;
 import com.deloop.user.data.api.dtos.UserDetailDto;
+import com.deloop.user.data.daos.UserDetailDao;
 import com.deloop.user.data.db.enums.AddressType;
 import com.deloop.user.data.db.enums.Gender;
 import com.deloop.user.data.db.models.Address;
 import com.deloop.user.data.db.models.User;
 import com.deloop.user.data.db.models.UserDetail;
-import com.deloop.user.data.db.repositories.IUserDetailsRepository;
+import com.deloop.user.data.db.repositories.UserDetailsRepository;
+import com.deloop.user.data.exceptions.NoSuchUserException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -18,13 +20,13 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements IUserDetailsService {
-    public final IUserDetailsRepository userDetailsRepository;
+    public final UserDetailsRepository userDetailsRepository;
 
-    public void addUserDetails(AddUserDetailRequest addUserDetailRequest) {
-        List<Address> addresses = getAddresses(addUserDetailRequest);
+    public boolean addUserDetails(AddUserDetailRequest addUserDetailRequest) throws NoSuchUserException {
+//        List<Address> addresses = getAddresses(addUserDetailRequest);
 
-        UserDetail userDetail = UserDetail.builder()
-                .id(addUserDetailRequest.getId())
+        UserDetailDao userDetailDao = UserDetailDao.builder()
+//                .id(addUserDetailRequest.getId())
                 .profilePicture(addUserDetailRequest.getProfilePicture())
                 .firstName(addUserDetailRequest.getFirstName())
                 .otherNames(addUserDetailRequest.getOtherNames())
@@ -34,16 +36,18 @@ public class UserDetailsServiceImpl implements IUserDetailsService {
                 .shortName(addUserDetailRequest.getShortName())
                 .initials(addUserDetailRequest.getInitials())
                 .age(addUserDetailRequest.getAge())
-                .gender(Gender.getGenderFromText(addUserDetailRequest.getGender()))
-                .addresses(addresses)
+                .gender(addUserDetailRequest.getGender())
+                .addresses(addUserDetailRequest.getAddresses())
                 .dateOfBirth(addUserDetailRequest.getDateOfBirth())
                 .placeOfBirth(addUserDetailRequest.getPlaceOfBirth())
                 .prefix(addUserDetailRequest.getPrefix())
                 .title(addUserDetailRequest.getTitle())
                 .memo(addUserDetailRequest.getMemo())
-                .user(User.builder().id(addUserDetailRequest.getUserId()).build())
+                .userId(addUserDetailRequest.getUserId())
                 .build();
-        userDetailsRepository.save(userDetail);
+        userDetailsRepository.save(userDetailDao);
+
+        return true;
     }
 
     private List<Address> getAddresses(AddUserDetailRequest addUserDetailRequest) {

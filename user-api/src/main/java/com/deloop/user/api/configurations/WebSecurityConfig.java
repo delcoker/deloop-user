@@ -1,10 +1,10 @@
 package com.deloop.user.api.configurations;
 
-import com.deloop.user.core.services.UserService;
 import com.deloop.user.core.services.jwt.JwtAuthenticationEntryPoint;
 import com.deloop.user.core.services.jwt.JwtAuthenticationFilter;
 import com.deloop.user.core.services.jwt.JwtAuthenticationProvider;
 import com.deloop.user.core.services.jwt.JwtTokenService;
+import com.deloop.user.core.services.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

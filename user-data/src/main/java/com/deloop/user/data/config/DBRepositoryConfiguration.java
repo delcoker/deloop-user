@@ -15,8 +15,8 @@ public class DBRepositoryConfiguration {
     }
 
     @Bean
-    IUserRepository userRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
-        return new UserRepository(dbEbeanService.getDb());
+    UserRepository userRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
+        return new UserRepositoryImpl(dbEbeanService.getDb());
     }
 
     @Bean
@@ -30,8 +30,8 @@ public class DBRepositoryConfiguration {
 //    }
 
     @Bean
-    IAddressRepository addressRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
-        return new AddressRepository(dbEbeanService.getDb());
+    AddressRepository addressRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
+        return new AddressRepositoryImpl(dbEbeanService.getDb());
     }
 
     @Bean
@@ -45,8 +45,8 @@ public class DBRepositoryConfiguration {
     }
 
     @Bean
-    IUserDetailsRepository userDetailsRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
-        return new UserDetailsRepository(dbEbeanService.getDb());
+    UserDetailsRepository userDetailsRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
+        return new UserDetailsRepositoryImpl(dbEbeanService.getDb());
     }
 
     @Bean

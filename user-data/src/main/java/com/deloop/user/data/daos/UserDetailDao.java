@@ -1,4 +1,4 @@
-package com.deloop.user.core.models.requests;
+package com.deloop.user.data.daos;
 
 import com.deloop.user.data.api.dtos.AddressDto;
 import lombok.Builder;
@@ -9,14 +9,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-//@Setter
 @Builder
+@Getter
 @ToString
-//@AllArgsConstructor
-public class AddUserDetailRequest {
-//    @Builder.Default
-//    private long id = -1;
+public class UserDetailDao {
 
     @Builder.Default
     private String profilePicture = "";
@@ -77,4 +73,5 @@ public class AddUserDetailRequest {
 
     @Builder.Default
     private long userId = -1;
+
 }

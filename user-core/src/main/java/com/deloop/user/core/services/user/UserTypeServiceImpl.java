@@ -1,4 +1,4 @@
-package com.deloop.user.core.services;
+package com.deloop.user.core.services.user;
 
 //@RequiredArgsConstructor
 //public class UserTypeServiceImpl implements IUserTypeService {

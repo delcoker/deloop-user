@@ -3,6 +3,7 @@ package com.deloop.user.core.services;
 import com.deloop.user.core.models.requests.RegistrationRequest;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
+import com.deloop.user.core.services.user.UserService;
 import com.deloop.user.data.db.models.ConfirmationToken;
 import com.deloop.user.data.exceptions.EmailInvalidException;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
