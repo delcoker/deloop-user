@@ -1,9 +1,10 @@
 package com.deloop.user.core.models.requests;
 
 import com.deloop.user.data.api.dtos.AddressDto;
+import com.deloop.user.data.db.enums.Gender;
+import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -11,68 +12,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
+//@Setter
 @Builder
 @ToString
 //@AllArgsConstructor
-public class UpdateUserDetailRequest {
+public class AddOrUpdateUserDetailRequest {
+//    @Builder.Default
+//    private long id = -1;
+
     @Builder.Default
     private String profilePicture = "";
 
     @Builder.Default
+    @ApiParam(example = "Kingston")
     private String firstName = "";
 
     @Builder.Default
     private String otherNames = "";
 
     @Builder.Default
+    @ApiParam(example = "Coker")
     private String lastName = "";
 
     @Builder.Default
-    private String fullName = "";
+    @ApiParam(example = "male")
+    private Gender gender = Gender.MALE;
 
     @Builder.Default
-    private String titledFullName = "";
-
-    @Builder.Default
-    private String shortName = "";
-
-    @Builder.Default
-    private String initials = "";
-
-    @Builder.Default
-    private int age = -1;
-
-    @Builder.Default
-    private String gender = "";
-
-    @Builder.Default
+    @ApiParam(example = "home")
     private List<AddressDto> addresses = new ArrayList<>();
 
     @Builder.Default
+    @ApiParam(example = "1999-04-26T08:00:19")
     private LocalDateTime dateOfBirth = LocalDateTime.MIN;
 
     @Builder.Default
+    @ApiParam(example = "Accra")
     private String placeOfBirth = "";
 
     @Builder.Default
+    @ApiParam(example = "Mr.")
     private String prefix = "";
 
     @Builder.Default
+    @ApiParam(example = "")
     private String title = "";
 
     @Builder.Default
+    @ApiParam(example = "no memo")
     private String memo = "";
 
     @Builder.Default
-    private LocalDateTime lastLogin = LocalDateTime.MIN;
+    @ApiParam(example = "1999-04-26 00:00:00")
+//    @ApiParam(example = "1999-04-26T08:00:19Z")
+    private LocalDateTime lastLogin = LocalDateTime.now();
 
     @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.MIN;
-
-    @Builder.Default
-    private LocalDateTime updatedAt = LocalDateTime.MIN;
-
-    @Builder.Default
+    @ApiParam(example = "-1")
     private long userId = -1;
 }

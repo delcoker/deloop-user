@@ -1,6 +1,8 @@
 package com.deloop.user.core.configurations;
 
 import com.deloop.user.core.services.*;
+import com.deloop.user.core.services.auth.AuthenticationFacade;
+import com.deloop.user.core.services.auth.AuthenticationFacadeImpl;
 import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailValidatorService;
 import com.deloop.user.core.services.jwt.JwtTokenService;
@@ -19,8 +21,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Import({DBConfiguration.class, EmailConfig.class})
 public class CoreConfig {
     @Bean
-    IUserDetailsService userDetailsService(UserDetailsRepository userDetailRepository) {
-        return new UserDetailsServiceImpl(userDetailRepository);
+    AuthenticationFacade authenticationFacade() {
+        return new AuthenticationFacadeImpl();
+    }
+
+    @Bean
+    IUserDetailsService userDetailsService(UserDetailsRepository userDetailRepository, AuthenticationFacade authenticationFacade,
+                                           UserService userService) {
+        return new UserDetailsServiceImpl(userDetailRepository, authenticationFacade, userService);
     }
 
     @Bean

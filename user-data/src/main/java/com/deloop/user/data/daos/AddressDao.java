@@ -1,4 +1,4 @@
-package com.deloop.user.data.api.dtos;
+package com.deloop.user.data.daos;
 
 import com.deloop.user.data.db.enums.AddressType;
 import com.deloop.user.data.db.enums.Country;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Builder
 @Getter
-public class AddressDto implements Serializable {
+public class AddressDao implements Serializable {
     @Builder.Default
     private long id = -1;
 

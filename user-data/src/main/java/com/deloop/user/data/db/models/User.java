@@ -120,7 +120,7 @@ public class User {
                 .titledFullName(userDetail.getTitledFullName())
                 .shortName(userDetail.getShortName())
                 .initials(userDetail.getInitials())
-                .gender(userDetail.getGender().getLabel())
+                .gender(userDetail.getGender())
                 .dateOfBirth(userDetail.getDateOfBirth())
                 .addresses(addresses)
                 .build();

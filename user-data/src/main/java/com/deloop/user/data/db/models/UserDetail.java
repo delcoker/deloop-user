@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @ToString
 @Entity
 @Table(name = "user_details")
@@ -29,36 +29,54 @@ public class UserDetail {
     private long id;
 
     @Column
-    private String profilePicture;
+    @Builder.Default
+    private String profilePicture = "";
 
     @Column
     @DbDefault("")
-    private String firstName;
+    @Builder.Default
+    private String firstName = "";
+
     @Column(columnDefinition = "VARCHAR(100)")
     @DbDefault("")
-    private String otherNames;
+    @Builder.Default
+    private String otherNames = "";
+
     @Column(columnDefinition = "VARCHAR(100)")
     @DbDefault("")
-    private String lastName;
+    @Builder.Default
+    private String lastName = "";
+
     @Transient
     @DbDefault("")
-    private String fullName;
+    @Builder.Default
+    private String fullName = "";
+
     @Transient
     @DbDefault("")
-    private String titledFullName;
+    @Builder.Default
+    private String titledFullName = "";
+
     @Transient
     @DbDefault("")
-    private String shortName;
+    @Builder.Default
+    private String shortName = "";
+
     @Transient
     @DbDefault("")
-    private String initials;
+    @Builder.Default
+    private String initials = "";
+
     @Transient
-    private int age; // do I need this property
+    @Builder.Default
+    private int age = -1; // do I need this property
 
     @Enumerated(value = EnumType.STRING)
-    private Gender gender;
+    @Builder.Default
+    private Gender gender = Gender.UNKNOWN;
 
     @Column
+    @DbDefault("2020-04-26 00:00")
     private LocalDateTime dateOfBirth;
 
     @Column
@@ -67,23 +85,28 @@ public class UserDetail {
 
     @Column
     @DbDefault("")
-    private String prefix;
+    @Builder.Default
+    private String prefix = "";
 
     @Column(columnDefinition = "VARCHAR(100)")
     @DbDefault("")
-    private String title;
+    @Builder.Default
+    private String title = "";
 
     @Column(columnDefinition = "TEXT")
     @DbDefault("")
-    private String memo;
+    @Builder.Default
+    private String memo = "";
 
     @Column
     @DbDefault("2020-04-26 00:00")
     private LocalDateTime lastLogin;
+
     @Column
     @WhenCreated
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.MIN;
+
     @Column
     @WhenModified
     @DbDefault("2020-04-26 00:00")
@@ -99,7 +122,7 @@ public class UserDetail {
         if (dateOfBirth == null) {
             return -1;
         }
-        return Period.between(dateOfBirth.toLocalDate(), LocalDate.now()).getYears() + 1;
+        return Period.between(dateOfBirth.toLocalDate(), LocalDate.now()).getYears();
     }
 
     public String getFullName() {
@@ -134,14 +157,14 @@ public class UserDetail {
                 .firstName(firstName)
                 .otherNames(otherNames)
                 .lastName(lastName)
-                .fullName(fullName)
-                .titledFullName(titledFullName)
-                .shortName(shortName)
-                .initials(initials)
-                .age(age)
-                .gender(gender.getLabel())
-                .dateOfBirth(dateOfBirth)
-                .placeOfBirth(placeOfBirth)
+                .fullName(getFullName())
+                .titledFullName(getTitledFullName())
+                .shortName(getShortName())
+                .initials(getInitials())
+                .age(getAge())
+                .gender(gender)
+                .dateOfBirth(getDateOfBirth())
+                .placeOfBirth(getPlaceOfBirth())
                 .prefix(prefix)
                 .title(title)
                 .memo(memo)

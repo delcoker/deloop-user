@@ -2,6 +2,7 @@ package com.deloop.user.data.db.repositories;
 
 import com.deloop.user.data.db.models.Address;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -10,6 +11,14 @@ import java.util.Optional;
 public interface AddressRepository {
 
     boolean delete(long addressId);
+
+    /**
+     * Finds an Address based on user detail ID.
+     *
+     * @param id ID
+     * @return a {@link Address}
+     */
+    List<Address> findByUserDetailId(long id);
 
     /**
      * Finds an Address based on its ID.

@@ -2,13 +2,11 @@ package com.deloop.user.core.models.requests;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 @Getter
-@Setter
+//@Setter
 @Builder
-@ToString
+//@ToString
 //@AllArgsConstructor
 public class GetUserDetailRequest {
     @Builder.Default

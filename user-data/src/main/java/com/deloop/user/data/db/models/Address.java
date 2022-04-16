@@ -52,7 +52,7 @@ public class Address {
     public AddressDto getAddressDto() {
         return AddressDto.builder()
                 .id(id)
-                .addressType(addressType.getLabel()) // need address type dto?
+                .addressType(addressType) // need address type dto?
                 .addressLine1(addressLine1)
                 .addressLine2(addressLine2)
                 .country(country)

@@ -1,6 +1,6 @@
 package com.deloop.user.data.daos;
 
-import com.deloop.user.data.api.dtos.AddressDto;
+import com.deloop.user.data.db.enums.Gender;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -42,10 +42,10 @@ public class UserDetailDao {
     private int age = -1;
 
     @Builder.Default
-    private String gender = "";
+    private Gender gender = Gender.UNKNOWN;
 
     @Builder.Default
-    private List<AddressDto> addresses = new ArrayList<>();
+    private List<AddressDao> addresses = new ArrayList<>();
 
     @Builder.Default
     private LocalDateTime dateOfBirth = LocalDateTime.MIN;
@@ -73,5 +73,4 @@ public class UserDetailDao {
 
     @Builder.Default
     private long userId = -1;
-
 }

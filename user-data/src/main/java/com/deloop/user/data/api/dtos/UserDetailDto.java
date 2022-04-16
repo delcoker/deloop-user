@@ -1,5 +1,6 @@
 package com.deloop.user.data.api.dtos;
 
+import com.deloop.user.data.db.enums.Gender;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -43,7 +44,7 @@ public class UserDetailDto implements Serializable {
     private int age = -1;
 
     @Builder.Default
-    private String gender = "";
+    private Gender gender = Gender.MALE;
 
     @Builder.Default
     private List<AddressDto> addresses = new ArrayList<>();

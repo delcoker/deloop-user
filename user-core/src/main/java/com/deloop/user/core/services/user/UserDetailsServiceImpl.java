@@ -1,18 +1,18 @@
 package com.deloop.user.core.services.user;
 
-import com.deloop.user.core.models.requests.AddUserDetailRequest;
+import com.deloop.user.core.models.requests.AddOrUpdateUserDetailRequest;
 import com.deloop.user.core.models.requests.GetUserDetailRequest;
-import com.deloop.user.core.models.requests.UpdateUserDetailRequest;
+import com.deloop.user.core.services.auth.AuthenticationFacade;
+import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.api.dtos.UserDetailDto;
+import com.deloop.user.data.daos.AddressDao;
 import com.deloop.user.data.daos.UserDetailDao;
-import com.deloop.user.data.db.enums.AddressType;
-import com.deloop.user.data.db.enums.Gender;
-import com.deloop.user.data.db.models.Address;
-import com.deloop.user.data.db.models.User;
 import com.deloop.user.data.db.models.UserDetail;
 import com.deloop.user.data.db.repositories.UserDetailsRepository;
+import com.deloop.user.data.exceptions.EmailNotFoundException;
 import com.deloop.user.data.exceptions.NoSuchUserException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,46 +21,49 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements IUserDetailsService {
     public final UserDetailsRepository userDetailsRepository;
+    public final AuthenticationFacade authenticationFacade;
+    public final UserService userService;
 
-    public boolean addUserDetails(AddUserDetailRequest addUserDetailRequest) throws NoSuchUserException {
-//        List<Address> addresses = getAddresses(addUserDetailRequest);
+    public UserDetailDto addUserDetails(AddOrUpdateUserDetailRequest addOrUpdateUserDetailRequest) throws NoSuchUserException, EmailNotFoundException {
+
+        Authentication authentication = authenticationFacade.getAuthentication();
+        long userId = addOrUpdateUserDetailRequest.getUserId() <= 0
+                ? userService.loadUserByEmail(authentication.getName()).getId()
+                : addOrUpdateUserDetailRequest.getUserId();
 
         UserDetailDao userDetailDao = UserDetailDao.builder()
-//                .id(addUserDetailRequest.getId())
-                .profilePicture(addUserDetailRequest.getProfilePicture())
-                .firstName(addUserDetailRequest.getFirstName())
-                .otherNames(addUserDetailRequest.getOtherNames())
-                .lastName(addUserDetailRequest.getLastName())
-                .fullName(addUserDetailRequest.getFullName())
-                .titledFullName(addUserDetailRequest.getTitledFullName())
-                .shortName(addUserDetailRequest.getShortName())
-                .initials(addUserDetailRequest.getInitials())
-                .age(addUserDetailRequest.getAge())
-                .gender(addUserDetailRequest.getGender())
-                .addresses(addUserDetailRequest.getAddresses())
-                .dateOfBirth(addUserDetailRequest.getDateOfBirth())
-                .placeOfBirth(addUserDetailRequest.getPlaceOfBirth())
-                .prefix(addUserDetailRequest.getPrefix())
-                .title(addUserDetailRequest.getTitle())
-                .memo(addUserDetailRequest.getMemo())
-                .userId(addUserDetailRequest.getUserId())
+                .profilePicture(addOrUpdateUserDetailRequest.getProfilePicture())
+                .firstName(addOrUpdateUserDetailRequest.getFirstName())
+                .otherNames(addOrUpdateUserDetailRequest.getOtherNames())
+                .lastName(addOrUpdateUserDetailRequest.getLastName())
+                .gender(addOrUpdateUserDetailRequest.getGender())
+                .addresses(map(addOrUpdateUserDetailRequest.getAddresses()))
+                .dateOfBirth(addOrUpdateUserDetailRequest.getDateOfBirth())
+                .placeOfBirth(addOrUpdateUserDetailRequest.getPlaceOfBirth())
+                .prefix(addOrUpdateUserDetailRequest.getPrefix())
+                .title(addOrUpdateUserDetailRequest.getTitle())
+                .memo(addOrUpdateUserDetailRequest.getMemo())
+                .userId(userId)
                 .build();
-        userDetailsRepository.save(userDetailDao);
 
-        return true;
+        return userDetailsRepository.save(userDetailDao);
     }
 
-    private List<Address> getAddresses(AddUserDetailRequest addUserDetailRequest) {
-        return addUserDetailRequest.getAddresses().stream()
-                .map(addressDto -> Address.builder()
-                        .addressLine1(addressDto.getAddressLine1())
-                        .addressLine2(addressDto.getAddressLine2())
-                        .postCode(addressDto.getPostCode())
-                        .addressType(AddressType.getAddressTypeFromText(addressDto.getAddressType()))
-                        .country(addressDto.getCountry())
-                        .state(addressDto.getState())
-                        .city(addressDto.getCity())
-                        .build())
+    private AddressDao map(AddressDto addressDto) {
+        return AddressDao.builder()
+                .addressLine1(addressDto.getAddressLine1())
+                .addressLine2(addressDto.getAddressLine2())
+                .postCode(addressDto.getPostCode())
+                .addressType(addressDto.getAddressType())
+                .country(addressDto.getCountry())
+                .state(addressDto.getState())
+                .city(addressDto.getCity())
+                .build();
+    }
+
+    private List<AddressDao> map(List<AddressDto> addresses) {
+        return addresses.stream()
+                .map(this::map)
                 .collect(Collectors.toList());
     }
 
@@ -69,31 +72,26 @@ public class UserDetailsServiceImpl implements IUserDetailsService {
                 .map(UserDetail::getUserDetailDto);
     }
 
-    public void updateUserDetails(UpdateUserDetailRequest updateUserDetailRequest) {
-        UserDetail userDetail = UserDetail.builder()
-//                .id(updateUserDetailRequest.getId())
-                .profilePicture(updateUserDetailRequest.getProfilePicture())
-                .firstName(updateUserDetailRequest.getFirstName())
-                .otherNames(updateUserDetailRequest.getOtherNames())
-                .lastName(updateUserDetailRequest.getLastName())
-                .fullName(updateUserDetailRequest.getFullName())
-                .titledFullName(updateUserDetailRequest.getTitledFullName())
-                .shortName(updateUserDetailRequest.getShortName())
-                .initials(updateUserDetailRequest.getInitials())
-                .age(updateUserDetailRequest.getAge())
-                .gender(Gender.getGenderFromText(updateUserDetailRequest.getGender()))
-//                .addresses(getAddresses(updateUserDetailRequest))  // fix this with mapper
-                .dateOfBirth(updateUserDetailRequest.getDateOfBirth())
-                .placeOfBirth(updateUserDetailRequest.getPlaceOfBirth())
-                .prefix(updateUserDetailRequest.getPrefix())
-                .title(updateUserDetailRequest.getTitle())
-                .memo(updateUserDetailRequest.getMemo())
-                .user(User.builder().id(updateUserDetailRequest.getUserId()).build())
-                .build();
-        userDetailsRepository.update(userDetail);
-    }
+//    public void updateUserDetails(UpdateUserDetailRequest updateUserDetailRequest) {
+//        UserDetail userDetail = UserDetail.builder()
+//                .profilePicture(updateUserDetailRequest.getProfilePicture())
+//                .firstName(updateUserDetailRequest.getFirstName())
+//                .otherNames(updateUserDetailRequest.getOtherNames())
+//                .lastName(updateUserDetailRequest.getLastName())
+//                .age(updateUserDetailRequest.getAge())
+//                .gender(Gender.getGenderFromText(updateUserDetailRequest.getGender()))
+////                .addresses(getAddresses(updateUserDetailRequest))  // maybe use a mapper
+//                .dateOfBirth(updateUserDetailRequest.getDateOfBirth())
+//                .placeOfBirth(updateUserDetailRequest.getPlaceOfBirth())
+//                .prefix(updateUserDetailRequest.getPrefix())
+//                .title(updateUserDetailRequest.getTitle())
+//                .memo(updateUserDetailRequest.getMemo())
+//                .user(User.builder().id(updateUserDetailRequest.getUserId()).build())
+//                .build();
+//        userDetailsRepository.update(userDetail);
+//    }
 
-    public void deleteUserDetails(AddUserDetailRequest addUserDetailRequest) {
-        // TODO
-    }
+//    public void deleteUserDetails(AddOrUpdateUserDetailRequest addOrUpdateUserDetailRequest) {
+//        // TODO
+//    }
 }

@@ -6,12 +6,18 @@ import io.ebean.Database;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
 public class AddressRepositoryImpl implements AddressRepository {
     private final Database db;
+
+    @Override
+    public List<Address> findByUserDetailId(long id) {
+        return new QAddress(db).userDetail.id.eq(id).findList();
+    }
 
     @Override
     public Optional<Address> findById(long id) {
