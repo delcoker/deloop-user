@@ -1,5 +1,6 @@
 package com.deloop.user.core.services.user;
 
+import com.deloop.user.core.models.requests.AddUserRequest;
 import com.deloop.user.core.models.requests.UserRequest;
 import com.deloop.user.core.models.requests.auth.RegistrationRequest;
 import com.deloop.user.data.api.dtos.UserDto;
@@ -12,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserService extends UserDetailsService {
-    void addUser(UserRequest userRequest);
+    void addUser(AddUserRequest addUserRequest);
 
     String signUpUser(RegistrationRequest registrationRequest) throws EmailIsAlreadyTakenException;
 

@@ -39,10 +39,14 @@ public class UserPermission extends Model {
     @Enumerated(value = EnumType.STRING)
     private PermissionStatus status;
 
-    @Column @WhenCreated @DbDefault("2020-04-26 00:00")
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
     private LocalDateTime createdAt;
 
-    @Column @WhenModified @DbDefault("2020-04-26 00:00")
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
     private LocalDateTime updatedAt;
 
 //    @ManyToMany

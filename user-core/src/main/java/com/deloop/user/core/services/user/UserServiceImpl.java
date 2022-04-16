@@ -1,5 +1,6 @@
 package com.deloop.user.core.services.user;
 
+import com.deloop.user.core.models.requests.AddUserRequest;
 import com.deloop.user.core.models.requests.UserRequest;
 import com.deloop.user.core.models.requests.auth.RegistrationRequest;
 import com.deloop.user.core.services.IConfirmationTokenService;
@@ -32,15 +33,15 @@ public class UserServiceImpl implements UserService {
     private final IConfirmationTokenService confirmationTokenService;
 
     @Override
-    public void addUser(UserRequest userRequest) {
-        String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
+    public void addUser(AddUserRequest addUserRequest) {
+        String encodedPassword = passwordEncoder.encode(addUserRequest.getPassword());
         User user = User.builder()
-                .username(userRequest.getUsername())
-                .email(userRequest.getEmail())
+                .username(addUserRequest.getUsername())
+                .email(addUserRequest.getEmail())
                 .password(encodedPassword)
-                .userRole(UserRole.builder().id(userRequest.getUserRole().getId()).build())
-                .licenseType(userRequest.getLicenseType())
-                .isVerified(userRequest.isVerified())
+                .userRole(UserRole.builder().id(addUserRequest.getUserRole().getId()).build())
+                .licenseType(addUserRequest.getLicenseType())
+                .isVerified(addUserRequest.isVerified())
                 .locked(false)
                 .build();
         userRepository.save(user);

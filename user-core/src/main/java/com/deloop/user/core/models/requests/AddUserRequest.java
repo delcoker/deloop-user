@@ -14,7 +14,7 @@ import lombok.ToString;
 @Builder
 @ToString
 //@AllArgsConstructor
-public class UserRequest {
+public class AddUserRequest {
 
     @Builder.Default
     private long id = -1;

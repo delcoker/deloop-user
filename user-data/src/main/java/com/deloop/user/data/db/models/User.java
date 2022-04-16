@@ -42,7 +42,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserStatus status = UserStatus.ENABLED;
 
-    @OneToMany(mappedBy = "user") // @OneToOne
+    @OneToMany(mappedBy = "user") // supposed to be @OneToOne
     private List<UserDetail> userDetails;
 
     @OneToMany(mappedBy = "user")

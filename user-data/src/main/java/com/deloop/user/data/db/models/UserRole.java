@@ -38,10 +38,14 @@ public class UserRole {
     @Enumerated(value = EnumType.STRING)
     private RoleStatus status;
 
-    @Column @WhenCreated @DbDefault("2020-04-26 00:00")
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
     private LocalDateTime createdAt;
 
-    @Column @WhenModified @DbDefault("2020-04-26 00:00")
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "userRole")

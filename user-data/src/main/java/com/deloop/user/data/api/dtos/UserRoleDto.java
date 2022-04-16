@@ -2,7 +2,6 @@ package com.deloop.user.data.api.dtos;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Builder
 @Getter
-@Setter
+//@Setter
 public class UserRoleDto implements Serializable {
 
     @Builder.Default

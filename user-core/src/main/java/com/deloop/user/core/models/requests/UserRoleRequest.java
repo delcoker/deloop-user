@@ -1,7 +1,10 @@
 package com.deloop.user.core.models.requests;
 
 import com.deloop.user.data.db.enums.RoleStatus;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -9,9 +12,19 @@ import lombok.*;
 @ToString
 //@AllArgsConstructor
 public class UserRoleRequest {
-    private long id;
-    private String name;
-    private String description;
-    private RoleStatus status;
-    private String capabilities;
+
+    @Builder.Default
+    private long id = -1;
+
+    @Builder.Default
+    private String name = "";
+
+    @Builder.Default
+    private String description = "";
+
+    @Builder.Default
+    private RoleStatus status = RoleStatus.DISABLED;
+
+    @Builder.Default
+    private String capabilities = "";
 }
