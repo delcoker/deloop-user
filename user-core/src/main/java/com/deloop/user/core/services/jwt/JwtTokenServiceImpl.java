@@ -19,7 +19,7 @@ import static java.lang.System.currentTimeMillis;
 public class JwtTokenServiceImpl implements JwtTokenService {
 
     private static final String AUTHORITIES = "authorities";
-    private final byte[] secretKey;// = new byte[]{127, -128};
+    private final byte[] secretKey; // = new byte[]{127, -128};
 
     private final long EXPIRATION_SECONDS = 60 * 1000;
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = HS512;
@@ -50,7 +50,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 //                .compact();
 
         String accessToken = Jwts.builder()
-                .setIssuer("appName")
+                .setIssuer("user_microservice")
                 .setSubject(authentication.getName())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(currentTimeMillis() + EXPIRATION_SECONDS * minutes))

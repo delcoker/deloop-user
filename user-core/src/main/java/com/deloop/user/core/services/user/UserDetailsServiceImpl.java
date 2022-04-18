@@ -14,6 +14,7 @@ import com.deloop.user.data.exceptions.NoSuchUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,13 +32,16 @@ public class UserDetailsServiceImpl implements IUserDetailsService {
                 ? userService.loadUserByEmail(authentication.getName()).getId()
                 : addOrUpdateUserDetailRequest.getUserId();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         UserDetailDao userDetailDao = UserDetailDao.builder()
                 .profilePicture(addOrUpdateUserDetailRequest.getProfilePicture())
                 .firstName(addOrUpdateUserDetailRequest.getFirstName())
                 .otherNames(addOrUpdateUserDetailRequest.getOtherNames())
                 .lastName(addOrUpdateUserDetailRequest.getLastName())
                 .gender(addOrUpdateUserDetailRequest.getGender())
-                .addresses(map(addOrUpdateUserDetailRequest.getAddresses()))
+//                .addresses(map(Collections.singletonList(addOrUpdateUserDetailRequest.getAddress())))
+//                .dateOfBirth(LocalDateTime.parse(addOrUpdateUserDetailRequest.getDateOfBirth() + " 00:00", formatter))
                 .dateOfBirth(addOrUpdateUserDetailRequest.getDateOfBirth())
                 .placeOfBirth(addOrUpdateUserDetailRequest.getPlaceOfBirth())
                 .prefix(addOrUpdateUserDetailRequest.getPrefix())

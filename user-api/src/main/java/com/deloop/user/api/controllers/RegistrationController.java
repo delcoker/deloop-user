@@ -2,7 +2,7 @@ package com.deloop.user.api.controllers;
 
 
 import com.deloop.user.core.models.requests.auth.RegistrationRequest;
-import com.deloop.user.core.services.RegistrationService;
+import com.deloop.user.core.services.auth.RegistrationService;
 import com.deloop.user.data.exceptions.EmailInvalidException;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Slf4j
 @RestController
@@ -33,7 +34,7 @@ public class RegistrationController {
     }
 
     @GetMapping(path = "confirm")
-    public String confirm(@SpringQueryMap String token) {
+    public RedirectView confirm(@SpringQueryMap String token) {
         return registrationService.confirmToken(token);
     }
 

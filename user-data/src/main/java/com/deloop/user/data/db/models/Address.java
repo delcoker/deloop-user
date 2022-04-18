@@ -46,7 +46,7 @@ public class Address {
     @Enumerated(value = EnumType.STRING)
     private AddressType addressType;
 
-    @ManyToOne
+    @ManyToOne//(cascade = CascadeType.ALL)
     private UserDetail userDetail;
 
     public AddressDto getAddressDto() {

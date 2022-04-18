@@ -52,5 +52,6 @@ public class DBEbeanService implements IDBEbeanService {
         databaseConfig.addClass(UserRole.class);
         databaseConfig.addClass(Address.class);
         databaseConfig.addClass(ConfirmationToken.class);
+        databaseConfig.addClass(UserRolePermission.class);
     }
 }

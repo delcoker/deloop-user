@@ -1,22 +1,22 @@
 package com.deloop.user.core.models.requests.userdetails;
 
-import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.db.enums.Gender;
 import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
-//@Setter
+@Setter
 @Builder
 @ToString
 //@AllArgsConstructor
-public class AddOrUpdateUserDetailRequest {
+public class AddOrUpdateUserDetailRequest implements Serializable {
 //    @Builder.Default
 //    private long id = -1;
 
@@ -35,15 +35,16 @@ public class AddOrUpdateUserDetailRequest {
     private String lastName = "";
 
     @Builder.Default
-    @ApiParam(example = "male")
+    @ApiParam(example = "MALE")
     private Gender gender = Gender.MALE;
 
-    @Builder.Default
-    @ApiParam(example = "home")
-    private List<AddressDto> addresses = new ArrayList<>();
+//    @Builder.Default
+//    @ApiParam(example = "home")
+//    private AddressDto address = AddressDto.builder().build();
 
     @Builder.Default
-    @ApiParam(example = "1999-04-26T08:00:19")
+    @ApiParam(example = "1999-04-26T00:00", format = "yyyy-mm-ddThh:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateOfBirth = LocalDateTime.MIN;
 
     @Builder.Default
@@ -62,10 +63,10 @@ public class AddOrUpdateUserDetailRequest {
     @ApiParam(example = "no memo")
     private String memo = "";
 
-    @Builder.Default
-    @ApiParam(example = "1999-04-26 00:00:00")
-//    @ApiParam(example = "1999-04-26T08:00:19Z")
-    private LocalDateTime lastLogin = LocalDateTime.now();
+//    @Builder.Default
+//    @ApiParam(example = "1999-04-26")
+////    @ApiParam(example = "1999-04-26T08:00:19Z")
+//    private LocalDate lastLogin = LocalDate.now();
 
     @Builder.Default
     @ApiParam(example = "-1")

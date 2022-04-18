@@ -2,6 +2,7 @@ package com.deloop.user.data.config;
 
 import com.deloop.user.data.IDBEbeanService;
 import com.deloop.user.data.db.repositories.*;
+import com.deloop.user.data.db.repositories.roles.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,5 +53,10 @@ public class DBRepositoryConfiguration {
     @Bean
     IUserPermissionRepository userPermissionRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
         return new UserPermissionRepository(dbEbeanService.getDb());
+    }
+
+    @Bean
+    UserRolePermissionRepository userRolePermissionRepository(@Qualifier("dbEbeanService") IDBEbeanService dbEbeanService) {
+        return new UserRolePermissionRepositoryImpl(dbEbeanService.getDb());
     }
 }

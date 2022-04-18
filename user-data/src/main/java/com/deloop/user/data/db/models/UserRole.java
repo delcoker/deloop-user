@@ -51,6 +51,9 @@ public class UserRole {
     @OneToMany(mappedBy = "userRole")
     private List<User> users;
 
-    @ManyToMany(mappedBy = "userRoles")
-    private List<UserPermission> userPermissions;
+//    @ManyToMany(mappedBy = "userRoles")
+//    private List<UserPermission> userPermissions;
+
+    @OneToMany(mappedBy = "role")
+    private List<UserRolePermission> userRolePermissions;
 }

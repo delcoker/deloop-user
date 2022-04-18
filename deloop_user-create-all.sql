@@ -61,7 +61,7 @@ create table user_details (
   otherNames                    varchar(100),
   lastName                      varchar(100),
   gender                        varchar(7),
-  dateOfBirth                   datetime,
+  dateOfBirth                   datetime default '2020-04-26 00:00',
   placeOfBirth                  varchar(255) default '',
   prefix                        varchar(255) default '',
   title                         varchar(100),
@@ -78,16 +78,10 @@ create table user_permissions (
   name                          varchar(255) default '',
   code                          varchar(255) default '',
   description                   varchar(255) default '',
-  status                        varchar(8),
+  status                        varchar(8) default 'disabled',
   createdAt                     datetime default '2020-04-26 00:00' not null,
   updatedAt                     datetime default '2020-04-26 00:00' not null,
   constraint pk_user_permissions primary key (id)
-);
-
-create table user_permissions_user_roles (
-  user_permissions_id           bigint not null,
-  user_roles_id                 bigint not null,
-  constraint pk_user_permissions_user_roles primary key (user_permissions_id,user_roles_id)
 );
 
 create table user_roles (
@@ -99,6 +93,13 @@ create table user_roles (
   createdAt                     datetime default '2020-04-26 00:00' not null,
   updatedAt                     datetime default '2020-04-26 00:00' not null,
   constraint pk_user_roles primary key (id)
+);
+
+create table user_role_permissions (
+  id                            bigint auto_increment not null,
+  roleId                        bigint,
+  permissionId                  bigint,
+  constraint pk_user_role_permissions primary key (id)
 );
 
 create index ix_address_userDetailId on address (userDetailId);
@@ -119,9 +120,9 @@ alter table users add constraint fk_users_userRoleId foreign key (userRoleId) re
 create index ix_user_details_userId on user_details (userId);
 alter table user_details add constraint fk_user_details_userId foreign key (userId) references users (id) on delete restrict on update restrict;
 
-create index ix_user_permissions_user_roles_user_permissions on user_permissions_user_roles (user_permissions_id);
-alter table user_permissions_user_roles add constraint fk_user_permissions_user_roles_user_permissions foreign key (user_permissions_id) references user_permissions (id) on delete restrict on update restrict;
+create index ix_user_role_permissions_roleId on user_role_permissions (roleId);
+alter table user_role_permissions add constraint fk_user_role_permissions_roleId foreign key (roleId) references user_roles (id) on delete restrict on update restrict;
 
-create index ix_user_permissions_user_roles_user_roles on user_permissions_user_roles (user_roles_id);
-alter table user_permissions_user_roles add constraint fk_user_permissions_user_roles_user_roles foreign key (user_roles_id) references user_roles (id) on delete restrict on update restrict;
+create index ix_user_role_permissions_permissionId on user_role_permissions (permissionId);
+alter table user_role_permissions add constraint fk_user_role_permissions_permissionId foreign key (permissionId) references user_permissions (id) on delete restrict on update restrict;
 

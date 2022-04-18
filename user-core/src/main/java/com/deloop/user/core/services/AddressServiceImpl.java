@@ -1,8 +1,8 @@
 package com.deloop.user.core.services;
 
 
-import com.deloop.user.core.models.requests.AddAddressRequest;
-import com.deloop.user.core.models.requests.UpdateAddressRequest;
+import com.deloop.user.core.models.requests.address.AddAddressRequest;
+import com.deloop.user.core.models.requests.address.UpdateAddressRequest;
 import com.deloop.user.core.models.requests.userdetails.GetUserDetailRequest;
 import com.deloop.user.core.services.auth.AuthenticationFacade;
 import com.deloop.user.core.services.user.IUserDetailsService;

@@ -4,7 +4,10 @@ server:
   port: 8080
 
 db:
-  server: deloop-user-mysql  # for docker
-  name: deloop_user
-  user: root
-  password: 123
+  server: sql11.freemysqlhosting.net # deloop-user-mysql  # for docker
+  name: sql11486584 # deloop_user
+  user: sql11486584 # root
+  password: 1nIfZGBs74 # 123
+
+domain:
+  url: https://deloopltd.com

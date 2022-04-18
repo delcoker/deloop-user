@@ -16,11 +16,11 @@ drop index ix_users_userRoleId on users;
 alter table user_details drop foreign key fk_user_details_userId;
 drop index ix_user_details_userId on user_details;
 
-alter table user_permissions_user_roles drop foreign key fk_user_permissions_user_roles_user_permissions;
-drop index ix_user_permissions_user_roles_user_permissions on user_permissions_user_roles;
+alter table user_role_permissions drop foreign key fk_user_role_permissions_roleId;
+drop index ix_user_role_permissions_roleId on user_role_permissions;
 
-alter table user_permissions_user_roles drop foreign key fk_user_permissions_user_roles_user_roles;
-drop index ix_user_permissions_user_roles_user_roles on user_permissions_user_roles;
+alter table user_role_permissions drop foreign key fk_user_role_permissions_permissionId;
+drop index ix_user_role_permissions_permissionId on user_role_permissions;
 
 drop table if exists address;
 
@@ -36,7 +36,7 @@ drop table if exists user_details;
 
 drop table if exists user_permissions;
 
-drop table if exists user_permissions_user_roles;
-
 drop table if exists user_roles;
+
+drop table if exists user_role_permissions;
 

@@ -1,6 +1,8 @@
+env: live
+
 spring:
   profiles:
-    active: dev # set this to the right environment for docker => live
+    active: live # set this to the right environment esp for docker => live
 
   mail: # https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4N11isNtPUV0AmxD8ENeOcbgQEIGHimyned69xLBrAFHfAk5-iUXfYazUCckQFXbhtacVU8fIscVN24R6qx1SwxRUX71g
     host: smtp.gmail.com
@@ -20,16 +22,17 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher # for swagger bug
 
+domain:
+  url: http://localhost:${server.port}
+
 jwt:
   secret:
-    key: foo1234567fo
+    key: 123456Aa
 
 remember:
   me:
     secret:
       key: nothing
-
-env: dev
 
 server:
   port: 9090
@@ -39,7 +42,8 @@ db:
   name: deloop_user
   user: root
   password: 123
-  executeddl: false # overwrites/resets db if set to true
+  executeddl: false # overwrites/resets db if set to true CAUTION ⚠️
+  seed: false # run migration script
 
 logging:
   file:

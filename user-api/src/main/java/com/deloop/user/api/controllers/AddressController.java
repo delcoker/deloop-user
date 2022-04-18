@@ -1,8 +1,8 @@
 package com.deloop.user.api.controllers;
 
 
-import com.deloop.user.core.models.requests.AddAddressRequest;
-import com.deloop.user.core.models.requests.UpdateAddressRequest;
+import com.deloop.user.core.models.requests.address.AddAddressRequest;
+import com.deloop.user.core.models.requests.address.UpdateAddressRequest;
 import com.deloop.user.core.services.AddressService;
 import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.exceptions.EmailNotFoundException;

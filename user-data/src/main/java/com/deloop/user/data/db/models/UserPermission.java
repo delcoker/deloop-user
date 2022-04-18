@@ -37,6 +37,7 @@ public class UserPermission extends Model {
     private String description;
 
     @Enumerated(value = EnumType.STRING)
+    @DbDefault("disabled")
     private PermissionStatus status;
 
     @Column
@@ -52,6 +53,9 @@ public class UserPermission extends Model {
 //    @ManyToMany
 //    private List<UserType> userTypes;
 
-    @ManyToMany
-    private List<UserRole> userRoles;
+//    @ManyToMany//(cascade = CascadeType.ALL)
+//    private List<UserRole> userRoles;
+
+    @OneToMany(mappedBy = "permission")
+    private List<UserRolePermission> userRolePermissions;
 }

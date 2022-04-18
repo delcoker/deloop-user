@@ -3,7 +3,7 @@ package com.deloop.user.core.services.user;
 import com.deloop.user.core.models.requests.AddUserRequest;
 import com.deloop.user.core.models.requests.UserRequest;
 import com.deloop.user.core.models.requests.auth.RegistrationRequest;
-import com.deloop.user.core.services.IConfirmationTokenService;
+import com.deloop.user.core.services.jwt.ConfirmationTokenService;
 import com.deloop.user.data.api.dtos.UserDto;
 import com.deloop.user.data.db.enums.ConfirmationTokenType;
 import com.deloop.user.data.db.models.ConfirmationToken;
@@ -30,7 +30,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final IConfirmationTokenService confirmationTokenService;
+    private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public void addUser(AddUserRequest addUserRequest) {

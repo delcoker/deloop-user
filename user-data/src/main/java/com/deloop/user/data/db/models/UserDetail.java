@@ -105,7 +105,7 @@ public class UserDetail {
     @Column
     @WhenCreated
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime createdAt = LocalDateTime.MIN;
+    private LocalDateTime createdAt;
 
     @Column
     @WhenModified
@@ -115,7 +115,7 @@ public class UserDetail {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "userDetail")
+    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL)
     private List<Address> addresses;
 
     public int getAge() {

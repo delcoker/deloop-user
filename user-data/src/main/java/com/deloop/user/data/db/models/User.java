@@ -64,15 +64,26 @@ public class User {
                         providerAccount.getProfileLink()))
                 .collect(Collectors.toList());
 
-        List<UserPermissionDto> userPermissionDtos = userRole.getUserPermissions().stream()
-                .map(userPermission -> UserPermissionDto.builder()
-                        .id(userPermission.getId())
-                        .name(userPermission.getName())
-                        .code(userPermission.getCode())
-                        .description(userPermission.getDescription())
-                        .status(userPermission.getStatus().getLabel())
-                        .build())
-                .collect(Collectors.toList());
+//        List<UserPermissionDto> userPermissionDtos = userRole.getUserRolePermissions().stream()
+//                .map(userRolePermission -> UserRolePermission.builder().id().build())
+//                .map(userPermission -> UserPermissionDto.builder()
+//                        .id(userPermission.getId())
+//                        .name(userPermission.getName())
+//                        .code(userPermission.getCode())
+//                        .description(userPermission.getDescription())
+//                        .status(userPermission.getStatus().getLabel())
+//                        .build())
+//                .collect(Collectors.toList());
+
+//        List<UserPermissionDto> userPermissionDtos = userRole.getUserPermissions().stream()
+//                .map(userPermission -> UserPermissionDto.builder()
+//                        .id(userPermission.getId())
+//                        .name(userPermission.getName())
+//                        .code(userPermission.getCode())
+//                        .description(userPermission.getDescription())
+//                        .status(userPermission.getStatus().getLabel())
+//                        .build())
+//                .collect(Collectors.toList());
 
 //        UserTypeDto userTypeDto = UserTypeDto.builder()
 //                .id(userType.getId())
@@ -87,7 +98,7 @@ public class User {
                 .description(userRole.getDescription())
                 .capabilities(userRole.getCapabilities())
                 .status(userRole.getStatus().getLabel())
-                .userPermissions(userPermissionDtos)
+//                .userPermissions(userPermissionDtos)
                 .createdAt(userRole.getCreatedAt())
                 .updatedAt(userRole.getUpdatedAt())
                 .build();

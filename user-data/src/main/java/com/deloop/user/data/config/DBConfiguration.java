@@ -35,6 +35,9 @@ public class DBConfiguration {
     @Value("${db.executeddl}")
     private boolean db_execute_ddl;
 
+//    @Value("${db.migratedb}")
+//    private boolean db_migrate_db;
+
     @Bean(name = "dbEbeanService")
     DBEbeanService dbEbeanService(ObjectMapper objectMapper) {
         Map<String, String> configMap = new HashMap<>();
@@ -96,6 +99,8 @@ public class DBConfiguration {
 
     void migrateDB(IDBEbeanService ebeanService) {
         log.info("env: " + env);
+//        String description = description.replace(" ", "_");
+//        System.setProperty("ddl.migration.name", description);
         DbMigration dbMigration = DbMigration.create();
         String filePath = "db/" + env;
         dbMigration.setPathToResources(filePath);

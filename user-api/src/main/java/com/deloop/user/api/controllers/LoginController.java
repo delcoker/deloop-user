@@ -3,7 +3,7 @@ package com.deloop.user.api.controllers;
 
 import com.deloop.user.core.models.requests.auth.LoginRequest;
 import com.deloop.user.core.models.responses.LoginResponse;
-import com.deloop.user.core.services.LoginService;
+import com.deloop.user.core.services.auth.LoginService;
 import com.deloop.user.core.services.user.UserService;
 import com.deloop.user.data.api.dtos.UserDto;
 import com.deloop.user.data.exceptions.EmailNotFoundException;
@@ -40,13 +40,6 @@ public class LoginController {
     @GetMapping(value = "/userinfo", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> getUserInfo(Principal principal) throws EmailNotFoundException {
         UserDto user = userService.loadUserByEmail(principal.getName());
-
-
-//        UserInfo userInfo=new UserInfo();
-//        userInfo.setFirstName(userObj.getFirstName());
-//        userInfo.setLastName(userObj.getLastName());
-//        userInfo.setRoles(userObj.getAuthorities().toArray());
-
         return ResponseEntity.ok(user);
     }
 }

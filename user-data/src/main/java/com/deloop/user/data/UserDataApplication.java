@@ -13,5 +13,4 @@ public class UserDataApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserDataApplication.class, args);
     }
-
 }

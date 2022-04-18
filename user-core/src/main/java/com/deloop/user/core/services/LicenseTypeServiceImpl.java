@@ -6,7 +6,7 @@ import com.deloop.user.data.db.repositories.ILicenceTypeRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class LicenseTypeServiceImpl implements ILicenseTypeService {
+public class LicenseTypeServiceImpl implements LicenseTypeService {
     public final ILicenceTypeRepository licenceTypeRepository;
 
     @Override
