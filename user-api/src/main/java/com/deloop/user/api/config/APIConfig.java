@@ -8,4 +8,5 @@ import org.springframework.context.annotation.Import;
 @Import({CoreConfig.class})
 public class APIConfig {
 
+
 }
