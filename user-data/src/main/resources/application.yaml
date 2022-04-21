@@ -1,15 +1,17 @@
-env: live
+env: dev
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   profiles:
-    active: live # set this to the right environment esp for docker => live
+    active: ${env} # set this to the right environment esp for docker => live
 
   mail: # https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4N11isNtPUV0AmxD8ENeOcbgQEIGHimyned69xLBrAFHfAk5-iUXfYazUCckQFXbhtacVU8fIscVN24R6qx1SwxRUX71g
-    host: smtp.gmail.com
-    port: 587
-    username: info.deloopltd@gmail.com
-    password: 62131121Aa
-    protocol: smtp
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: ${MAIL_PROTOCOL}
     properties:
       mail:
         smtp:
@@ -23,11 +25,11 @@ spring:
       matching-strategy: ant_path_matcher # for swagger bug
 
 domain:
-  url: http://localhost:${server.port}
+  url: ${DOMAIN_URL}
 
 jwt:
   secret:
-    key: 123456Aa
+    key: ${JWT_SECRET_KEY}
 
 remember:
   me:
@@ -35,15 +37,15 @@ remember:
       key: nothing
 
 server:
-  port: 9090
+  port: ${SERVER_PORT}
 
 db:
-  server: localhost
-  name: deloop_user
-  user: root
-  password: 123
-  executeddl: false # overwrites/resets db if set to true CAUTION ⚠️
-  seed: false # run migration script
+  server: ${DB_SERVER}
+  name: ${DB_NAME}
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}
+  executeddl: ${DB_EXECUTE_DDL} # overwrites/resets db if set to true CAUTION ⚠️
+  seed: ${DB_SEED} # run migration script
 
 logging:
   file:

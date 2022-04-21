@@ -1,13 +1,13 @@
 env: live
 
 server:
-  port: 8080
+  port: ${SERVER_PORT}
 
 db:
-  server: sql11.freemysqlhosting.net # deloop-user-mysql  # for docker
-  name: sql11486584 # deloop_user
-  user: sql11486584 # root
-  password: 1nIfZGBs74 # 123
+  server: ${DB_SERVER} # deloop-user-mysql  # for docker
+  name: ${DB_NAME} # deloop_user
+  user: ${DB_USER} # root
+  password: ${DB_PASSWORD} # 123
 
 domain:
   url: https://deloopltd.com

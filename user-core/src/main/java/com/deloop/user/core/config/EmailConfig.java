@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+
 @Configuration
 @Import(DBConfiguration.class)
 public class EmailConfig {

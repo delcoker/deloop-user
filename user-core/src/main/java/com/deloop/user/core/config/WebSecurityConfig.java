@@ -1,4 +1,4 @@
-package com.deloop.user.api.config;
+package com.deloop.user.core.config;
 
 import com.deloop.user.core.services.jwt.JwtAuthenticationEntryPoint;
 import com.deloop.user.core.services.jwt.JwtAuthenticationFilter;
@@ -43,10 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {// implemen
     private final PasswordEncoder passwordEncoder;
 
     private static final String[] AUTH_WHITELIST = {
-//            "/swagger-resources/**",
-//            "/swagger-ui.html",
-//            "/v2/api-docs",
-//            "/webjars/**",
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**",
             "/test",
             "/home"
     };
@@ -68,13 +68,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {// implemen
 //        JwtTokenService jwtTokenService = lookup("jwtTokenService");
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint)
-//                .and()    // TODO remove soon
-//                .authorizeRequests().anyRequest().authenticated() // TODO remove soon
                 .and()
-//                .authorizeRequests().antMatchers(AUTH_WHITELIST).authenticated()
-//                .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+                .authorizeRequests().antMatchers(AUTH_WHITELIST).authenticated()
+                .and()
+                .authorizeRequests().regexMatchers("/actuator/.*").permitAll()
+                .and()
                 .authorizeRequests((request) -> request.antMatchers("/registration/**",
                                 "/auth/**",
                                 "/swagger-ui/**")
@@ -110,4 +110,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {// implemen
     protected <T> T lookup(String beanName) {
         return (T) getApplicationContext().getBean(beanName);
     }
+
 }

@@ -38,3 +38,5 @@ build/
 user-data/opt/*/
 
 user-data/deloop-user_dev.log
+/.env.prod
+/.env

@@ -1,4 +1,4 @@
-package com.deloop.user.api.config;
+package com.deloop.user.core.config;
 
 import com.deloop.user.core.services.jwt.JwtAuthenticationProvider;
 import com.deloop.user.core.services.jwt.JwtTokenService;

@@ -1,4 +1,4 @@
-package com.deloop.user.api.config;
+package com.deloop.user.core.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
