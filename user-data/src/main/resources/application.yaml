@@ -1,0 +1,64 @@
+env: dev
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  profiles:
+    active: ${env} # set this to the right environment esp for docker => live
+
+  mail: # https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4N11isNtPUV0AmxD8ENeOcbgQEIGHimyned69xLBrAFHfAk5-iUXfYazUCckQFXbhtacVU8fIscVN24R6qx1SwxRUX71g
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: ${MAIL_PROTOCOL}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # for swagger bug
+
+domain:
+  url: ${DOMAIN_URL}
+
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
+
+remember:
+  me:
+    secret:
+      key: nothing
+
+server:
+  port: ${SERVER_PORT}
+
+db:
+  server: ${DB_SERVER}
+  name: ${DB_NAME}
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}
+  executeddl: ${DB_EXECUTE_DDL} # overwrites/resets db if set to true CAUTION ⚠️
+  seed: ${DB_SEED} # run migration script
+
+logging:
+  file:
+    path: opt/logs
+    name: deloop-user_${env}.log
+
+default:
+  hello:
+    greeting: greeting from ${env}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /docs
+

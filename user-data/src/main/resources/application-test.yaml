@@ -1,0 +1,10 @@
+env: test
+
+server:
+  port: 9999
+
+db:
+  server: localhost
+  name: deloop_genealogy
+  user: root
+  password: 123
