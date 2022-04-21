@@ -1,1 +1,1 @@
-web: java -jar target/classes com.deloop.user.api.UserApiApplication
+web: java $JAVA_OPTS -cp target/classes com.deloop.user.api.UserApiApplication
