@@ -38,7 +38,7 @@ public class UserPermissionRepository implements IUserPermissionRepository {
     @Override
     public UserPermission update(UserPermission userPermission) {
         Optional<UserPermission> existing = findBy(userPermission.getId());
-        if (existing.isEmpty()) {
+        if (existing.isPresent()) {
             String message = "User permission with id " + userPermission.getId() + " does not exist!";
             log.info(message);
             throw new IllegalStateException(message);

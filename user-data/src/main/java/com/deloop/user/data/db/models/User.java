@@ -59,9 +59,11 @@ public class User {
 
     public UserDto getUserDto() {
         List<ProviderAccountDto> providerAccountDtos = providerAccounts.stream()
-                .map(providerAccount -> new ProviderAccountDto(providerAccount.getId(),
-                        providerAccount.getProvider(),
-                        providerAccount.getProfileLink()))
+                .map(providerAccount -> ProviderAccountDto.builder()
+                        .id(providerAccount.getId())
+                        .provider(providerAccount.getProvider())
+                        .profileLink(providerAccount.getProfileLink())
+                        .build())
                 .collect(Collectors.toList());
 
 //        List<UserPermissionDto> userPermissionDtos = userRole.getUserRolePermissions().stream()

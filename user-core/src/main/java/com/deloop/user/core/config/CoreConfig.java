@@ -28,7 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
-@Import({DBConfiguration.class, EmailConfig.class})
+@Import({WebSecurityConfig.class, DBConfiguration.class, EmailConfig.class})
 public class CoreConfig {
     @Bean
     AuthenticationFacade authenticationFacade() {
