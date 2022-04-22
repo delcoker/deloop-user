@@ -4,11 +4,9 @@ import com.deloop.user.core.services.email.EmailSenderService;
 import com.deloop.user.core.services.email.EmailSenderServiceImpl;
 import com.deloop.user.core.services.email.EmailValidatorService;
 import com.deloop.user.core.services.email.EmailValidatorServiceImpl;
-import com.deloop.user.data.config.DBConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -16,7 +14,7 @@ import java.util.Properties;
 
 
 @Configuration
-@Import(DBConfiguration.class)
+//@Import(DBConfiguration.class)
 public class EmailConfig {
 
     @Value("${spring.mail.host}")

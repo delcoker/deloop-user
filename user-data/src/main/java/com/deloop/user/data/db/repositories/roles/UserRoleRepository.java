@@ -31,7 +31,7 @@ public class UserRoleRepository implements IUserRoleRepository {
     @Override
     public UserRole update(UserRole userRole) {
         Optional<UserRole> existing = findBy(userRole.getId());
-        if (existing.isEmpty()) {
+        if (existing.isPresent()) {
             String message = "User role with id " + userRole.getId() + " does not exist!";
             log.info(message);
             throw new IllegalStateException(message);

@@ -10,10 +10,12 @@
 
     <artifactId>user-core</artifactId>
     <!--    <version>0.0.1-SNAPSHOT</version>-->
-    <!--    <name>user-core</name>-->
-    <!--    <description>user-core</description>-->
+    <name>user-core</name>
+    <description>user-core</description>
+    <packaging>jar</packaging>
+
     <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
+        <!--        <maven.deploy.skip>true</maven.deploy.skip>-->
         <!--        <java.version>17</java.version>-->
     </properties>
     <dependencyManagement>

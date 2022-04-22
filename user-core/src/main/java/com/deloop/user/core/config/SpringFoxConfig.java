@@ -18,15 +18,15 @@ public class SpringFoxConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("")
+//                .groupName("")
 //                .directModelSubstitute(LocalDateTime.class, new StringSchema().example("2021-07-05T10:35:17.000").pattern("\\d{4" +
 //                        "}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.]\\d{3}").getClass())
 //                .directModelSubstitute(LocalDate.class, String.class)
 //                .directModelSubstitute(LocalTime.class, String.class)
 //                .directModelSubstitute(ZonedDateTime.class, String.class) // didn't work
                 .apiInfo(apiInfo())
-                .securityContexts(List.of(securityContext()))
-                .securitySchemes(List.of(apiKey()))
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
@@ -45,7 +45,7 @@ public class SpringFoxConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return List.of(new SecurityReference("JWT", authorizationScopes));
+        return Collections.singletonList(new SecurityReference("JWT", authorizationScopes));
     }
 
     private ApiInfo apiInfo() {

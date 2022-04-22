@@ -43,7 +43,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User update(User user) {
         Optional<UserDto> existingPerson = findById(user.getId());
-        if (existingPerson.isEmpty()) {
+        if (existingPerson.isPresent()) {
             String message = "User with id " + user.getId() + " does not exist!";
             log.error(message);
             throw new IllegalStateException(message);

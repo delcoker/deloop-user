@@ -124,7 +124,7 @@ public class UserDetailsRepositoryImpl implements UserDetailsRepository {
     @Override
     public UserDetail update(UserDetail userDetail) {
         Optional<UserDetail> existing = findBy(userDetail.getId());
-        if (existing.isEmpty()) {
+        if (existing.isPresent()) {
             String message = "User detail with id " + userDetail.getId() + " does not exist!";
             log.info(message);
             throw new IllegalStateException(message);

@@ -32,7 +32,7 @@ public class LicenseTypeRepository implements ILicenceTypeRepository {
     @Override
     public LicenseType update(LicenseType LicenseType) {
         Optional<LicenseType> existing = findBy(LicenseType.getId());
-        if (existing.isEmpty()) {
+        if (existing.isPresent()) {
             String message = "License with id " + LicenseType.getId() + " does not exist!";
             log.info(message);
             throw new IllegalStateException(message);

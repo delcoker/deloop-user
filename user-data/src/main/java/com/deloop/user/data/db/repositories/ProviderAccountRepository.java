@@ -32,7 +32,7 @@ public class ProviderAccountRepository implements IProviderAccountRepository {
     @Override
     public ProviderAccount update(ProviderAccount providerAccount) {
         Optional<ProviderAccount> existing = findBy(providerAccount.getId());
-        if (existing.isEmpty()) {
+        if (existing.isPresent()) {
             String message = "Provider with id " + providerAccount.getId() + " does not exist!";
             log.info(message);
             throw new IllegalStateException(message);
