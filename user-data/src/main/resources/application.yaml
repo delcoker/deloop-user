@@ -4,7 +4,7 @@ spring:
   config:
     import: optional:file:.env[.properties]
   profiles:
-    active: ${ENV} # set this to the right environment esp for docker => live
+    active: ${PROFILE} # set this to the right environment esp for docker => live
 
   mail: # https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4N11isNtPUV0AmxD8ENeOcbgQEIGHimyned69xLBrAFHfAk5-iUXfYazUCckQFXbhtacVU8fIscVN24R6qx1SwxRUX71g
     host: ${MAIL_HOST}
