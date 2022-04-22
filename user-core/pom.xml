@@ -10,10 +10,12 @@
 
     <artifactId>user-core</artifactId>
     <!--    <version>0.0.1-SNAPSHOT</version>-->
-    <!--    <name>user-core</name>-->
-    <!--    <description>user-core</description>-->
+    <name>user-core</name>
+    <description>user-core</description>
+    <packaging>war</packaging>
+
     <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
+        <!--        <maven.deploy.skip>true</maven.deploy.skip>-->
         <!--        <java.version>17</java.version>-->
     </properties>
     <dependencyManagement>
@@ -22,7 +24,7 @@
                 <groupId>com.deloop.user</groupId>
                 <artifactId>user-bom</artifactId>
                 <version>${project.version}</version>
-                <type>war</type>
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>

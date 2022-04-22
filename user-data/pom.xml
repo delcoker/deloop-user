@@ -12,7 +12,7 @@
     <!--    <version>0.0.1-SNAPSHOT</version>-->
     <name>user-data</name>
     <description>user-data</description>
-    <!--    <packaging>pom</packaging>-->
+    <packaging>war</packaging>
 
     <dependencyManagement>
         <dependencies>
@@ -20,7 +20,7 @@
                 <groupId>com.deloop.user</groupId>
                 <artifactId>user-bom</artifactId>
                 <version>${project.version}</version>
-                <type>war</type>
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
