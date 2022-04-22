@@ -12,7 +12,7 @@
     <!--    <version>0.0.1-SNAPSHOT</version>-->
     <name>user-core</name>
     <description>user-core</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <!--        <maven.deploy.skip>true</maven.deploy.skip>-->
