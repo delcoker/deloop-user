@@ -28,7 +28,7 @@
     </properties>
 
 
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <build>
         <plugins>
