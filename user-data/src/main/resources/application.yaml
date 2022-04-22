@@ -2,7 +2,7 @@ env: ${ENV}
 
 spring:
   config:
-    import: optional:file:.env[.properties]
+    import: optional:file:.env.prod[.properties]
   profiles:
     active: ${PROFILE} # set this to the right environment esp for docker => live
 
@@ -40,7 +40,10 @@ server:
   port: ${SERVER_PORT}
 
 db:
+  driver: ${DB_DRIVER_EBEAN}
+  language: ${DB_LANGUAGE}
   server: ${DB_SERVER}
+  port: ${DB_PORT}
   name: ${DB_NAME}
   user: ${DB_USER}
   password: ${DB_PASSWORD}

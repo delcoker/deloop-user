@@ -19,9 +19,17 @@ import java.util.Map;
 @Configuration
 @Import({DBRepositoryConfiguration.class})
 public class DBConfiguration {
+    @Value("${db.driver}")
+    private String db_driver;
+
+    @Value("${db.language}")
+    private String db_language;
 
     @Value("${db.server}")
     private String db_server;
+
+    @Value("${db.port}")
+    private short db_port;
 
     @Value("${db.name}")
     private String db_name;
@@ -48,8 +56,11 @@ public class DBConfiguration {
         String databaseUser = configMap.get(ServerConfigKeys.DB_DATABASE_USER.getLabel());
         String databasePassword = configMap.get(ServerConfigKeys.DB_DATABASE_PASSWORD.getLabel());
 
+        String databaseLanguage = db_language;
+
         DataSourceConfig dataSource = new DataSourceConfig();
-        dataSource.setDriver("com.mysql.cj.jdbc.Driver");
+        dataSource.setDriver(db_driver);
+//        dataSource.setDriver("com.mysql.cj.jdbc.Driver");
 //        dataSource.setDriver("org.postgresql.Driver");
         dataSource.setUsername(databaseUser);
         dataSource.setPassword(databasePassword);
@@ -58,15 +69,16 @@ public class DBConfiguration {
         log.warn(message);
         System.err.println(message);
 
-        short databasePort = 3306;
+        short databasePort = db_port;
         short connectTimeout = 5000;
         short socketTimeout = 5000;
 
-        String url = String.format("jdbc:mysql://" + "%s" + ":" + "%d" + "/" + "%s"
+        String url = String.format("jdbc:" + "%s" + "://" + "%s" + ":" + "%d" + "/" + "%s"
                         + "?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true"
                         + "&useSSL=false&readFromMasterWhenNoSlaves=true"
                         + "&connectTimeout=" + "%d" + "&socketTimeout=" + "%d",
-                databaseServer, databasePort, databaseName, connectTimeout, socketTimeout);
+                databaseLanguage, databaseServer, databasePort,
+                databaseName, connectTimeout, socketTimeout);
 
         dataSource.setUrl(url);
 
