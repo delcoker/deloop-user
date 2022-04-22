@@ -2,7 +2,7 @@ env: ${ENV}
 
 spring:
   config:
-    import: optional:file:.env.prod[.properties]
+    import: optional:file:.env[.properties]
   profiles:
     active: ${PROFILE} # set this to the right environment esp for docker => live
 
