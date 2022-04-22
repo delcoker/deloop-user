@@ -10,9 +10,10 @@
     </parent>
 
     <artifactId>user-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <!--    <version>0.0.1-SNAPSHOT</version>-->
     <name>user-api</name>
     <description>user-api</description>
+    <packaging>jar</packaging>
 
     <dependencyManagement>
         <dependencies>
