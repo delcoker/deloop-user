@@ -1,1 +1,1 @@
-web: java -Dserver.port=9090 -jar user-api/target/user-api-0.0.1-SNAPSHOT.jar
+web: java -jar user-api/target/user-api-0.0.1-SNAPSHOT.jar
