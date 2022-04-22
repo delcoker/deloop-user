@@ -69,23 +69,40 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                    <!--                    <classifier>true</classifier>-->
-                </configuration>
+                <!--                <configuration>-->
+                <!--                    <skip>true</skip>-->
+                <!--                    &lt;!&ndash;                    <classifier>true</classifier>&ndash;&gt;-->
+                <!--                </configuration>-->
             </plugin>
 
-            <plugin>
-                <groupId>io.repaint.maven</groupId>
-                <artifactId>tiles-maven-plugin</artifactId>
-                <version>2.17</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <tiles>
-                        <tile>io.ebean.tile:enhancement:12.2.6</tile>
-                    </tiles>
-                </configuration>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>io.repaint.maven</groupId>-->
+            <!--                <artifactId>tiles-maven-plugin</artifactId>-->
+            <!--                <version>2.19</version>-->
+            <!--                <extensions>true</extensions>-->
+            <!--                <configuration>-->
+            <!--                    <tiles>-->
+            <!--                        &lt;!&ndash; other tiles ... &ndash;&gt;-->
+            <!--                        <tile>io.ebean.tile:enhancement:12.9.3</tile>-->
+            <!--                    </tiles>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
+
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-compiler-plugin</artifactId>-->
+            <!--                <version>3.8.1</version>-->
+            <!--                <configuration>-->
+            <!--                    <annotationProcessorPaths>-->
+            <!--                        <path>-->
+            <!--                            <groupId>io.ebean</groupId>-->
+            <!--                            <artifactId>querybean-generator</artifactId>-->
+            <!--                            <version>13.3.1</version>-->
+            <!--                        </path>-->
+            <!--                        &lt;!&ndash; other annotation processors &ndash;&gt;-->
+            <!--                    </annotationProcessorPaths>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 
