@@ -1,6 +1,7 @@
 package com.deloop.user.data.db.models;
 
 import com.deloop.user.data.db.enums.RoleStatus;
+import io.ebean.Model;
 import io.ebean.annotation.DbDefault;
 import io.ebean.annotation.WhenCreated;
 import io.ebean.annotation.WhenModified;
@@ -19,7 +20,7 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "user_roles")
-public class UserRole {
+public class UserRole extends Model {
     @Id
     private long id;
 

@@ -4,6 +4,7 @@ import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.db.enums.AddressType;
 import com.deloop.user.data.db.enums.Country;
 import com.deloop.user.data.db.enums.State;
+import io.ebean.Model;
 import io.ebean.annotation.DbDefault;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "address")
-public class Address {
+public class Address extends Model {
     @Id
     private long id;
 
