@@ -22,7 +22,7 @@
                 <groupId>com.deloop.user</groupId>
                 <artifactId>user-bom</artifactId>
                 <version>${project.version}</version>
-                <type>war</type>
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
