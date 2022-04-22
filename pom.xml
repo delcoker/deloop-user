@@ -28,7 +28,7 @@
     </properties>
 
 
-    <packaging>maven-plugin</packaging>
+    <packaging>pom</packaging>
 
     <build>
         <plugins>
