@@ -6,8 +6,8 @@
     <modules>
         <module>user-bom</module>
         <module>user-data</module>
-        <module>user-api</module>
         <module>user-core</module>
+        <module>user-api</module>
     </modules>
 
     <parent>
