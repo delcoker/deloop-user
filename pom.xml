@@ -69,8 +69,17 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <!--                    <annotationProcessorPaths>-->
+                    <!--                        <path>-->
+                    <!--                            <groupId>io.ebean</groupId>-->
+                    <!--                            <artifactId>querybean-generator</artifactId>-->
+                    <!--                            <version>12.9.3</version>-->
+                    <!--                        </path>-->
+                    <!--                        &lt;!&ndash; other annotation processors &ndash;&gt;-->
+                    <!--                    </annotationProcessorPaths>-->
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

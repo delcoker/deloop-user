@@ -157,6 +157,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>io.repaint.maven</groupId>
                 <artifactId>tiles-maven-plugin</artifactId>
@@ -169,22 +170,34 @@
                     </tiles>
                 </configuration>
             </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>io.repaint.maven</groupId>-->
+            <!--                <artifactId>tiles-maven-plugin</artifactId>-->
+            <!--                <version>2.19</version>-->
+            <!--                <extensions>true</extensions>-->
+            <!--                <configuration>-->
+            <!--                    <tiles>-->
+            <!--                        &lt;!&ndash; other tiles ... &ndash;&gt;-->
+            <!--                        <tile>io.ebean.tile:enhancement:12.9.3</tile>-->
+            <!--                    </tiles>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <!--                <configuration>-->
-                <!--                    <annotationProcessorPaths>-->
-                <!--                        <path>-->
-                <!--                            <groupId>io.ebean</groupId>-->
-                <!--                            <artifactId>querybean-generator</artifactId>-->
-                <!--                            <version>12.9.3</version>-->
-                <!--                        </path>-->
-                <!--                        &lt;!&ndash; other annotation processors &ndash;&gt;-->
-                <!--                    </annotationProcessorPaths>-->
-                <!--                </configuration>-->
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-compiler-plugin</artifactId>-->
+            <!--                <version>3.8.1</version>-->
+            <!--                &lt;!&ndash;                <configuration>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    <annotationProcessorPaths>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        <path>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                            <groupId>io.ebean</groupId>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                            <artifactId>querybean-generator</artifactId>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                            <version>12.9.3</version>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        </path>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        &lt;!&ndash; other annotation processors &ndash;&gt;&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    </annotationProcessorPaths>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </configuration>&ndash;&gt;-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 
