@@ -3,6 +3,7 @@ package com.deloop.user.data.db.models;
 import com.deloop.user.data.api.dtos.*;
 import com.deloop.user.data.db.enums.Gender;
 import com.deloop.user.data.db.enums.UserStatus;
+import io.ebean.Model;
 import io.ebean.annotation.DbDefault;
 import lombok.*;
 
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @ToString
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends Model {
     @Id
     private long id;
 

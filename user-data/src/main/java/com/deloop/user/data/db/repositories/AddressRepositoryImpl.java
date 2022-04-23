@@ -51,12 +51,15 @@ public class AddressRepositoryImpl implements AddressRepository {
 
     @Override
     public AddressDto update(AddressDao addressDao) {
-        Address existing = findById(addressDao.getId())
-                .orElseThrow(() -> {
-                    String message = "Address with id " + addressDao.getId() + " does not exist!";
-                    log.info(message);
-                    throw new IllegalStateException(message);
-                });
+        Optional<Address> existing1 = findById(addressDao.getId());
+
+        if (!existing1.isPresent()) {
+
+            String message = "Address with id " + addressDao.getId() + " does not exist!";
+            log.info(message);
+            throw new IllegalStateException(message);
+        }
+        Address existing = existing1.get();
 
         Address updatedAddress = existing.toBuilder()
                 .id(addressDao.getId())

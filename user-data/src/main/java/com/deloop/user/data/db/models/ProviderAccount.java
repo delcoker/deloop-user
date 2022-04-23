@@ -1,5 +1,6 @@
 package com.deloop.user.data.db.models;
 
+import io.ebean.Model;
 import io.ebean.annotation.DbDefault;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "provider_accounts")
-public class ProviderAccount {
+public class ProviderAccount extends Model {
     @Id
     private long id;
 

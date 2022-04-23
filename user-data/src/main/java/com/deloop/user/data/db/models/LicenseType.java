@@ -1,6 +1,7 @@
 package com.deloop.user.data.db.models;
 
 import com.deloop.user.data.db.enums.LicenseStatus;
+import io.ebean.Model;
 import io.ebean.annotation.DbDefault;
 import io.ebean.annotation.WhenCreated;
 import io.ebean.annotation.WhenModified;
@@ -19,7 +20,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "license_types")
-public class LicenseType {
+public class LicenseType extends Model {
     @Id
     private long id;
 
@@ -37,10 +38,14 @@ public class LicenseType {
     @Enumerated(value = EnumType.STRING)
     private LicenseStatus status;
 
-    @Column @WhenCreated @DbDefault("2020-04-26 00:00")
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
     private LocalDateTime createdAt;
 
-    @Column @WhenModified @DbDefault("2020-04-26 00:00")
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "licenseType")

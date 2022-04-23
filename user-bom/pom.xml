@@ -37,6 +37,9 @@
         <spring-session-core.version>2.5.2</spring-session-core.version>
         <jackson.version>2.13.0</jackson.version>
         <swagger.version>3.0.0</swagger.version>
+        <postgresql.version>42.3.4</postgresql.version>
+        <!--        <ebean-maven-plugin.args>debug=0</ebean-maven-plugin.args>-->
+        <!--        <compile_classpath>com.deloop.user.data.db.models.**</compile_classpath>-->
     </properties>
 
     <dependencyManagement>
@@ -151,12 +154,18 @@
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.connector.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>io.ebean</groupId>
                 <artifactId>ebean</artifactId>
@@ -182,6 +191,15 @@
                 <version>${ebean.version}</version>
                 <!--            <scope>test</scope>-->
             </dependency>
+
+            <!-- Test dependencies -->
+            <dependency>
+                <groupId>io.ebean</groupId>
+                <artifactId>ebean-test</artifactId>
+                <version>${ebean.version}</version>
+                <scope>test</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>

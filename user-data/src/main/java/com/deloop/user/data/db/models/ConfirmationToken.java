@@ -1,9 +1,8 @@
 package com.deloop.user.data.db.models;
 
 import com.deloop.user.data.db.enums.ConfirmationTokenType;
-import io.ebean.annotation.DbDefault;
+import io.ebean.Model;
 import io.ebean.annotation.WhenCreated;
-import io.ebean.annotation.WhenModified;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "confirmation_tokens")
-public class ConfirmationToken {
+public class ConfirmationToken extends Model {
     @Id
     private long id;
 

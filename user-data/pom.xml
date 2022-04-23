@@ -59,6 +59,10 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean</artifactId>
         </dependency>
@@ -129,30 +133,91 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>io.ebean</groupId>-->
+        <!--            <artifactId>ebean-agent</artifactId>-->
+        <!--            <version>13.1.0</version>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.avaje.ebeanorm</groupId>-->
+        <!--            <artifactId>avaje-ebeanorm-agent</artifactId>-->
+        <!--            <version>8.1.1</version>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.avaje</groupId>-->
+        <!--            <artifactId>ebean</artifactId>-->
+        <!--            <version>2.7.1</version>-->
+        <!--        </dependency>-->
+
+
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>io.repaint.maven</groupId>
+                <artifactId>tiles-maven-plugin</artifactId>
+                <version>2.19</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <!--    added to prevent main class from execution -->
-                    <skip>true</skip>
+                    <tiles>
+                        <!-- other tiles ... -->
+                        <tile>io.ebean.tile:enhancement:12.9.3</tile>
+                        <!--                        <tile>io.avaje.kapt:compile:1.1</tile>-->
+                        <!--                        <tile>io.ebean:querybean-generator:3.1</tile>-->
+                    </tiles>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>io.ebean</groupId>
+                <artifactId>ebean-maven-plugin</artifactId>
+                <version>13.3.1</version>
+                <executions>
+                    <execution>
+                        <id>main</id>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <transformArgs>debug=1</transformArgs>
+                        </configuration>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>io.repaint.maven</groupId>-->
+            <!--                <artifactId>tiles-maven-plugin</artifactId>-->
+            <!--                <version>2.19</version>-->
+            <!--                <extensions>true</extensions>-->
+            <!--                <configuration>-->
+            <!--                    <tiles>-->
+            <!--                        &lt;!&ndash; other tiles ... &ndash;&gt;-->
+            <!--                        <tile>io.ebean.tile:enhancement:12.9.3</tile>-->
+            <!--                    </tiles>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
+
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-compiler-plugin</artifactId>-->
+            <!--                <version>3.8.1</version>-->
+            <!--                &lt;!&ndash;                <configuration>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    <annotationProcessorPaths>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        <path>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                            <groupId>io.ebean</groupId>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                            <artifactId>querybean-generator</artifactId>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                            <version>12.9.3</version>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        </path>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                        &lt;!&ndash; other annotation processors &ndash;&gt;&ndash;&gt;-->
+            <!--                &lt;!&ndash;                    </annotationProcessorPaths>&ndash;&gt;-->
+            <!--                &lt;!&ndash;                </configuration>&ndash;&gt;-->
+            <!--            </plugin>-->
         </plugins>
     </build>
-
-    <!--    <build>-->
-    <!--        <pluginManagement>-->
-    <!--            <plugins>-->
-    <!--                <plugin>-->
-    <!--                    <groupId>org.springframework.boot</groupId>-->
-    <!--                    <artifactId>spring-boot-maven-plugin</artifactId>-->
-    <!--                </plugin>-->
-    <!--            </plugins>-->
-    <!--        </pluginManagement>-->
-    <!--    </build>-->
 
 </project>

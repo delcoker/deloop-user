@@ -3,6 +3,7 @@ package com.deloop.user.data.db.models;
 import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.api.dtos.UserDetailDto;
 import com.deloop.user.data.db.enums.Gender;
+import io.ebean.Model;
 import io.ebean.annotation.DbDefault;
 import io.ebean.annotation.WhenCreated;
 import io.ebean.annotation.WhenModified;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 @ToString
 @Entity
 @Table(name = "user_details")
-public class UserDetail {
+public class UserDetail extends Model {
     @Id
     private long id;
 

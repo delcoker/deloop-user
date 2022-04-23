@@ -1,10 +1,10 @@
-env: dev
+env: ${ENV}
 
 spring:
   config:
     import: optional:file:.env[.properties]
   profiles:
-    active: ${env} # set this to the right environment esp for docker => live
+    active: ${PROFILE} # set this to the right environment esp for docker => live
 
   mail: # https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4N11isNtPUV0AmxD8ENeOcbgQEIGHimyned69xLBrAFHfAk5-iUXfYazUCckQFXbhtacVU8fIscVN24R6qx1SwxRUX71g
     host: ${MAIL_HOST}
@@ -40,7 +40,10 @@ server:
   port: ${SERVER_PORT}
 
 db:
+  driver: ${DB_DRIVER_EBEAN}
+  language: ${DB_LANGUAGE}
   server: ${DB_SERVER}
+  port: ${DB_PORT}
   name: ${DB_NAME}
   user: ${DB_USER}
   password: ${DB_PASSWORD}
