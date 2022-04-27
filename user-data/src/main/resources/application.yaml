@@ -37,7 +37,7 @@ remember:
       key: nothing
 
 server:
-  port: ${PORT:5000}
+  port: ${PORT}
 
 db:
   driver: ${DB_DRIVER_EBEAN}
