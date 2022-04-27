@@ -94,10 +94,10 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--    added to prevent main class from execution -->
-                    <skip>true</skip>
+                    <!--                    <skip>true</skip>-->
                 </configuration>
             </plugin>
         </plugins>
     </build>
-    
+
 </project>
