@@ -37,6 +37,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.1.7.RELEASE</version>
                 <configuration>
+                    <skip>true</skip>
                     <mainClass>com.deloop.user.api.UserApiApplication</mainClass>
                 </configuration>
                 <executions>
