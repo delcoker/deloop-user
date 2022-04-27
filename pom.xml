@@ -35,68 +35,36 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--    added to prevent main class from execution -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <version>3.0.3</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <!--    <build>-->
-    <!--        <plugins>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.springframework.boot</groupId>-->
-    <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-    <!--                &lt;!&ndash;                <configuration>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                    <excludes>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                        <exclude>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                            <groupId>org.projectlombok</groupId>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                            <artifactId>lombok</artifactId>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                        </exclude>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                    </excludes>&ndash;&gt;-->
-    <!--                &lt;!&ndash;                </configuration>&ndash;&gt;-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>com.heroku.sdk</groupId>-->
-    <!--                <artifactId>heroku-maven-plugin</artifactId>-->
-    <!--                <version>3.0.3</version>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-dependency-plugin</artifactId>-->
-    <!--                <version>3.0.1</version>-->
-    <!--                <executions>-->
-    <!--                    <execution>-->
-    <!--                        <id>copy-dependencies</id>-->
-    <!--                        <phase>package</phase>-->
-    <!--                        <goals>-->
-    <!--                            <goal>copy-dependencies</goal>-->
-    <!--                        </goals>-->
-    <!--                    </execution>-->
-    <!--                </executions>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-compiler-plugin</artifactId>-->
-    <!--                <version>3.5.1</version>-->
-    <!--                <configuration>-->
-    <!--                    <source>${java.version}</source>-->
-    <!--                    <target>${java.version}</target>-->
-    <!--                    &lt;!&ndash;                    <annotationProcessorPaths>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                        <path>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                            <groupId>io.ebean</groupId>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                            <artifactId>querybean-generator</artifactId>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                            <version>12.9.3</version>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                        </path>&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                        &lt;!&ndash; other annotation processors &ndash;&gt;&ndash;&gt;-->
-    <!--                    &lt;!&ndash;                    </annotationProcessorPaths>&ndash;&gt;-->
-    <!--                </configuration>-->
-    <!--            </plugin>-->
-
-    <!--        </plugins>-->
-    <!--    </build>-->
 
 </project>
