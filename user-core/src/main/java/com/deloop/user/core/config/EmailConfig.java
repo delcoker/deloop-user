@@ -56,6 +56,13 @@ public class EmailConfig {
         props.put("mail.smtp.starttls.enable", email_enable_tls);
         props.put("mail.debug", email_enable_debug);
 
+        System.err.println(email_host);
+        System.err.println(email_port);
+        System.err.println(email_username);
+        System.err.println(email_password);
+        System.err.println(email_protocol);
+        System.err.println(email_enable_auth);
+
         return mailSender;
     }
 
