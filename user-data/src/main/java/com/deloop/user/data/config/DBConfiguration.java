@@ -59,7 +59,7 @@ public class DBConfiguration {
         String databaseLanguage = db_language;
 
         DataSourceConfig dataSource = new DataSourceConfig();
-        dataSource.setDriver(db_driver);
+//        dataSource.setDriver(db_driver);
 //        dataSource.setDriver("com.mysql.cj.jdbc.Driver");
 //        dataSource.setDriver("org.postgresql.Driver");
         dataSource.setUsername(databaseUser);
