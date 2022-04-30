@@ -35,7 +35,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
         String link = urlService.getDomain() + REGISTRATION_ENDPOINT + token;
 
-        emailSenderService.send(registrationRequest.getEmail(), buildEmail(registrationRequest.getUsername(), link));
+        emailSenderService.send(registrationRequest.getEmail(),
+                buildEmail(registrationRequest.getUsername(), link));
 
         return token;
 

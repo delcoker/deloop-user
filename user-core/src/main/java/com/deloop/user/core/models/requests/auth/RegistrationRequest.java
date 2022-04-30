@@ -23,11 +23,15 @@ public class RegistrationRequest {
     private String password = "";
 
     @Builder.Default
+    @ApiParam(required = true)
+    private String verifyPassword = "";
+
+    @Builder.Default
     private String username = "";
 
     @ApiParam(hidden = true)
     public boolean isValid() {
-        return email.equalsIgnoreCase(verifyEmail);
+        return email.equalsIgnoreCase(verifyEmail) && password.equals(verifyPassword);
     }
 
 

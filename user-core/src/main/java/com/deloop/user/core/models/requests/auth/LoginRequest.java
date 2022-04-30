@@ -11,17 +11,17 @@ import lombok.ToString;
 public class LoginRequest {
 
     @Builder.Default
-    @ApiParam(required = true, example = "delcoker@gmail.com")
+    @ApiParam(required = true, value = "delcoker@gmail.com", example = "delcoker@gmail.com")
     private String email = "";
 
     @Builder.Default
-    @ApiParam(example = "123", required = true)
+    @ApiParam(required = true, example = "123")
     private String password = "";
 
     @Builder.Default
     private String username = "";
 
     @Builder.Default
-    @ApiParam(example = "false")
+    @ApiParam(value = "false")
     private boolean rememberMe = false;
 }

@@ -2,7 +2,7 @@ env: ${ENV}
 
 spring:
   config:
-    import: optional:file:.env[.properties]
+    import: optional:file:.env[.properties] # set to .env for heroku
   profiles:
     active: ${PROFILE} # set this to the right environment esp for docker => live
 
@@ -28,13 +28,12 @@ domain:
   url: ${DOMAIN_URL}
 
 jwt:
-  secret:
-    key: ${JWT_SECRET_KEY}
+  secret_key: ${JWT_SECRET_KEY}
+  expiration_minutes: ${JWT_EXPIRATION_MINUTES}
 
-remember:
-  me:
-    secret:
-      key: nothing
+
+remember_me:
+  secret_key: nothing
 
 server:
   port: ${PORT}

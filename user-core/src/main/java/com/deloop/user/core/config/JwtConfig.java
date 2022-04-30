@@ -12,10 +12,10 @@ import java.util.Optional;
 @Configuration
 public class JwtConfig { // implements EnvironmentAware {
 
-    @Value("${jwt.secret.key}")
+    @Value("${jwt.secret_key}")
     private String JWT_TOKEN_SECRET_KEY;
 
-    @Value("${remember.me.secret.key}")
+    @Value("${remember_me.secret_key}")
     private String REMEMBER_ME_TOKEN_SECRET_KEY;
 
 //    private static final String JWT_TOKEN_SECRET_KEY = "JWT_TOKEN_SECRET_KEY";

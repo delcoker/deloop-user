@@ -5,6 +5,7 @@ import com.deloop.user.core.models.requests.auth.RegistrationRequest;
 import com.deloop.user.core.services.auth.RegistrationService;
 import com.deloop.user.data.exceptions.EmailInvalidException;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
+import com.deloop.user.data.exceptions.EmailOrPasswordInvalidException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.SpringQueryMap;
@@ -23,11 +24,11 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@SpringQueryMap RegistrationRequest registrationRequest) throws EmailInvalidException, EmailIsAlreadyTakenException {
+    public ResponseEntity<String> register(@SpringQueryMap RegistrationRequest registrationRequest) throws EmailOrPasswordInvalidException, EmailInvalidException, EmailIsAlreadyTakenException {
         log.info(registrationRequest.toString());
 
         if (!registrationRequest.isValid()) {
-            throw new EmailInvalidException("Emails do not match");
+            throw new EmailOrPasswordInvalidException("Emails or password do not match");
         }
 
         return ResponseEntity.ok(registrationService.register(registrationRequest));

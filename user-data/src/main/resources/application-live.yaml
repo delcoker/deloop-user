@@ -10,4 +10,4 @@ db:
   password: ${DB_PASSWORD} # 123
 
 domain:
-  url: https://deloopltd.com
+  url: ${DOMAIN_URL}

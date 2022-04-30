@@ -5,6 +5,7 @@ import com.deloop.user.core.models.responses.LoginResponse;
 import com.deloop.user.core.services.jwt.JwtTokenService;
 import io.ebean.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
-    private static int EXPIRATION_MINUTES = 300;
+    @Value("${jwt.expiration_minutes}")
+    private static int EXPIRATION_MINUTES;
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
