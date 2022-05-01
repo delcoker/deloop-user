@@ -40,16 +40,6 @@ public class UserPermission extends Model {
     @DbDefault("disabled")
     private PermissionStatus status;
 
-    @Column
-    @WhenCreated
-    @DbDefault("2020-04-26 00:00")
-    private LocalDateTime createdAt;
-
-    @Column
-    @WhenModified
-    @DbDefault("2020-04-26 00:00")
-    private LocalDateTime updatedAt;
-
 //    @ManyToMany
 //    private List<UserType> userTypes;
 
@@ -58,4 +48,14 @@ public class UserPermission extends Model {
 
     @OneToMany(mappedBy = "permission")
     private List<UserRolePermission> userRolePermissions;
+
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime createdAt;
+
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime updatedAt;
 }

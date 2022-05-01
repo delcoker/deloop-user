@@ -38,16 +38,16 @@ public class LicenseType extends Model {
     @Enumerated(value = EnumType.STRING)
     private LicenseStatus status;
 
+    @OneToMany(mappedBy = "licenseType")
+    private List<User> users;
+
     @Column
     @WhenCreated
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime createdAt;
+    public LocalDateTime createdAt;
 
     @Column
     @WhenModified
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "licenseType")
-    private List<User> users;
+    public LocalDateTime updatedAt;
 }

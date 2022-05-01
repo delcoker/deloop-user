@@ -29,6 +29,9 @@ public class UserDetail extends Model {
     @Id
     private long id;
 
+    @ManyToOne
+    private User user;
+
     @Column
     @Builder.Default
     private String profilePicture = "";
@@ -103,21 +106,18 @@ public class UserDetail extends Model {
     @DbDefault("2020-04-26 00:00")
     private LocalDateTime lastLogin;
 
+    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL)
+    private List<Address> addresses;
+
     @Column
     @WhenCreated
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime createdAt;
+    public LocalDateTime createdAt;
 
     @Column
     @WhenModified
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime updatedAt;
-
-    @ManyToOne
-    private User user;
-
-    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL)
-    private List<Address> addresses;
+    public LocalDateTime updatedAt;
 
     public int getAge() {
         if (dateOfBirth == null) {

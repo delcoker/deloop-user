@@ -2,7 +2,7 @@ env: ${ENV}
 
 spring:
   config:
-    import: optional:file:.env[.properties] # set to .env for heroku
+    import: optional:file:.env.heroku[.properties] # set to .env for heroku
   profiles:
     active: ${PROFILE} # set this to the right environment esp for docker => live
 

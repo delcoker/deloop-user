@@ -5,21 +5,27 @@ import com.deloop.user.data.db.enums.Gender;
 import com.deloop.user.data.db.enums.UserStatus;
 import io.ebean.Model;
 import io.ebean.annotation.DbDefault;
+import io.ebean.annotation.WhenCreated;
+import io.ebean.annotation.WhenModified;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @ToString
 @Entity
 @Table(name = "users")
 public class User extends Model {
     @Id
     private long id;
+
+    @OneToMany(mappedBy = "user") // supposed to be @OneToOne but doesn't work
+    private List<UserDetail> userDetails;
 
     @Column
     @DbDefault("")
@@ -43,9 +49,6 @@ public class User extends Model {
     @Enumerated(value = EnumType.STRING)
     private UserStatus status = UserStatus.ENABLED;
 
-    @OneToMany(mappedBy = "user") // supposed to be @OneToOne
-    private List<UserDetail> userDetails;
-
     @OneToMany(mappedBy = "user")
     private List<ProviderAccount> providerAccounts;
 
@@ -57,6 +60,16 @@ public class User extends Model {
 
     @ManyToOne
     private UserRole userRole;
+
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime createdAt;
+
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime updatedAt;
 
     public UserDto getUserDto() {
         List<ProviderAccountDto> providerAccountDtos = providerAccounts.stream()

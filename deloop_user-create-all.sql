@@ -1,5 +1,6 @@
 create table address (
   id                            bigint auto_increment not null,
+  userDetailId                  bigint,
   country                       integer,
   state                         integer,
   city                          varchar(255),
@@ -7,18 +8,20 @@ create table address (
   addressLine2                  varchar(255) default '',
   postCode                      varchar(255) default '',
   addressType                   varchar(8),
-  userDetailId                  bigint,
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_address primary key (id)
 );
 
 create table confirmation_tokens (
   id                            bigint auto_increment not null,
+  userId                        bigint,
   token                         varchar(255) not null,
   type                          varchar(14) not null,
-  expiresAt                     datetime not null,
-  confirmedAt                   datetime,
-  userId                        bigint,
-  createdAt                     datetime not null,
+  expiresAt                     datetime(6) not null,
+  confirmedAt                   datetime(6),
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_confirmation_tokens primary key (id)
 );
 
@@ -28,8 +31,8 @@ create table license_types (
   description                   varchar(255) default '',
   access                        varchar(255) default '',
   status                        varchar(8),
-  createdAt                     datetime default '2020-04-26 00:00' not null,
-  updatedAt                     datetime default '2020-04-26 00:00' not null,
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_license_types primary key (id)
 );
 
@@ -38,6 +41,8 @@ create table provider_accounts (
   userId                        bigint,
   provider                      varchar(255) default '',
   profileLink                   varchar(255) default '',
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_provider_accounts primary key (id)
 );
 
@@ -51,25 +56,27 @@ create table users (
   status                        varchar(8),
   licenseTypeId                 bigint,
   userRoleId                    bigint,
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_users primary key (id)
 );
 
 create table user_details (
   id                            bigint auto_increment not null,
+  userId                        bigint,
   profilePicture                varchar(255),
   firstName                     varchar(255) default '',
   otherNames                    varchar(100),
   lastName                      varchar(100),
   gender                        varchar(7),
-  dateOfBirth                   datetime default '2020-04-26 00:00',
+  dateOfBirth                   datetime(6) default '2020-04-26 00:00',
   placeOfBirth                  varchar(255) default '',
   prefix                        varchar(255) default '',
   title                         varchar(100),
   memo                          TEXT,
-  lastLogin                     datetime default '2020-04-26 00:00',
-  userId                        bigint,
-  createdAt                     datetime default '2020-04-26 00:00' not null,
-  updatedAt                     datetime default '2020-04-26 00:00' not null,
+  lastLogin                     datetime(6) default '2020-04-26 00:00',
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_user_details primary key (id)
 );
 
@@ -79,8 +86,8 @@ create table user_permissions (
   code                          varchar(255) default '',
   description                   varchar(255) default '',
   status                        varchar(8) default 'disabled',
-  createdAt                     datetime default '2020-04-26 00:00' not null,
-  updatedAt                     datetime default '2020-04-26 00:00' not null,
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_user_permissions primary key (id)
 );
 
@@ -90,8 +97,8 @@ create table user_roles (
   description                   TEXT,
   capabilities                  TEXT,
   status                        varchar(8),
-  createdAt                     datetime default '2020-04-26 00:00' not null,
-  updatedAt                     datetime default '2020-04-26 00:00' not null,
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_user_roles primary key (id)
 );
 
@@ -99,6 +106,8 @@ create table user_role_permissions (
   id                            bigint auto_increment not null,
   roleId                        bigint,
   permissionId                  bigint,
+  createdAt                     datetime(6) default '2020-04-26 00:00' not null,
+  updatedAt                     datetime(6) default '2020-04-26 00:00' not null,
   constraint pk_user_role_permissions primary key (id)
 );
 
