@@ -2,7 +2,6 @@ package com.deloop.user.core.services.user;
 
 import com.deloop.user.core.models.requests.AddUserRequest;
 import com.deloop.user.core.models.requests.UserRequest;
-import com.deloop.user.core.models.requests.auth.RegistrationRequest;
 import com.deloop.user.data.api.dtos.UserDto;
 import com.deloop.user.data.db.models.User;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
@@ -15,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public interface UserService extends UserDetailsService {
     void addUser(AddUserRequest addUserRequest);
 
-    String signUpUser(RegistrationRequest registrationRequest) throws EmailIsAlreadyTakenException;
+    String signUpUser(String email, String username, String password) throws EmailIsAlreadyTakenException;
 
     User loadUserByScreenName(UserRequest userRequest) throws ScreenNameNotFoundException;
 
@@ -23,6 +22,5 @@ public interface UserService extends UserDetailsService {
 
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
-    int verifyUser(String email);
-//    String login(LoginRequest loginRequest) throws EmailNotFoundException;
+    boolean verifyUser(String email);
 }

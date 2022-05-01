@@ -16,10 +16,6 @@ public class RegistrationRequest {
 
     @Builder.Default
     @ApiParam(required = true)
-    private String verifyEmail = "";
-
-    @Builder.Default
-    @ApiParam(required = true)
     private String password = "";
 
     @Builder.Default
@@ -31,7 +27,7 @@ public class RegistrationRequest {
 
     @ApiParam(hidden = true)
     public boolean isValid() {
-        return email.equalsIgnoreCase(verifyEmail) && password.equals(verifyPassword);
+        return password.equals(verifyPassword);
     }
 
 

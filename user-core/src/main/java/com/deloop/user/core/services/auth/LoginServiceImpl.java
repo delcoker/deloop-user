@@ -1,6 +1,5 @@
 package com.deloop.user.core.services.auth;
 
-import com.deloop.user.core.models.requests.auth.LoginRequest;
 import com.deloop.user.core.models.responses.LoginResponse;
 import com.deloop.user.core.services.jwt.JwtTokenService;
 import io.ebean.annotation.Transactional;
@@ -22,8 +21,8 @@ public class LoginServiceImpl implements LoginService {
     private final JwtTokenService jwtTokenService;
 
     @Override
-    public LoginResponse login(LoginRequest loginRequest) {
-        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
+    public LoginResponse login(String email, String password) {
+        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(email, password);
         Authentication authentication = authenticationManager.authenticate(authReq);
 
         SecurityContext securityContext = SecurityContextHolder.getContext();

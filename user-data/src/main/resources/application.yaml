@@ -27,6 +27,9 @@ spring:
 domain:
   url: ${DOMAIN_URL}
 
+server:
+  port: ${PORT}
+
 jwt:
   secret_key: ${JWT_SECRET_KEY}
   expiration_minutes: ${JWT_EXPIRATION_MINUTES}
@@ -35,8 +38,7 @@ jwt:
 remember_me:
   secret_key: nothing
 
-server:
-  port: ${PORT}
+registration_confirmation_redirect_url: ${REGISTRATION_CONFIRMATION_REDIRECT_URL}
 
 db:
   driver: ${DB_DRIVER_EBEAN}
