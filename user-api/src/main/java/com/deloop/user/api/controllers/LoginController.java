@@ -29,7 +29,7 @@ public class LoginController {
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
 
         if (!loginRequest.isValid()) {
-            throw new InvalidParameterException("Email or password empty");
+            throw new InvalidParameterException("Email or password length invalid!");
         }
         LoginResponse response = loginService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
