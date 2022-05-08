@@ -112,10 +112,10 @@ create table user_role_permissions (
 );
 
 create index ix_address_userDetailId on address (userDetailId);
-alter table address add constraint fk_address_userDetailId foreign key (userDetailId) references user_details (id) on delete restrict on update restrict;
+alter table address add constraint fk_address_userDetailId foreign key (userDetailId) references user_details (id) on delete cascade on update restrict;
 
 create index ix_confirmation_tokens_userId on confirmation_tokens (userId);
-alter table confirmation_tokens add constraint fk_confirmation_tokens_userId foreign key (userId) references users (id) on delete restrict on update restrict;
+alter table confirmation_tokens add constraint fk_confirmation_tokens_userId foreign key (userId) references users (id) on delete cascade on update restrict;
 
 create index ix_provider_accounts_userId on provider_accounts (userId);
 alter table provider_accounts add constraint fk_provider_accounts_userId foreign key (userId) references users (id) on delete restrict on update restrict;
@@ -127,7 +127,7 @@ create index ix_users_userRoleId on users (userRoleId);
 alter table users add constraint fk_users_userRoleId foreign key (userRoleId) references user_roles (id) on delete restrict on update restrict;
 
 create index ix_user_details_userId on user_details (userId);
-alter table user_details add constraint fk_user_details_userId foreign key (userId) references users (id) on delete restrict on update restrict;
+alter table user_details add constraint fk_user_details_userId foreign key (userId) references users (id) on delete cascade on update restrict;
 
 create index ix_user_role_permissions_roleId on user_role_permissions (roleId);
 alter table user_role_permissions add constraint fk_user_role_permissions_roleId foreign key (roleId) references user_roles (id) on delete restrict on update restrict;

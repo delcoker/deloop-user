@@ -15,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class LoginServiceImpl implements LoginService {
 
     @Value("${jwt.expiration_minutes}")
-    private static int EXPIRATION_MINUTES;
+    private int EXPIRATION_MINUTES;
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;

@@ -2,9 +2,8 @@ package com.deloop.user.data.db.models;
 
 import com.deloop.user.data.db.enums.ConfirmationTokenType;
 import io.ebean.Model;
-import io.ebean.annotation.DbDefault;
-import io.ebean.annotation.WhenCreated;
-import io.ebean.annotation.WhenModified;
+import io.ebean.annotation.ConstraintMode;
+import io.ebean.annotation.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +23,7 @@ public class ConfirmationToken extends Model {
     private long id;
 
     @ManyToOne
+    @DbForeignKey(onDelete = ConstraintMode.CASCADE)
     private User user;
 
     @Column(nullable = false)
