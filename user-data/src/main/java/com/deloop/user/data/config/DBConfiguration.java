@@ -108,6 +108,7 @@ public class DBConfiguration {
 
     void migrateDB(IDBEbeanService ebeanService) {
         log.info("env: " + env);
+        System.err.println("migrating DB: " + env);
 //        String description = description.replace(" ", "_");
 //        System.setProperty("ddl.migration.name", description);
         DbMigration dbMigration = DbMigration.create();

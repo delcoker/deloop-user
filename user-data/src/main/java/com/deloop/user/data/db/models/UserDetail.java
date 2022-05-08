@@ -4,9 +4,8 @@ import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.api.dtos.UserDetailDto;
 import com.deloop.user.data.db.enums.Gender;
 import io.ebean.Model;
-import io.ebean.annotation.DbDefault;
-import io.ebean.annotation.WhenCreated;
-import io.ebean.annotation.WhenModified;
+import io.ebean.annotation.ConstraintMode;
+import io.ebean.annotation.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +29,7 @@ public class UserDetail extends Model {
     private long id;
 
     @ManyToOne
+    @DbForeignKey(onDelete = ConstraintMode.CASCADE)
     private User user;
 
     @Column

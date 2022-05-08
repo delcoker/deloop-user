@@ -24,7 +24,7 @@ public class User extends Model {
     @Id
     private long id;
 
-    @OneToMany(mappedBy = "user") // supposed to be @OneToOne but doesn't work
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // supposed to be @OneToOne but doesn't work
     private List<UserDetail> userDetails;
 
     @Column

@@ -5,9 +5,8 @@ import com.deloop.user.data.db.enums.AddressType;
 import com.deloop.user.data.db.enums.Country;
 import com.deloop.user.data.db.enums.State;
 import io.ebean.Model;
-import io.ebean.annotation.DbDefault;
-import io.ebean.annotation.WhenCreated;
-import io.ebean.annotation.WhenModified;
+import io.ebean.annotation.ConstraintMode;
+import io.ebean.annotation.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +25,8 @@ public class Address extends Model {
     @Id
     private long id;
 
-    @ManyToOne //(cascade = CascadeType.ALL)
+    @ManyToOne
+    @DbForeignKey(onDelete = ConstraintMode.CASCADE)
     private UserDetail userDetail;
 
     @Column
