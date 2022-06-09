@@ -33,10 +33,10 @@ public class UserRolePermission extends Model {
     @Column
     @WhenCreated
     @DbDefault("2020-04-26 00:00")
-    public LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column
     @WhenModified
     @DbDefault("2020-04-26 00:00")
-    public LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 }
