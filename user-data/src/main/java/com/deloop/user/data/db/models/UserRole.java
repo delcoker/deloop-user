@@ -39,16 +39,6 @@ public class UserRole extends Model {
     @Enumerated(value = EnumType.STRING)
     private RoleStatus status;
 
-    @Column
-    @WhenCreated
-    @DbDefault("2020-04-26 00:00")
-    private LocalDateTime createdAt;
-
-    @Column
-    @WhenModified
-    @DbDefault("2020-04-26 00:00")
-    private LocalDateTime updatedAt;
-
     @OneToMany(mappedBy = "userRole")
     private List<User> users;
 
@@ -57,4 +47,14 @@ public class UserRole extends Model {
 
     @OneToMany(mappedBy = "role")
     private List<UserRolePermission> userRolePermissions;
+
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime createdAt;
+
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime updatedAt;
 }

@@ -5,13 +5,15 @@ import com.deloop.user.data.db.enums.AddressType;
 import com.deloop.user.data.db.enums.Country;
 import com.deloop.user.data.db.enums.State;
 import io.ebean.Model;
-import io.ebean.annotation.DbDefault;
+import io.ebean.annotation.ConstraintMode;
+import io.ebean.annotation.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,6 +24,10 @@ import javax.persistence.*;
 public class Address extends Model {
     @Id
     private long id;
+
+    @ManyToOne
+    @DbForeignKey(onDelete = ConstraintMode.CASCADE)
+    private UserDetail userDetail;
 
     @Column
     private Country country;
@@ -47,8 +53,15 @@ public class Address extends Model {
     @Enumerated(value = EnumType.STRING)
     private AddressType addressType;
 
-    @ManyToOne//(cascade = CascadeType.ALL)
-    private UserDetail userDetail;
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime createdAt;
+
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime updatedAt;
 
     public AddressDto getAddressDto() {
         return AddressDto.builder()

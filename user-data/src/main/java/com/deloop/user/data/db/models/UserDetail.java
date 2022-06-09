@@ -4,9 +4,8 @@ import com.deloop.user.data.api.dtos.AddressDto;
 import com.deloop.user.data.api.dtos.UserDetailDto;
 import com.deloop.user.data.db.enums.Gender;
 import io.ebean.Model;
-import io.ebean.annotation.DbDefault;
-import io.ebean.annotation.WhenCreated;
-import io.ebean.annotation.WhenModified;
+import io.ebean.annotation.ConstraintMode;
+import io.ebean.annotation.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +27,10 @@ import java.util.stream.Collectors;
 public class UserDetail extends Model {
     @Id
     private long id;
+
+    @ManyToOne
+    @DbForeignKey(onDelete = ConstraintMode.CASCADE)
+    private User user;
 
     @Column
     @Builder.Default
@@ -103,21 +106,18 @@ public class UserDetail extends Model {
     @DbDefault("2020-04-26 00:00")
     private LocalDateTime lastLogin;
 
+    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL)
+    private List<Address> addresses;
+
     @Column
     @WhenCreated
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime createdAt;
+    public LocalDateTime createdAt;
 
     @Column
     @WhenModified
     @DbDefault("2020-04-26 00:00")
-    private LocalDateTime updatedAt;
-
-    @ManyToOne
-    private User user;
-
-    @OneToMany(mappedBy = "userDetail", cascade = CascadeType.ALL)
-    private List<Address> addresses;
+    public LocalDateTime updatedAt;
 
     public int getAge() {
         if (dateOfBirth == null) {

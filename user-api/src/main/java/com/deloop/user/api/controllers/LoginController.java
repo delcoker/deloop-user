@@ -9,14 +9,11 @@ import com.deloop.user.data.api.dtos.UserDto;
 import com.deloop.user.data.exceptions.EmailNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.InvalidParameterException;
 import java.security.Principal;
 
 @Slf4j
@@ -29,9 +26,12 @@ public class LoginController {
     private final UserService userService;
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoginResponse> login(@SpringQueryMap LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
 
-        LoginResponse response = loginService.login(loginRequest);
+        if (!loginRequest.isValid()) {
+            throw new InvalidParameterException("Email or password length invalid!");
+        }
+        LoginResponse response = loginService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         return ResponseEntity.ok(response);
     }

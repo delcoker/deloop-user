@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <alterColumn columnName="userId" tableName="confirmation_tokens" references="users.id" foreignKeyName="fk_confirmation_tokens_userId" foreignKeyIndex="ix_confirmation_tokens_userId" foreignKeyOnDelete="CASCADE" foreignKeyOnUpdate="RESTRICT" dropForeignKey="fk_confirmation_tokens_userId" dropForeignKeyIndex="ix_confirmation_tokens_userId"/>
+    </changeSet>
+</migration>

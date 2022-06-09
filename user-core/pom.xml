@@ -58,6 +58,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -70,8 +80,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <!--    added to prevent main class from execution -->
-                    <!--                    <skip>true</skip>-->
+                    <skip>true</skip>
+                    <!--                    &lt;!&ndash;                    <classifier>true</classifier>&ndash;&gt;-->
                 </configuration>
             </plugin>
         </plugins>

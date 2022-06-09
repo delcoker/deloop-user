@@ -2,7 +2,8 @@ package com.deloop.user.data.db.models;
 
 import com.deloop.user.data.db.enums.ConfirmationTokenType;
 import io.ebean.Model;
-import io.ebean.annotation.WhenCreated;
+import io.ebean.annotation.ConstraintMode;
+import io.ebean.annotation.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,10 @@ public class ConfirmationToken extends Model {
     @Id
     private long id;
 
+    @ManyToOne
+    @DbForeignKey(onDelete = ConstraintMode.CASCADE)
+    private User user;
+
     @Column(nullable = false)
     private String token;
 
@@ -29,15 +34,18 @@ public class ConfirmationToken extends Model {
     private ConfirmationTokenType type;
 
     @Column(nullable = false)
-    @WhenCreated
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
     private LocalDateTime expiresAt;
 
     @Column
     private LocalDateTime confirmedAt;
 
-    @ManyToOne
-    private User user;
+    @Column
+    @WhenCreated
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime createdAt;
+
+    @Column
+    @WhenModified
+    @DbDefault("2020-04-26 00:00")
+    public LocalDateTime updatedAt;
 }

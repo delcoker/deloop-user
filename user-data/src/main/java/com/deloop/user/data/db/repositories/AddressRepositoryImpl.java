@@ -62,7 +62,7 @@ public class AddressRepositoryImpl implements AddressRepository {
         Address existing = existing1.get();
 
         Address updatedAddress = existing.toBuilder()
-                .id(addressDao.getId())
+//                .id(addressDao.getId()) // TODO lombok workaround
                 .addressType(addressDao.getAddressType())
                 .addressLine1(addressDao.getAddressLine1())
                 .addressLine2(addressDao.getAddressLine2())
@@ -71,6 +71,7 @@ public class AddressRepositoryImpl implements AddressRepository {
                 .postCode(addressDao.getPostCode())
                 .country(addressDao.getCountry())
                 .build();
+        updatedAddress.setId(addressDao.getId()); // TODO lombok workaround
 
         db.update(updatedAddress);
         return map(updatedAddress);
@@ -78,7 +79,11 @@ public class AddressRepositoryImpl implements AddressRepository {
 
     @Override
     public boolean delete(long addressId) {
-        if (db.delete(Address.builder().id(addressId).build())) {
+
+        Address address = Address.builder().build();
+        address.setId(addressId); // TODO lombok workaround
+
+        if (db.delete(address)) {
             return true;
         }
         String message = "Address with id " + addressId + " does not exist!";

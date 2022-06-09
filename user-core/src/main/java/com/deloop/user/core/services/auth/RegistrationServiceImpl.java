@@ -9,9 +9,9 @@ import com.deloop.user.core.services.user.UserService;
 import com.deloop.user.data.db.models.ConfirmationToken;
 import com.deloop.user.data.exceptions.EmailInvalidException;
 import com.deloop.user.data.exceptions.EmailIsAlreadyTakenException;
+import com.deloop.user.data.exceptions.InvalidConfirmationTokenException;
 import io.ebean.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDateTime;
 
@@ -31,35 +31,36 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (!isValid) {
             throw new EmailInvalidException("Invalid email");
         }
-        String token = userService.signUpUser(registrationRequest);
+        String confirmationToken = userService.signUpUser(registrationRequest.getEmail(), registrationRequest.getUsername(),
+                registrationRequest.getPassword());
 
-        String link = urlService.getDomain() + REGISTRATION_ENDPOINT + token;
+        String link = urlService.getDomain() + REGISTRATION_ENDPOINT + confirmationToken;
 
-        emailSenderService.send(registrationRequest.getEmail(), buildEmail(registrationRequest.getUsername(), link));
+        emailSenderService.send(registrationRequest.getEmail(),
+                buildEmail(registrationRequest.getUsername(), link));
 
-        return token;
+        return confirmationToken;
 
     }
 
     @Override
     @Transactional
-    public RedirectView confirmToken(String token) {
+    public boolean confirmToken(String token) throws InvalidConfirmationTokenException {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token)
                 .orElseThrow(() -> new IllegalStateException("token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
+            throw new IllegalStateException("Email already confirmed");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
+            throw new InvalidConfirmationTokenException("Token expired");
         }
 
         confirmationTokenService.setConfirmedAt(token);
-        userService.verifyUser(confirmationToken.getUser().getEmail());
-        return new RedirectView("/test");
+        return userService.verifyUser(confirmationToken.getUser().getEmail());
     }
 
     private String buildEmail(String name, String link) {

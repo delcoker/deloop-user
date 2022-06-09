@@ -2,7 +2,6 @@ package com.deloop.user.core.services.user;
 
 import com.deloop.user.core.models.requests.AddUserRequest;
 import com.deloop.user.core.models.requests.UserRequest;
-import com.deloop.user.core.models.requests.auth.RegistrationRequest;
 import com.deloop.user.core.services.jwt.ConfirmationTokenService;
 import com.deloop.user.data.api.dtos.UserDto;
 import com.deloop.user.data.db.enums.ConfirmationTokenType;
@@ -50,8 +49,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     @org.springframework.transaction.annotation.Transactional
-    public String signUpUser(RegistrationRequest registrationRequest) throws EmailIsAlreadyTakenException {
-        Optional<User> optionalUser = userRepository.findByEmail(registrationRequest.getEmail());
+    public String signUpUser(String email, String username, String password) throws EmailIsAlreadyTakenException {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             // TODO: if user not verified send new confirmation token
             User existingUser = optionalUser.get();
@@ -61,10 +60,10 @@ public class UserServiceImpl implements UserService {
             throw new EmailIsAlreadyTakenException("Email already taken");
         }
 
-        String encodedPassword = passwordEncoder.encode(registrationRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(password);
         User user = User.builder()
-                .username(registrationRequest.getUsername())
-                .email(registrationRequest.getEmail())
+                .username(username)
+                .email(email)
                 .password(encodedPassword)
                 .licenseType(LicenseType.builder().id(2).build())
                 .userRole(UserRole.builder().id(3).build())
@@ -118,8 +117,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int verifyUser(String email) {
-        return userRepository.verifyUser(email);
+    public boolean verifyUser(String email) {
+        if (userRepository.verifyUser(email) > 0) {
+            return true;
+        }
+        return false;
     }
 
 

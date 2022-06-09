@@ -1,7 +1,7 @@
 env: live
 
 server:
-  port: ${SERVER_PORT}
+  port: ${PORT}
 
 db:
   server: ${DB_SERVER} # deloop-user-mysql  # for docker
@@ -10,4 +10,4 @@ db:
   password: ${DB_PASSWORD} # 123
 
 domain:
-  url: https://deloopltd.com
+  url: ${DOMAIN_URL}

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -108,11 +109,20 @@ public class DBConfiguration {
 
     void migrateDB(IDBEbeanService ebeanService) {
         log.info("env: " + env);
+        String directoryPath = "db/" + env;
 //        String description = description.replace(" ", "_");
 //        System.setProperty("ddl.migration.name", description);
         DbMigration dbMigration = DbMigration.create();
-        String filePath = "db/" + env;
-        dbMigration.setPathToResources(filePath);
+
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            boolean created = directory.mkdirs();
+            System.err.println(created + " directory!!!");
+            // If you require it to make the entire directory path including parents,
+            // use directory.mkdirs(); here instead.
+        }
+
+        dbMigration.setPathToResources(directoryPath);
         dbMigration.setServer(ebeanService.getDb());
         dbMigration.setStrictMode(false);
         try {
