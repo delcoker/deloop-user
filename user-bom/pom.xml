@@ -190,6 +190,15 @@
                 <version>${ebean.version}</version>
                 <!--            <scope>test</scope>-->
             </dependency>
+
+            <!-- Test dependencies -->
+            <dependency>
+                <groupId>io.ebean</groupId>
+                <artifactId>ebean-test</artifactId>
+                <version>${ebean.version}</version>
+                <scope>test</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
@@ -276,9 +285,9 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
