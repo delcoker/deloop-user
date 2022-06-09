@@ -63,10 +63,6 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean</artifactId>
         </dependency>
@@ -146,7 +142,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--    added to prevent main class from execution -->
-                    <!--                    <skip>true</skip>-->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
